@@ -73,6 +73,29 @@ Ambiente distinto dal runtime Python: Graph API Explorer, versione osservata v25
 
 Il percorso ufficiale `https://www.facebook.com/ads/library/api/` è stato aperto e verificato: indica conferma identità/località e accesso developer/app. Non determinato quale requisito specifico manchi all'account; l'errore richiede autorizzazione. Nessun fallback, spesa provider aggiuntiva o modifica di sicurezza effettuati. Configurazione locale e test UI sono stati separati; il precedente preflight offline resta storico valido per il suo ambiente.
 
+## Gate 1C in attesa e Gate 1D non eseguito
+
+Il proprietario ha richiesto di lasciare il Gate 1C in attesa della revisione Meta e proseguire sulle attività indipendenti. Nessuna ulteriore richiesta identitaria o tentativo Meta in questa sessione. Per Gate 1D controllata soltanto la presenza della chiave Openapi in ambiente/configurazione privata: assente; valori mai stampati. Manca inoltre un cap specifico per tre società e un bilancio: i 5 USD autorizzati per DataForSEO non costituiscono budget Openapi. Nessuna richiesta societaria o corrispondenza legale inventata; gate NOT_TESTED. Si procede alle fonti già previste al Gate 1E, senza cambiare stack o introdurre provider.
+
+## Gate 1E — import e interrogazioni pubbliche nel repository
+
+**PARTIAL**, versione runner `gate1e-v1`, quattro GET anonimi su endpoint fissi, nessun token caricato, retry o redirect automatico. Comando: `.venv/Scripts/python.exe -m gtm_engine.gate1e --live --output artifacts/private/public-sources/20261025T131025Z`. Esecuzione 25 ottobre 2026, 13:10:25–13:10:28 UTC. Metadati, query esatte, UTC, hash/raw e normalizzati in cartella privata. Importatore usa solo libreria standard per le celle XLSX; non esegue formule, macro o link esterni.
+
+| Fonte e query | Risultato osservato | Limite |
+|---|---|---|
+| ISTAT, tavola ufficiale Struttura ATECO 2025 IT/EN/DE | HTTP 200; 240.382 byte; 3.257 codici/titoli importati con codici testuali e zeri preservati | Non assegna un codice a un'azienda; include livelli gerarchici, non 3.257 sole sottocategorie |
+| Eurostat `DEMO_R_D3DENS`, geo ITC11, anno 2023, lingua EN | HTTP 200; una cella: etichetta Torino, unità persone/km², frequenza annuale; valore non nullo e periodo conservati | Territorio NUTS 3, non comune di Torino; dato di contesto, non domanda di team building |
+| ESCO search, event, occupation, en, v1.2.0, limite 5 | HTTP 307 verso `https://sorry.ec.europa.eu/` | Redirect non seguito; nessuna professione importata, accesso dati unavailable |
+| OpenAlex works, search team building, per_page 3, select id/title/doi/anno/type | HTTP 200, tre record bibliografici | Non verifica testo completo, qualità degli studi, efficacia o pertinenza strategica |
+
+La tavola ISTAT proviene dal collegamento osservato sulla pagina ufficiale `https://www.istat.it/classificazione/ateco-2025/`: `https://www.istat.it/wp-content/uploads/2025/02/StrutturaATECO-2025-IT-EN-DE.xlsx`. Lookup esatto di tre sottocategorie presenti nella tavola (01.11.00, 93.11.90, 82.30.01), descrizioni conservate privatamente in `ateco-lookup-examples-v2.json`; esempi tecnici, non associazioni al cliente. L'aggiornamento ISTAT 2026 riguarda i raccordi, non una nuova struttura: raccordi non importati né collaudati in questa prova.
+
+Tre hash raw verificati. Eurostat rielaborato da raw già salvato per aggiungere etichette delle dimensioni (`eurostat.normalized-v2.json`), zero nuove richieste per questa trasformazione; originale preservato. `verification.json` conserva versione e timestamp della verifica. Una GET diagnostica separata conferma il 307 ESCO e la destinazione, registrata in `esco-redirect.json`; non è un secondo risultato dati. Prima del runner, due GET tecniche alla pagina/tavola ISTAT per individuare link e schema, con copia esplorativa della tavola in `artifacts/private/public-sources/discovery/`; non confonderle con le quattro richieste del run misurato.
+
+**Costi:** ISTAT/Eurostat/ESCO anonimi, nessun servizio acquistato; OpenAlex restituisce `meta.cost_usd=0.001`. È un costo tecnico dichiarato, non un addebito economico verificato: cassa non misurata, nessun account/abbonamento/token attivato. Il primo runner riportava erroneamente zero come charge per OpenAlex; `cost-clarification.json` annota e supera quel campo senza alterare il report originale. Runner corretto: charge nullable e costo dichiarato separato. Calcolo locale non misurato, ledger DataForSEO invariato. OpenAlex documenta attualmente l'accesso anonimo per campioni, verificato da questa richiesta; non promettere quote o accesso illimitato.
+
+Test: 98 PASS, due browser opt-in esclusi; nove test pertinenti per import XLSX, zeri/mancanti/periodo JSON-stat, errore HTML, identità bibliografica assente, limiti byte, redirect/rate limit senza retry, gate parziale su errori. Ruff PASS. Fonti disponibili testate solo sul campione; Gate 1E non completamente superato per indisponibilità ESCO. Nessun Gate 2 implementato o accesso DB/deploy certificato.
+
 > **Aggiornamento storico, 24 ottobre 2026.** Il registro seguente conserva le evidenze del precedente ambiente; i registri del repository sopra prevalgono per il solo campione effettivamente riprodotto. Per le scelte vigenti consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
 
 ## Registro del precedente ambiente — DataForSEO, 24 ottobre 2026

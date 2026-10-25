@@ -1,5 +1,5 @@
 # GTM Engine — Matrice definitiva delle fonti, dei test e degli accessi
-**Decisioni del 24 ottobre 2026; prove e legenda aggiornate il 25 ottobre.** Perimetro: dati degli scope 00–07. Gate 1A DataForSEO riprodotto; crawler HTTP collaudato nel solo screening leggero sotto descritto, altri accessi API non collaudati. La tabella storica sottostante conserva le evidenze precedenti; il registro corrente qui sotto prevale per il solo campione effettivamente riprodotto.
+**Decisioni del 24 ottobre 2026; prove e legenda aggiornate il 25 ottobre.** Perimetro: dati degli scope 00–07. Gate 1A DataForSEO riprodotto; crawler HTTP collaudato sul campione tecnico Gate 1B; Gate 1C in attesa, Gate 1D non eseguito, Gate 1E parziale come registrato sotto. La tabella storica sottostante conserva le evidenze precedenti; il registro corrente qui sotto prevale per il solo campione effettivamente riprodotto.
 
 ## Accessibilità corrente — repository, 25 ottobre 2026
 
@@ -7,9 +7,11 @@ Gate 1A **PASS_WITH_LIMITATIONS**, spesa 0,31847 USD contro cap 5 USD. Autentica
 
 Crawler HTTP: nove domini campione, una pagina di offerta per sito, otto con contenuto/evidenze e uno `failed` per HTTP 403 su robots.txt. Accesso `tested` alle otto pagine; dataset complessivo `partial`, prezzi osservati su due pagine con estrattore `web-extract-v2`, case study non osservati nel campione. Nessuna prova di ranking o volume di domanda; sostituibilità commerciale ancora da qualificare, nessuna shortlist approvata. Il rendering dinamico resta testato su fixture sintetiche, non su questi siti. Questo screening storico non superava il gate. Successivo crawl tecnico autorizzato: Gate 1B PASS_WITH_LIMITATIONS su cinque siti, 15 GET, otto pagine disponibili e una risorsa non HTML; 95 estratti, prezzi su sei pagine, otto hash verificati. Nessuna esecuzione browser necessaria, nessuna validazione di ranking o shortlist commerciale. Dettagli e report privati nell'audit.
 
-Stati e limiti valgono per il pilota, non per ogni paese/query/competitor. Credenziali e raw privati esclusi dal portfolio. Nessun gate successivo o accesso API ulteriore promosso a tested.
+Stati e limiti valgono per il pilota, non per ogni paese/query/competitor. Credenziali e raw privati esclusi dal portfolio. Nessun Gate 2 o successivo eseguito; i soli accessi riprodotti sono quelli registrati in questa sezione.
 
 Meta Gate 1C: preflight Python locale non configurato; successiva prova distinta nel Graph API Explorer autenticato, v25.0. `me/permissions` restituisce nove permessi granted; `ads_archive` fallisce con OAuthException codice 10, autorizzazione richiesta. Una pagina restituita da `me/accounts`, senza i campi Instagram richiesti in due controlli: vuoti o non consentiti, causa non determinata. Business Discovery non interrogato per mancanza di IG ID utilizzabile. Gate NOT_PASSED; nessun accesso operativo agli annunci/media competitor, nessun fallback attivato. Token mai copiato nel repository o nella configurazione locale. Dettaglio nell'audit.
+
+Gate 1C lasciato in attesa su richiesta del proprietario. Gate 1D: chiave Openapi assente e nessun cap specifico autorizzato, zero chiamate. Gate 1E PARTIAL: ISTAT HTTP 200 con 3.257 codici ATECO importati e tre lookup; Eurostat HTTP 200 con una cella Torino NUTS 3/2023 e unità; OpenAlex HTTP 200 con tre record bibliografici. ESCO HTTP 307 alla pagina di indisponibilità, nessun dato importato. Raw/hash/query privati, dettagli e costo tecnico OpenAlex nell’audit. Non è validazione di domanda, buyer o studi.
 
 ## Livelli da non confondere
 - **T / TESTED_DATA:** richiesta autenticata con dati nell'ambiente specificato. La tabella storica si riferisce al precedente ambiente; il registro corrente indica le prove del repository. Ogni T richiede ambiente, data e fixture.
@@ -53,8 +55,8 @@ Le sigle della tabella sono riepiloghi di progettazione/storici. Le forme `U/D`,
 | Trustpilot/Tripadvisor | DataForSEO Trustpilot TASK o provider verticali | solo se competitor usa piattaforma | D/G | nessun token salvo fornitore aggiuntivo | campione specifico verticale, non prerequisito universale |
 | Dati società, P.IVA, ATECO e fatturato | Openapi Company /IT-search + advanced | note legali pubbliche + fonti istituzionali | G | Openapi key, autorizzare interrogazioni piccole | match 3 società con periodo; 1 bilancio ufficiale |
 | Dipendenti con anno | Openapi Company | altre banche dati commerciali verificabili | G | Openapi key | addetti/anno, null se mancano |
-| ATECO 2025 official descriptions | ISTAT classificazione scaricabile | riferimento statico versionato | D | nessuno | download e lookup tre codici con descrizione |
-| Studi e dati per ICP/B2B/B2C | OpenAlex, ISTAT/Eurostat SDMX, ESCO | documenti primari pubblici; KB | D | fonti proprietarie se esistono | 1 query/download per fonte, pubblicazione e pertinenza |
+| ATECO 2025 official descriptions | ISTAT classificazione scaricabile | riferimento statico versionato | T_LIMITED: tavola importata, raccordi non testati | nessuno | download e lookup tre codici con descrizione |
+| Studi e dati per ICP/B2B/B2C | OpenAlex, ISTAT/Eurostat SDMX, ESCO | documenti primari pubblici; KB | T_LIMITED Eurostat/OpenAlex; ESCO unavailable nel campione | fonti proprietarie se esistono | 1 query/download per fonte, pubblicazione e pertinenza |
 | Buyer title / family role | ESCO + framework + fonti ICP | user feedback per specifici buyer | D/I | validare ICP | nessuno stereotipo; ruoli da contesto |
 | UVP reale / proof / claims | brief utente e fonti possedute | sito e casi pubblici, verifica | U/D | approvare materiali reali | no claim in development |
 | Relevance canali + segnali | dati 01–04, SERP, news/RSS aziende, KB | DataForSEO news LIVE se necessario | D/T ereditato | nulla salvo obiettivi e budget | canale/segno/tattica distinti; fonti e fattibilità |

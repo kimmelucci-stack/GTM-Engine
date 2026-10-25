@@ -111,3 +111,10 @@ Direzione vincolata dal proprietario: [app Attio](https://attio.com/help/referen
 ## Gate 1C — Meta: controllo preliminare
 
 `python -m gtm_engine.gate1c` controlla offline la configurazione e mostra solo nomi mancanti/stati: nessuna richiesta o verifica di permessi. `--output artifacts/private/meta/NOME_UNICO` conserva un report privato. Per inserire valori nascosti usare `.venv/Scripts/python.exe scripts/configure_meta.py` nel terminale interattivo locale. Non incollare credenziali in chat o nella riga di comando. Il setup conserva le altre impostazioni, non crea account/app. `META_IG_USER_ID` identifica il proprio account professionale interrogante; versione Graph da verificare sulle fonti ufficiali prima del test. Stato locale: configurazione mancante. Prova separata nel browser autenticato: permessi concessi, Ads Library negata (codice 10), nessun IG ID restituito; Business Discovery non interrogato. Gate 1C non superato, nessun fallback attivato.
+
+
+## Gate 1E — Fonti pubbliche
+
+`python -m gtm_engine.gate1e` mostra il piano offline. Per quattro richieste anonime limitate agli endpoint ufficiali: `python -m gtm_engine.gate1e --live --output artifacts/private/public-sources/NOME_RUN_UNICO`. Non legge credenziali; massimo 10 MB/risposta, timeout 25 secondi, niente retry o redirect automatico. Output nuovo e ignorato da Git, raw e normalizzati separati con hash/query/UTC.
+
+Prova reale: 3.257 codici ATECO importati da XLSX ufficiale, una cella Eurostat per Torino NUTS 3/2023 e tre record OpenAlex. ESCO temporaneamente non disponibile (307 alla pagina sorry), quindi Gate 1E PARTIAL. OpenAlex dichiara 0,001 USD di costo tecnico; addebito effettivo non verificato, nessun account o servizio acquistato. Dati di contesto e bibliografici, non domanda commerciale o buyer dimostrati. Gate 1C in attesa su istruzione del proprietario; Gate 1D non eseguito senza chiave e cap Openapi.
