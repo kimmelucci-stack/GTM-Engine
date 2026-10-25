@@ -13,7 +13,7 @@
 | Database | Supabase Postgres | Persistenza progetti, run, job, evidenze e decisioni | Supabase account/progetto |
 | Raw data e deliverable | Supabase Storage | JSON, eventuali evidenze visive, PPTX | bucket privato/gestione server |
 | Knowledge Base | Markdown versionati in GitHub, loader Python per moduli | No vettori/RAG nella v1 | Fornire/approvare fonti e playbook |
-| Siti concorrenti | `httpx`, `BeautifulSoup4`, `trafilatura`; Playwright solo dove indispensabile | Screening HTTP reale: 8/9 pagine disponibili; gate approfondito aperto, rendering live non collaudato | Conferma shortlist prima dell'approfondimento; eventuali script esistenti |
+| Siti concorrenti | `httpx`, `BeautifulSoup4`, `trafilatura`; Playwright solo dove indispensabile | Gate 1B PASS_WITH_LIMITATIONS: cinque siti e otto pagine con evidenze; rendering live non necessario, non collaudato | Conferma shortlist prima dell'approfondimento; eventuali script esistenti |
 | Keyword/SERP/Trends/Google Reviews | **DataForSEO** | Gate 1A riprodotto il 25 ottobre; Trends limitato nel campione | Credenziali private configurate; pilota entro 5 USD |
 | **Google Ads Transparency competitor** | **DataForSEO Ads Search/Ads Advertisers**, riprodotti nel repository al Gate 1A | NO acquisto SearchAPI per Google finché DataForSEO basta | nessun token aggiuntivo |
 | **Meta Ads competitor IT/UE** | **Meta Ad Library API ufficiale `ads_archive`**; fallback SearchAPI, poi Apify | Il mercato IT rientra nel perimetro annunci EU; auth ufficiale necessaria | Facebook/Meta Developer, identità/autorizzazione/token se ottenibile; fallback solo previa approvazione |
@@ -78,7 +78,7 @@ Ogni decisione agentica salva rationale e lista source IDs. Mod.07 utilizza solo
 - Ogni adapter implementa `retrieve(query, geo, limit, cost_cap) → data + evidence + cost + status` e test con mock/cassette; non utilizzare scraper interattivi non riproducibili come unica fonte.
 - Bounded calls: numero massimo, timeout, backoff, costo per run e messaggio di blocco quando il tetto è raggiunto.
 - Geo: `requested_geo` vs `effective_geo`; mai aggregare città e regione senza metodo/statistica validata.
-- Copertura: non accettare API 200 con campi null come dato completo (Google Trends campione 3/53).
+- Copertura: non accettare API 200 con campi null come dato completo (Google Trends campione 2/54 valori non null).
 - Mod.02 scoring per azienda indipendente dalla shortlist, CCI4/CCI6 e stati Valid/Partial/Unavailable secondo `docs/02_MARKET_INTELLIGENCE/SCORING_MODEL.md` immutato.
 - Prodotti in sviluppo: vietati UVP/messaging promozionali e claim non supportati; enforcement nel JSON validator, non solo nel prompt.
 - Mod.06: Paid = media/inserzioni; software/fornitori separati; risorse sono persone, ore TOTALI/sett., competenze (SEO & Content Strategy congiunta); nessun role chart; gap outsourcing senza cambiare strategia per mancanza di skill.

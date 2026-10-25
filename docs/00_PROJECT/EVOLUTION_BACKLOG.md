@@ -2,15 +2,15 @@
 
 **Versione:** 0.3 — consolidamento del 25 ottobre 2026
 **Origine:** decisioni del 24 ottobre 2026.
-**Scopo:** registro canonico di evolutive e KB-001 assegnato alla roadmap. Nessuna voce implementata o attivata. La copia v0.1 precedentemente in `docs/` è rimossa; storia recuperabile da Git. Obiettivi e criteri utili erano già inclusi nella v0.2; il riferimento v0.1 a un indice RAG si riferisce esclusivamente a evolutive future KB-002/003, mai all'MVP.
+**Scopo:** registro canonico di evolutive e KB-001 assegnato alla roadmap. KB-001 implementato parzialmente come controllo a richiesta; nessuna schedulazione o altra evolutiva attivata. La copia v0.1 precedentemente in `docs/` è rimossa; storia recuperabile da Git. Obiettivi e criteri utili erano già inclusi nella v0.2; il riferimento v0.1 a un indice RAG si riferisce esclusivamente a evolutive future KB-002/003, mai all'MVP.
 
 ## KB-001 — Verifica periodica delle fonti (45 giorni)
 
-- **Stato:** controllo leggero assegnato al Gate 2; test e verifica operativa al Gate 8 prima della release, secondo `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`. Non ancora implementato né schedulato.
+- **Stato:** controllo leggero assegnato al Gate 2; test e verifica operativa al Gate 8 prima della release, secondo `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`. Controllo a richiesta e 27 test offline implementati; registro reale approvato, schedulazione e prova operativa da completare.
 - **Obiettivo:** controllare se le fonti registrate della Marketing Knowledge Base sono cambiate o non sono più raggiungibili, senza riscrivere automaticamente la conoscenza approvata.
 - **Ambito iniziale:** sole fonti inserite nel registro ufficiale della knowledge base; non crawling indiscriminato del web.
 - **Cadenza:** ogni 45 giorni dall'ultima verifica effettiva per fonte.
-- **Procedura minima:** leggere il registro; eseguire richieste HTTP condizionali (ETag/Last-Modified quando disponibili) o confronto hash normalizzato; registrare `last_checked_at`, esito, cambiamenti e link; mostrare un rapporto sintetico.
+- **Procedura minima:** leggere il registro; eseguire richieste HTTP condizionali (ETag/Last-Modified quando disponibili) o confronto hash dei byte catturati (non analisi semantica); registrare `last_checked_at`, esito, cambiamenti e link; mostrare un rapporto sintetico.
 - **Strumenti:** Python e GitHub Actions/a richiesta, senza nuovi servizi. Schedulazione giornaliera del solo calendario, HTTP solo per fonti scadute a 45 giorni da una verifica riuscita. Tentativi/errori separati da `last_checked_at`; test dei confini e delle risposte HTTP nella roadmap.
 - **Esclusioni:** nessun aggiornamento automatico dei playbook; nessuna nuova fonte inserita senza qualifica; **nessun RAG o reindicizzazione** nella prima versione.
 - **Criterio d'accettazione:** rapporto di link modificati/non raggiungibili; nessuna modifica non approvata ai documenti ufficiali; costi API e quote visibili.

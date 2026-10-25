@@ -2,7 +2,7 @@
 
 **Versione:** 1.0 — Decisioni architetturali funzionali  
 **Data:** 24 ottobre 2026  
-**Stato:** impostazione approvata; libreria, funzioni Python, monitor e test da realizzare. Non è una specifica TDD né una Knowledge Base già popolata.
+**Stato:** impostazione approvata; KB-001 implementato come controllo Python a richiesta e testato su fixture. Registro reale, schedulazione e verifica operativa restano da completare; libreria e loader non ancora implementati. Non è una Knowledge Base già popolata.
 
 ## 1. Scopo e distinzioni
 
@@ -57,7 +57,7 @@ L'implementazione minima può essere una configurazione del tipo `phase → [pla
 - Verifica leggera **ogni 45 giorni** per le fonti già registrate, senza rielaborare ogni documento con AI: stato URL, eventuale `ETag`/`Last-Modified` o impronta contenuto quando accessibile, esito e ultima verifica. Siti dinamici/anti-bot possono richiedere verifica manuale; una modifica non è automaticamente un cambiamento sostanziale delle conclusioni.
 - Implementazione KB-001 al Gate 2: script Python con GitHub Actions o a richiesta; controllo giornaliero **solo del calendario**, HTTP esclusivamente sulle fonti scadute dopo 45 giorni. Verifica e test di accettazione obbligatori prima della release al Gate 8. Errori/tentativi non aggiornano la data dell'ultima verifica riuscita.
 - **Output:** report delle fonti cambiate/non raggiungibili/da riesaminare. **Mai** sovrascrivere automaticamente i framework e i playbook.
-- Scadenze, test e verifica operativa sono definiti nella `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`; permessi, quote e costi effettivi vanno collaudati. Il costo può essere nullo entro quote disponibili, ma non è garantito. Nessun monitor è già attivo.
+- Scadenze, test e verifica operativa sono definiti nella `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`; permessi, quote e costi effettivi vanno collaudati. Il costo può essere nullo entro quote disponibili, ma non è garantito. Nessun monitor schedulato è attivo. Il comando a richiesta è disponibile, con test descritti sotto.
 
 ## 6. Controllo qualità della competenza strategica
 
@@ -66,3 +66,14 @@ Per ciascun agente predisporre casi di test realistici e confrontare raccomandaz
 ## 7. Evolutive espressamente escluse dalla v1
 
 Ingestione automatica indiscriminata dal web, riscrittura autonoma dei playbook, RAG vettoriale, embeddings, indice semantico e database vettoriale personalizzato. Considerarli soltanto se la ricerca semplice sui file mostra limiti concreti. Tracciamento: `docs/00_PROJECT/EVOLUTION_BACKLOG.md`.
+
+
+## Stato implementazione KB-001 — Gate 2 avviato
+
+`domain/source_refresh.py` definisce registro tipizzato e scadenza; `source_refresh.py` produce report e un registro successivo separato, senza sovrascrivere input o playbook. Registro JSON con i metadati sopra: solo status approved può essere interrogato. L’approvazione nel file è un dato amministrato dal responsabile, non viene assegnata dal checker e non sostituisce futura autenticazione/persistenza. Nessun registro reale approvato è stato creato automaticamente.
+
+Comando: `python -m gtm_engine.source_refresh --registry PERCORSO_REGISTRO --output artifacts/private/source-refresh/NOME_UNICO`. Senza `--live` controlla solo il calendario, senza HTTP/DNS. Con `--live` verifica soltanto fonti scadute e approvate: massimo 20 GET predefiniti (cap configurabile 1–100), timeout 20 secondi, 2 MB per risposta, niente redirect/retry automatici; destinazioni HTTPS senza credenziali/query e controllo DNS pubblico. CLI locale, non API per URL arbitrari; controllo DNS senza pinning socket.
+
+ETag/Last-Modified, 304 con precedente hash verificabile, confronto SHA-256 dei byte; hash diverso richiede revisione, non dimostra modifica semantica. Errori/rate limit mantengono last_checked_at e aggiornano separatamente last_attempted_at/last_error. Fonti non scadute o non approvate non generano richieste. Non misura costi di esecuzione/quote esterne: report con costi nullable.
+
+27 test offline pertinenti superati: confini 44/45/46 giorni, prima verifica, clock UTC, 200/304, hash iniziale/invariato/modificato, timeout/429/errori/redirect, pagina challenge, cap byte/richieste, DNS privato e URL con credenziali vietati. Comando CLI verificato su registro sintetico: zero richieste. Gate 8: registro reale approvato, verifica HTTP osservata e schedulazione ancora da collaudare prima della release.

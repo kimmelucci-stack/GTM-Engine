@@ -118,3 +118,8 @@ Direzione vincolata dal proprietario: [app Attio](https://attio.com/help/referen
 `python -m gtm_engine.gate1e` mostra il piano offline. Per quattro richieste anonime limitate agli endpoint ufficiali: `python -m gtm_engine.gate1e --live --output artifacts/private/public-sources/NOME_RUN_UNICO`. Non legge credenziali; massimo 10 MB/risposta, timeout 25 secondi, niente retry o redirect automatico. Output nuovo e ignorato da Git, raw e normalizzati separati con hash/query/UTC.
 
 Prova reale: 3.257 codici ATECO importati da XLSX ufficiale, una cella Eurostat per Torino NUTS 3/2023 e tre record OpenAlex. ESCO temporaneamente non disponibile (307 alla pagina sorry), quindi Gate 1E PARTIAL. OpenAlex dichiara 0,001 USD di costo tecnico; addebito effettivo non verificato, nessun account o servizio acquistato. Dati di contesto e bibliografici, non domanda commerciale o buyer dimostrati. Gate 1C in attesa su istruzione del proprietario; Gate 1D non eseguito senza chiave e cap Openapi.
+
+
+## Foundation — aggiornamento fonti ogni 45 giorni
+
+KB-001 disponibile a richiesta: `python -m gtm_engine.source_refresh --registry PERCORSO_REGISTRO --output artifacts/private/source-refresh/NOME_UNICO`. Controllo calendario senza rete per default; `--live` abilita solo fonti approvate e scadute. Conserva ETag/Last-Modified/hash, tentativi ed errori separati, e scrive un nuovo report/registro senza modificare playbook o file di input. Registro reale da approvare; nessun monitor schedulato o deploy attivo. Dettagli e limiti in `docs/00_PROJECT/KNOWLEDGE_BASE.md`. Gate 2 avviato, non completato.
