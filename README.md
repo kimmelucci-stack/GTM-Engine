@@ -35,7 +35,7 @@ python -m venv .venv
 .\.venv\Scripts\python -m uvicorn gtm_engine.api:app --host 127.0.0.1 --port 8000
 ```
 
-`GET http://127.0.0.1:8000/health` verifica solo il processo API, non database o provider. Il worker espone soltanto un controllo d'ingresso; il processamento persistente è previsto al Gate 2.
+`GET http://127.0.0.1:8000/health` verifica solo il processo API, non database o provider. Il worker dispone ora di `--once` per un singolo passaggio PostgreSQL; connessione runtime e workflow dei moduli restano da collaudare. `--check` non apre connessioni.
 
 In un secondo terminale:
 
@@ -145,6 +145,10 @@ Loader selettivo in `knowledge.py`: Markdown approved per fase, con versione/has
 
 ## Foundation — database privato
 
-Progetto Supabase dedicato creato in UE il 25 ottobre 2026, preventivo Free 0 USD/mese. Prima migrazione in `supabase/migrations/`: schema interno `gtm`, tabelle projects/runs/jobs, proprietario obbligatorio, vincoli e indici della coda. RLS attiva e forzata, nessun accesso per anon/authenticated/service_role: il ruolo applicativo riservato e l'autorizzazione per proprietario sono ancora da collegare. Nessuna chiave recuperata o inserita nel frontend.
+Progetto Supabase dedicato creato in UE il 25 ottobre 2026, preventivo Free 0 USD/mese. Migrazioni in `supabase/migrations/`: schema interno `gtm`, tabelle projects/runs/jobs, proprietario obbligatorio, vincoli e indici della coda. RLS attiva e forzata, nessun accesso per anon/authenticated/service_role. Ruoli server distinti: gtm_api può creare/leggere solo progetti del proprietario verificato; gtm_worker può gestire la coda, non leggere i brief. Ruoli di gruppo NOLOGIN, credenziali runtime ancora da configurare. Nessuna chiave recuperata o inserita nel frontend.
 
-Test SQL ripetibile in `supabase/tests/foundation_private_queue.sql`, eseguito via MCP sul progetto dedicato: dati sintetici, roundtrip amministrativo, rifiuto accessi dei tre ruoli e vincoli negativi; rollback e verifica tabelle vuote. Advisor senza ERROR/WARN; INFO per RLS senza policy (chiusura intenzionale) e indici non ancora usati. Storage, worker persistente, ledger transazionale e collegamento API restano da completare: Gate 2 aperto. La coda è uno schema, non un worker già operativo.
+Test SQL ripetibili in `supabase/tests/`, eseguiti via MCP sul progetto dedicato: dati sintetici, isolamento proprietari, ruoli negati, heartbeat, token di assegnazione, scadenze e retry limitati. Due claim paralleli hanno assegnato job diversi. Rollback/pulizia e verifica tabelle vuote. Advisor senza ERROR/WARN dopo correzione initplan; INFO per runs ancora chiusa senza policy e indice non ancora usato. Storage, ledger transazionale, aggiornamento stato run e workflow moduli restano da completare: Gate 2 aperto.
+
+`POST /projects` e `GET /projects/{id}` richiedono Bearer validato con Supabase Auth; owner escluso dall'input e ricavato dalla sessione. Altro proprietario e progetto assente restituiscono entrambi 404. Test HTTP sintetici, non ancora login reale/browser end-to-end. Nessun endpoint avvia analisi o spese. Il worker `--once` supporta soltanto `catalog.validate`; heartbeat e assegnazioni scadute non provocano retry di richieste fatturabili incerte. Gli handler futuri devono rispettare il limite operativo: la scadenza nega il completamento tardivo, non interrompe fisicamente codice Python già in esecuzione.
+
+Configurazione locale, senza inserire credenziali in chat o negli argomenti: `.venv/Scripts/python.exe scripts/configure_database.py` richiede connessione amministrativa del solo progetto dedicato, URL Supabase e publishable key con input nascosto. Crea due login riservati, conserva soltanto le rispettive connessioni in `.env` ignorato e non salva l'accesso amministrativo. Rifiuta impostazioni/login già esistenti e progetti incoerenti. La procedura di provisioning è predisposta, non eseguita live. Poi `scripts/run_backend.py check` mostra solo booleani; `scripts/run_backend.py api` avvia API locale e `scripts/run_backend.py worker` un passaggio. Usare sempre il Python della venv. TLS con verifica certificato/host, niente connessioni applicative amministrative; le credenziali OAuth del connettore non sono credenziali runtime.

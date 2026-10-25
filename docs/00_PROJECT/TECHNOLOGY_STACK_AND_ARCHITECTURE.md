@@ -57,7 +57,7 @@ Worker Python (Render background) ───────────────�
 - `cost_events(id, run_id, provider, endpoint, units, provider_price, currency, observed_or_estimated)`.
 - `provider_checks(id, provider, capability, status, sample_ref, checked_at, limitations)`.
 
-Elenco concettuale MVP. Al Gate 2 la prima migrazione ha implementato soltanto projects/runs/jobs nello schema interno gtm, con owner su projects e indici/vincoli della coda; le altre tabelle restano da implementare. RLS attiva/forzata e nessun accesso client; ruolo backend e autorizzazione ancora da collegare. Nessun worker persistente già operativo. Dettagli di test nell'handoff, migrazioni in supabase/migrations.
+Elenco concettuale MVP. Al Gate 2 implementate projects/runs/jobs nello schema interno gtm, owner su projects e indici/vincoli/token/scadenza della coda; le altre tabelle restano da implementare. RLS attiva/forzata e nessun accesso client; gtm_api legge/crea progetti del solo proprietario verificato, gtm_worker gestisce solo job. API progetti e worker singolo passaggio implementati, connessione Python/runtime non ancora collaudata in assenza di credenziali dedicate. Nessun modulo analitico persistente end-to-end. Dettagli di test nell'handoff, migrazioni in supabase/migrations.
 
 ## Stato job e comportamento UI
 `queued → running → completed | partial | failed | cancelled` con heartbeat, timeout e tentativi limitati. Frontend legge da API lo stato persistito; **mai indicare progresso finto**. Ogni modulo mostra nome italiano corto, risultato consultabile e approfondimenti nascosti di default.

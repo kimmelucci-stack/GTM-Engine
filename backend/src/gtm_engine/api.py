@@ -1,8 +1,14 @@
 """Process health and public reference data; no external-service readiness claim."""
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+import json
+from datetime import datetime
+from typing import Annotated
+from uuid import UUID
 
+from fastapi import Depends, FastAPI, HTTPException
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+from gtm_engine.auth import verified_owner
 from gtm_engine.domain.business_functions import (
     VERSION,
     DirectoryVersion,
@@ -10,8 +16,50 @@ from gtm_engine.domain.business_functions import (
     load_directory,
 )
 from gtm_engine.domain.buying_committee import JobTitleDirectory, load_job_titles
+from gtm_engine.persistence import projects
+from gtm_engine.persistence.database import PersistenceUnavailable
 
 app = FastAPI(title="GTM Engine", version="0.1.0")
+
+
+class ProjectInput(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    title: str = Field(min_length=1, max_length=200)
+    offer_brief: dict
+    product_in_development: bool
+    geo: dict
+    locale: str = Field(default="it-IT", min_length=2, max_length=32)
+
+    @model_validator(mode="after")
+    def bounded_payload(self):
+        fields = self.model_dump(mode="json", include=set(ProjectInput.model_fields))
+        if len(json.dumps(fields, ensure_ascii=False).encode()) > 65536:
+            raise ValueError("Brief troppo grande")
+        return self
+
+
+class ProjectResponse(ProjectInput):
+    id: UUID
+    created_at: datetime
+
+
+@app.post("/projects", response_model=ProjectResponse, status_code=201)
+def create_project(body: ProjectInput, owner: Annotated[UUID, Depends(verified_owner)]):
+    try:
+        return projects.create_project(owner, body.model_dump())
+    except PersistenceUnavailable:
+        raise HTTPException(503, "Archivio progetti non disponibile") from None
+
+
+@app.get("/projects/{project_id}", response_model=ProjectResponse)
+def get_project(project_id: UUID, owner: Annotated[UUID, Depends(verified_owner)]):
+    try:
+        result = projects.get_project(owner, project_id)
+    except PersistenceUnavailable:
+        raise HTTPException(503, "Archivio progetti non disponibile") from None
+    if result is None:
+        raise HTTPException(404, "Progetto non disponibile")
+    return result
 
 
 class HealthResponse(BaseModel):
