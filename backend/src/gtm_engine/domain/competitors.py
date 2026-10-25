@@ -20,7 +20,8 @@ class Relation(StrEnum):
 
 
 class ChannelSample(BaseModel):
-    channel: Literal["organic", "maps", "paid"]
+    # Exploratory web search must never be reported as a measured Google channel.
+    channel: Literal["organic", "maps", "paid", "exploratory_web"]
     status: Literal["not_checked", "unavailable", "sampled"] = "not_checked"
     checked_queries: set[str] = Field(default_factory=set)
     present_queries: set[str] = Field(default_factory=set)
@@ -53,6 +54,7 @@ class Candidate(BaseModel):
     relation: Relation | None = None
     substitutability: Literal["verified", "uncertain", "not_relevant"] = "uncertain"
     identity_resolved: bool = False
+    represents_client: bool = False
     audience_occasion_verified: bool = False
     territory_verified: bool = False
     rationale: str = Field(min_length=1)
@@ -61,6 +63,8 @@ class Candidate(BaseModel):
 
     @model_validator(mode="after")
     def classification(self):
+        if self.represents_client and self.substitutability == "verified":
+            raise ValueError("Client listings cannot be qualified competitors")
         if len({s.channel for s in self.channels}) != len(self.channels):
             raise ValueError("Duplicate channel sample")
         if self.substitutability == "verified" and (

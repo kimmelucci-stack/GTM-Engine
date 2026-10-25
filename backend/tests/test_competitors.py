@@ -83,3 +83,26 @@ def test_proposal_does_not_imply_owner_approval():
     assert review([candidate()]).review_state == "proposed"
     with pytest.raises(ValidationError):
         review([candidate()], decisions={})
+
+
+def test_exploratory_search_does_not_fill_google_channel_measurements():
+    exploratory = ChannelSample(
+        channel="exploratory_web", status="sampled", checked_queries={"q1", "q2"},
+        present_queries={"q1"}, source_refs=["synthetic:search"],
+        collection_context="Exploratory provider; effective geography unknown",
+    )
+    profile = candidate(channels=[exploratory, ChannelSample(channel="organic"),
+                                  ChannelSample(channel="maps"), ChannelSample(channel="paid")])
+    assert profile.channels[0].presence == "observed_in_sample"
+    assert all(c.presence == "unknown" for c in profile.channels[1:])
+
+
+def test_client_listing_on_third_party_domain_cannot_be_selected():
+    with pytest.raises(ValidationError, match="Client listings"):
+        candidate(domain="directory.test", role="intermediary", represents_client=True)
+    listing = candidate(domain="directory.test", role="intermediary", represents_client=True,
+                        substitutability="not_relevant")
+    with pytest.raises(ValidationError, match="qualified commercial"):
+        review([listing])
+    # The same intermediary can sell another, independently qualified alternative.
+    assert candidate(domain="directory.test", role="intermediary").eligible

@@ -101,6 +101,8 @@ Due dimensioni indipendenti, entrambe visibili nel prodotto:
 
 Per ciascun canale distinguere `not_checked`, `unavailable`, `sampled`. Solo nell'ultimo caso è possibile dire «osservato/non osservato nel campione». Mancata comparsa non significa assenza dal mercato, scarsa visibilità generale o nessuna pubblicità. Le ricerche esplorative web non certificano ranking Google geolocalizzati. Volumi di keyword non equivalgono a clienti/acquisti; numero annunci non misura budget, traffico, conversioni o quota di mercato. Non sommare presenze organiche, Maps e paid in un unico indicatore di successo.
 
+Nel contratto Python le ricerche esplorative sono `exploratory_web`, separate da `organic`, `maps` e `paid`: non valorizzano automaticamente questi tre canali. Una scheda su dominio terzo che rappresenta il cliente porta `represents_client=true` e non può essere qualificata/selezionata come competitor. Il flag riguarda la scheda specifica, non esclude tutte le altre offerte dell'intermediario. Rilevarlo richiede fonti e controllo dell'identità; il validator non lo deduce automaticamente da nome o indirizzo.
+
 ### 4.6 Proposta dei cinque e profondità di analisi
 
 L'agente applica il metodo alle evidenze; Python verifica i contratti e le condizioni. **Nessuna graduatoria unica o formula nascosta.** Per ogni candidato qualificare separatamente: sostituibilità (`verified`/`uncertain`/`not_relevant`), relazione diretta/sostitutiva quando verificabile, ruolo e presenza osservata nei canali. La verifica di sostituibilità è una valutazione motivata sostenuta da fonti, non una prestazione commerciale misurata.
