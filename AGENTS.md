@@ -13,6 +13,7 @@ Le istruzioni esplicite del proprietario prevalgono. Stack e provider: architett
 - OpenAI Responses con output strutturati; un agente per modulo. KB Markdown selettiva e versionata; niente RAG vettoriale, embeddings o File Search nell'MVP.
 - Worker futuro: job persistiti su Postgres, stati/heartbeat/timeout/retry limitati. Non simulare persistenza o connessioni. No n8n, Redis, Celery o nuovi servizi senza necessità documentata e approvazione.
 - Python tipizzato, Pydantic ai confini, funzioni pure per scoring e pianificazione; TypeScript strict. Testi UI in italiano semplice, pochi campi, dettagli espandibili, stati reali.
+- UX/UI: riferimento prioritario all'app Attio, verificato sulle fonti ufficiali; Inter variabile caricato localmente con licenza OFL. Interfaccia operativa compatta e neutra, non landing page o questionario. **Mai frecce nelle CTA**, né caratteri né icone decorative/direzionali nei pulsanti o link d'azione. Non reintrodurle nei redesign. Nessun logo/font proprietario copiato; layout e identità del prodotto restano originali.
 
 ## Regole di prodotto bloccanti
 - Mai inventare metriche, performance, prezzi o prove. Distinguere osservato, derivato e ipotesi; dato mancante diverso da zero.

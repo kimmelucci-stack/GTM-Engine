@@ -134,6 +134,8 @@ Documenti previsti:
 
 **Regola UX unica per tutti i moduli:** workflow visibile in italiano semplice, senza gergo tecnico; mostrare **fase corrente, stato reale, output chiave e azione necessaria**. Dettagli e fonti apribili (progressive disclosure). Non mostrare percentuali fittizie o step non pertinenti alla modalità. Messaggi e TOV naturali, **soprattutto in italiano**, con controllo anti-copy generico.
 
+**Vincoli visuali successivi del proprietario:** riferimento prioritario all'app Attio per tipografia e struttura operativa, Inter variabile caricato localmente con licenza OFL, gerarchia sobria e viste dati confrontabili. **Mai frecce nelle CTA**, né glifi né icone direzionali decorative nei pulsanti/link d'azione. Non confondere font del sito marketing con quelli dell'app, né una dichiarazione CSS con un font effettivamente caricato. Proposte UX/UI da valutare prima di estenderle; nessuna approvazione implicita del design.
+
 **Stato di maturità:** tutti gli scope sono documenti funzionali. Nessuna integrazione, workflow AI o formula di scoring è dichiarata empiricamente validata. Il deck modificabile resta obbligatorio in entrambe le modalità, ma segue i vincoli di output applicabili.
 
 

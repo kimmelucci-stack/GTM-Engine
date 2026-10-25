@@ -144,7 +144,7 @@ export function CompetitorReview({ proposal, onConfirm, preview = false }: {
             <td><span className="unknown-value"><span className="unknown-dot" />{candidate.organic}</span></td>
             <td><span className="unknown-value"><span className="unknown-dot" />{candidate.paid}</span></td>
             <td><button className="icon-button row-detail" aria-label={`Apri scheda ${candidate.name}`}
-              onClick={() => setFocused(candidate.id)}><Icon name="chevron" size={15} /></button></td>
+              onClick={() => setFocused(candidate.id)}><Icon name="panel" size={15} /></button></td>
           </tr>)}</tbody>
         </table>{visible.length === 0 && <div className="empty-results"><Icon name="search" size={24} />
           <h3>Nessun risultato</h3><p>Prova un altro nome o modifica il filtro.</p>
@@ -163,7 +163,7 @@ export function CompetitorReview({ proposal, onConfirm, preview = false }: {
           <p className="microcopy">Un dato non verificato non indica assenza dal mercato.</p></div>
         <div className="inspector-block"><h4>Fonti <span className="count-badge">{active.sources.length}</span></h4>
           {active.sources.length === 0 ? <div className="source-empty"><Icon name="file" size={18} /><span>{preview ? 'Nessuna fonte reale in questa anteprima.' : 'Nessuna fonte disponibile.'}</span></div>
-            : active.sources.filter(s => publicWebsite(s.url)).map((source, i) => <a className="source-link" href={source.url} key={i} target="_blank" rel="noopener noreferrer">{source.label}<Icon name="external" size={13} /></a>)}
+            : active.sources.filter(s => publicWebsite(s.url)).map((source, i) => <a className="source-link" href={source.url} key={i} target="_blank" rel="noopener noreferrer">{source.label}</a>)}
         </div>
         <button className={`inspector-select ${selected.has(active.id) ? 'is-included' : ''}`}
           disabled={busy || !active.eligible} onClick={() => toggle(active.id)}>
@@ -179,7 +179,7 @@ export function CompetitorReview({ proposal, onConfirm, preview = false }: {
       <div><strong aria-live="polite">{baseCount} di {required} competitor selezionati{extraCount > 0 && ` + ${extraCount} aggiunti`}</strong>
         <small>{baseCount > required ? 'Deseleziona un candidato per continuare.' : manualUrls.length > 0 ? 'Completa la verifica dei siti aggiunti.' : 'La tua conferma precede l’analisi approfondita.'}</small></div></div>
       <button className="primary-button" type="button" disabled={!valid || busy || confirmed} onClick={confirm}>
-        {busy ? 'Conferma in corso…' : confirmed ? 'Selezione confermata' : preview ? 'Conferma selezione di prova' : 'Conferma competitor'}<Icon name="arrow" size={17} /></button></div>
+        {busy ? 'Conferma in corso…' : confirmed ? 'Selezione confermata' : preview ? 'Conferma selezione di prova' : 'Conferma competitor'}</button></div>
     {error && !showAdd && <p className="inline-message error-message" role="alert">{error}</p>}
     {confirmed && <p className="inline-message success-message" role="status">{preview ? 'Selezione di prova confermata in questa sessione. Nessuna analisi avviata.' : 'Selezione confermata.'}</p>}
     <dialog ref={dialog} className="add-dialog" onCancel={() => setShowAdd(false)} onClose={() => setShowAdd(false)} aria-labelledby="add-title">

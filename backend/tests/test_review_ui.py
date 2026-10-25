@@ -17,10 +17,21 @@ def test_review_selection_guard_and_manual_pending():
         page = browser.new_page(viewport={"width": 1440, "height": 1000})
         errors = []
         posts = []
+        external_requests = []
         page.on("pageerror", lambda error: errors.append(str(error)))
         page.on("request", lambda request: posts.append(request.url)
                 if request.method == "POST" else None)
+        page.on("request", lambda request: external_requests.append(request.url)
+                if not request.url.startswith("http://127.0.0.1:5173/") else None)
         page.goto("http://127.0.0.1:5173/")
+        assert page.evaluate("""async () => {
+            await document.fonts.load('13px Inter');
+            return [...document.fonts].some(f => f.family === 'Inter' && f.status === 'loaded');
+        }""")
+        assert page.evaluate("getComputedStyle(document.body).fontFamily").startswith('Inter')
+        assert page.locator('button svg[data-icon="arrow"], button svg[data-icon="chevron"], '
+                            'button svg[data-icon="external"]').count() == 0
+        assert not page.get_by_role("button").filter(has_text="→").count()
         confirm = page.get_by_role("button", name="Conferma selezione di prova")
         assert confirm.is_enabled()
         first = page.get_by_role("checkbox", name="Includi Atlas Club", exact=True)
@@ -34,7 +45,7 @@ def test_review_selection_guard_and_manual_pending():
         page.evaluate("window.scrollTo(0,0)")
         page.screenshot(path=str(artifacts / "desktop.png"), full_page=True)
         page.get_by_role("button", name="Direzione di design", exact=True).click()
-        assert page.get_by_role("link", name="Linear", exact=True).is_visible()
+        assert page.get_by_role("link", name="Interfaccia Attio", exact=True).is_visible()
         page.get_by_role("button", name="Chiudi direzione di design").click()
         page.get_by_role("button", name="Indiretti", exact=True).click()
         assert page.get_by_role("checkbox").count() == 3
@@ -70,6 +81,10 @@ def test_review_selection_guard_and_manual_pending():
         assert page.get_by_role("tab", name="Sport e tempo libero").get_attribute("aria-selected") == "true"
         page.set_viewport_size({"width": 390, "height": 844})
         page.get_by_role("button", name="Chiudi scheda", exact=True).click()
+        first.uncheck()
+        page.get_by_role("checkbox", name="Includi Spazio Uno", exact=True).check()
+        assert confirm.is_enabled()
+        assert page.get_by_role("checkbox", name="Includi Spazio Uno", exact=True).is_checked()
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth")
         assert page.get_by_role("table").bounding_box()["width"] > 300
         assert page.get_by_role("checkbox").count() == 7
@@ -81,5 +96,5 @@ def test_review_selection_guard_and_manual_pending():
         page.get_by_role("button", name="Chiudi scheda", exact=True).click()
         page.reload()
         assert page.get_by_role("checkbox", name="Includi Atlas Club").is_checked()
-        assert not posts and not errors
+        assert not posts and not errors and not external_requests
         browser.close()
