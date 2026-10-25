@@ -25,3 +25,11 @@ def test_known_token_in_prose_is_blocked() -> None:
 def test_sensitive_files_are_blocked_even_when_empty() -> None:
     for path in [".env", "backend/.env.production", "key.pem", ".aws/credentials"]:
         assert guard.findings(path, b"")
+
+
+def test_secretstr_annotation_is_not_a_credential() -> None:
+    assert guard.findings("settings.py", b"    password: SecretStr\n") == []
+
+
+def test_annotation_with_literal_value_is_still_blocked() -> None:
+    assert guard.findings("settings.py", b'    password: str = "synthetic-value"\n')

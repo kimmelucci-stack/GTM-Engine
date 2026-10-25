@@ -74,6 +74,7 @@ Ogni decisione agentica salva rationale e lista source IDs. Mod.07 utilizza solo
 5. Dati pubblici scaricabili senza chiavi per studi/ATECO se il caso lo consente.
 
 ## Gate architetturali e qualità
+- **Costo per run completo:** obiettivo 10 USD, massimo 15 USD secondo vincolo del proprietario del 25 ottobre 2026. Budget e rendicontazione trasversali su provider, AI, generazione deck e costi di esecuzione attribuibili; distinguere quote di costi fissi da costi variabili senza ometterli dal modello economico. Validare sul pilota, non promettere sostenibilità prima delle misure. Gate 1A: autorizzati 5 USD totali; nessuna autorizzazione implicita per acquisti o canoni.
 - Ogni adapter implementa `retrieve(query, geo, limit, cost_cap) → data + evidence + cost + status` e test con mock/cassette; non utilizzare scraper interattivi non riproducibili come unica fonte.
 - Bounded calls: numero massimo, timeout, backoff, costo per run e messaggio di blocco quando il tetto è raggiunto.
 - Geo: `requested_geo` vs `effective_geo`; mai aggregare città e regione senza metodo/statistica validata.

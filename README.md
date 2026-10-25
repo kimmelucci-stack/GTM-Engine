@@ -49,3 +49,30 @@ pnpm dev
 La UI è una shell iniziale: nessuna analisi avviata o connessione simulata. Il frontend non contiene credenziali e non è ancora collegato al backend.
 
 `.env.example` elenca i secret futuri. Il Gate 0 non li carica né esegue chiamate provider. Configurare i secret solo quando necessari al gate relativo. CI esegue verifiche locali; prove live opt-in e deployment richiedono i gate della roadmap.
+
+## Gate 1A — DataForSEO
+
+Connettore e runner pilota implementati con test sintetici; **nessuna prova live ancora eseguita**. Il piano copre le 12 prove storiche e aggiunge il volume nazionale. Cap autorizzato dal proprietario: **5 USD per l'intero pilota**, mantenuto anche nella ripresa delle recensioni. Per il prodotto completo: obiettivo 10 USD, massimo 15 USD per run; fattibilità da misurare.
+
+Configurazione privata, dal terminale nella root del progetto:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/configure_dataforseo.py
+```
+
+Login e password API sono richiesti con campi nascosti e salvati solo nel `.env` locale ignorato da Git. Non incollarli in chat né passarli come argomenti. Nessuna chiamata API durante la configurazione. Il sistema carica solo le tre impostazioni DataForSEO necessarie; le variabili di processo hanno precedenza.
+
+```powershell
+.\.venv\Scripts\python.exe -m gtm_engine.gate1a
+.\.venv\Scripts\python.exe -m gtm_engine.gate1a --plan
+```
+
+Questi comandi verificano configurazione e piano senza rete. Per prove pagate serve anche una tariffa massima revisionata per ciascun campione, mai valori inventati: file privato `artifacts/private/dataforseo/rates.json`, con `checked_at` UTC (entro 7 giorni), `currency` USD, `source_url` al listino ufficiale, `plan` uguale al piano stampato, `ceilings_usd` per tutti i 13 ID e `reviews_poll`. Il manutentore verifica i prezzi correnti prima di prepararlo. Un plafond locale basato su tariffe verificate non sostituisce un limite di fatturazione imposto dal provider: costo ignoto o superiore al previsto interrompe le richieste e richiede riconciliazione.
+
+```powershell
+.\.venv\Scripts\python.exe -m gtm_engine.gate1a --live --rate-card artifacts/private/dataforseo/rates.json
+```
+
+Il runner usa la cartella privata unica `artifacts/private/dataforseo/pilot/` e non sovrascrive/ripete un pilota esistente. Risposte redatte delle credenziali, journal, budget e report rimangono privati; nessun raw caricato nel portfolio. Errori/timeout non ripetono POST fatturabili. Le prenotazioni di costo non vengono rimborsate automaticamente; nessun retry di pagamento incerto.
+
+Per le recensioni: scegliere prima un'identità pubblica verificata tra i candidati Maps del report privato. `--start-reviews --review-place-id IDENTIFICATIVO` avvia il solo task recensioni una volta, usando budget residuo e tariffe del pilota; il valore deve appartenere ai candidati salvati. `--resume-reviews` recupera il task salvato con soli GET, senza reinviarlo. Entrambe le opzioni richiedono `--live --rate-card` come sopra. Polling e richieste totali limitati; un blocco o crash richiede revisione dello stato, mai cancellazione automatica del budget.

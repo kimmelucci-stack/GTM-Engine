@@ -43,7 +43,16 @@ def findings(path: str, data: bytes) -> list[str]:
         or file.name.startswith("credentials.")
     ):
         reasons.append("sensitive file")
-    reasons.extend(label for label, pattern in PATTERNS.items() if pattern.search(data))
+    for label, pattern in PATTERNS.items():
+        for match in pattern.finditer(data):
+            # A SecretStr annotation declares a protected field, not a stored credential.
+            # Only a complete annotation with no assignment/comment is exempt.
+            if label == "literal credential assignment" and file.suffix == ".py" and re.fullmatch(
+                rb"[ \t]*[A-Za-z_][A-Za-z0-9_]*[ \t]*:[ \t]*SecretStr[ \t]*", match.group()
+            ):
+                continue
+            reasons.append(label)
+            break
     return reasons
 
 

@@ -53,3 +53,5 @@ Un gate alla volta, no sviluppo autonomo di gate successivi senza richiesta. Pri
 5. **Deck + QA + Release:** Modulo 07, end-to-end, deploy.
 
 **Durata:** da stimare solo dopo l'effettivo Gate 1 e i costi dei provider; non inserire promesse infondate di ore/uomo o date rilascio.
+
+**Vincolo economico aggiornato dal proprietario (25 ottobre 2026):** pilota DataForSEO Gate 1A fino a 5 USD complessivi. Prodotto: obiettivo 10 USD e massimo 15 USD per l'intera esecuzione GTM, dati + AI + contenuto analitico/strategico + deck e costi attribuibili. Gate 1 misura i costi dei campioni; Gate 2 implementa il ledger trasversale e lo stop prima delle chiamate fuori budget; Gate 8 misura il totale reale e verifica la soglia su casi pilota senza ridurre i requisiti o inventare dati. Fattibilità economica non ancora dimostrata.

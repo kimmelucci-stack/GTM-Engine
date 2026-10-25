@@ -65,6 +65,7 @@ Il sistema deve raccogliere dati da fonti identificabili, eseguire analisi ripro
 
 ## 6. Requisiti trasversali di qualità
 
+- **Vincolo economico del proprietario (25 ottobre 2026):** percorso GTM completo per prodotto/servizio, dall'acquisizione dati al contenuto analitico/strategico e deck, obiettivo 10 USD ed estremo massimo 15 USD per run. Misurare provider, AI e altri costi attribuibili all'esecuzione; non dichiarare il target raggiunto senza prova. Il solo pilota Gate 1A ha autorizzazione separata di 5 USD complessivi, non per richiesta.
 - Nessuna metrica inventata dal modello AI.
 - Separazione tra dato osservato e interpretazione/inferenza.
 - Ogni dataset include fonte, timestamp, località, lingua e parametri rilevanti.
