@@ -93,7 +93,9 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store, max-age=0")
-        self.send_header("Referrer-Policy", "no-referrer")
+        # no-referrer makes Origin null for native form POSTs in browsers.
+        # same-origin keeps the origin check usable and sends nothing cross-origin.
+        self.send_header("Referrer-Policy", "same-origin")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; "
@@ -103,6 +105,17 @@ class Handler(BaseHTTPRequestHandler):
 
     def allowed_host(self) -> bool:
         return self.headers.get("Host") == f"127.0.0.1:{self.server.server_port}"
+
+    def reject_post(self, status: int, message: bytes) -> None:
+        # Drain only a bounded rejected body before closing the TCP connection.
+        # Otherwise Windows can reset the socket before the client sees the error.
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+            if length > 0:
+                self.rfile.read(min(length, 32769))
+        except (ValueError, OSError):
+            pass
+        self.respond(status, message, "text/plain")
 
     def do_GET(self) -> None:
         prefix = "/" + self.server.nonce + "/"
@@ -118,13 +131,13 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         if (not self.allowed_host() or self.path != "/" + self.server.nonce + "/submit"
                 or self.headers.get("Origin") != self.server.origin or self.server.completed):
-            self.respond(403, b"Forbidden", "text/plain")
+            self.reject_post(403, b"Forbidden")
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if (not 0 < length <= 32768 or self.headers.get("Content-Type", "").split(";")[0]
                     != "application/x-www-form-urlencoded"):
-                self.respond(400, b"Invalid request", "text/plain")
+                self.reject_post(400, b"Invalid request")
                 return
             fields = parse_qs(self.rfile.read(length).decode("utf-8"), max_num_fields=5,
                               strict_parsing=True)

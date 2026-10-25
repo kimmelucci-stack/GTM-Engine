@@ -31,6 +31,7 @@ def test_form_is_local_masked_and_not_cacheable(setup_server):
         assert response.status_code == 200
         assert response.text.count('type="password"') == 4
         assert 'no-store' in response.headers['cache-control']
+        assert response.headers['referrer-policy'] == 'same-origin'
         assert response.headers['x-frame-options'] == 'DENY'
         assert 'script-src' not in response.text
         assert client.get(server.origin + '/').status_code == 404
@@ -44,6 +45,8 @@ def test_cross_origin_and_missing_csrf_never_reach_provisioner(setup_server):
     with httpx.Client(trust_env=False) as client:
         assert client.post(address, data={'csrf': server.nonce},
                            headers={'Origin': 'https://synthetic.invalid'}).status_code == 403
+        assert client.post(address, data={'csrf': server.nonce},
+                           headers={'Origin': 'null'}).status_code == 403
         assert client.post(address, data={'csrf': server.nonce},
                            headers={'Origin': server.origin}).status_code == 403
         assert client.post(address, content=b'x' * 32769,
