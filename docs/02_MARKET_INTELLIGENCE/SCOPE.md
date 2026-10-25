@@ -1,6 +1,6 @@
 # GTM Engine — Modulo 02: Market & Competitive Intelligence
 
-**Versione:** 0.3 — Scope funzionale + Knowledge Base condivisa  
+**Versione:** 0.4 — Metodo di discovery e selezione competitor, 25 ottobre 2026  
 **Data:** 20 ottobre 2026  
 **Stato:** scoping approvato nelle sue linee funzionali; PRD/TDD e verifiche tecniche non ancora completati  
 **Documento collegato:** `SCORING_MODEL.md` (specifica matematica sperimentale)
@@ -62,13 +62,53 @@ La selezione utilizza **due assi separati**:
 - **Competitive Fit:** sovrapposizione dell'offerta, del target, della geografia e sostituibilità commerciale.
 - **Organic Visibility:** presenza organica sulle keyword *non-branded* pertinenti, distinta da fatturato e successo commerciale.
 
-Il sistema tiene conto anche della **rappresentatività** di modelli di offerta diversi: non basta scegliere i primi cinque domini per ranking SEO. I pesi del Competitive Fit e la regola di selezione dei cinque sono da precisare nel PRD/TDD e collaudare sul pilota; nessun valore va spacciato per validato.
+Il sistema tiene conto anche della **rappresentatività** di modelli di offerta diversi: non basta scegliere i primi cinque domini per ranking SEO. Metodo operativo `competitor-selection-v1` nelle sezioni seguenti: nessuna somma pesata arbitraria tra fit e visibilità e nessuna quota fissa di diretti/indiretti. Il metodo disciplina evidenze, proposta e revisione; efficacia strategica da collaudare nel pilota. Non modifica i sei score o il CCI v1.1.
 
 Il **Search Opportunity Gap** è un output analitico distinto: identifica domanda pertinente potenzialmente contendibile e non decide da solo chi sia un competitor.
 
 ### 4.3 Selezione UI
 
 La schermata presenta cinque candidati con: nome, sito, tipologia, motivazione, fonti, fit e visibilità osservata. L'utente può **sostituire** un candidato ed **aggiungere fino a 3 competitor** tramite URL; può correggere il profilo Instagram di ciascuno. Prima dell'avvio del crawling approfondito il sistema controlla URL, duplicati e corrispondenza fra brand e sito.
+
+### 4.4 Metodo riutilizzabile — unità di analisi e domanda
+
+L'unità è **offerta × bisogno/occasione di acquisto × pubblico × territorio**, non il settore dell'azienda. Un brief con offerte rivolte a decisioni di acquisto differenti produce analisi separate; non mescolare query, visibilità, classificazioni o shortlist. La stessa impresa può essere diretta per un'offerta, sostitutiva per un'altra o non pertinente. I cinque profili e le tre aggiunte massime valgono per l'analisi della singola offerta: nessun aumento del limite a otto all'interno della stessa analisi. Raw riutilizzabili tra analisi con data/hash/fonti conservati, senza duplicare chiamate o confondere le attribuzioni.
+
+1. **Definire il contesto:** cosa si può acquistare realmente (o il bisogno da esplorare in modalità sviluppo), per quale occasione, pubblico e territorio servito. Separare località richiesta ed effettiva; comuni vicini identificati esplicitamente, mai trattati come la stessa città. Escludere il cliente e le sue identità note.
+2. **Costruire cluster di domanda:** bisogni, categorie di soluzione, occasioni e modificatori geografici. Query non-branded pertinenti, anche senza il nome della soluzione del cliente; separare query informative e commerciali. Query AI iniziali sono ipotesi, volumi e domanda osservata richiedono fonti del Modulo 01. Congelare elenco/versione e limiti del campione prima del confronto.
+3. **Discovery ampia ma limitata:** incrociare almeno due percorsi, ricerca per bisogno/query e ricerca di offerta/territorio; SERP, Maps, annunci e pagine ufficiali nei rispettivi accessi verificati. Registrare limiti di query, profondità, tempo, costo e criteri di arresto. La longlist di screening non è già un insieme di profili approfonditi; la sua copertura va dichiarata.
+4. **Screening leggero:** verificare offerta, pubblico, territorio, ruolo e identità mediante pagine pubbliche pertinenti. Un risultato di ricerca o un annuncio da soli non provano sostituibilità. Non promuovere classificazioni AI a dati osservati. Domini, brand e società distinti; associazioni ambigue richiedono revisione, non fusione automatica.
+
+### 4.5 Classificazione commerciale e presenza nei canali
+
+Due dimensioni indipendenti, entrambe visibili nel prodotto:
+
+| Dimensione | Valori e significato | Evidenza necessaria |
+|---|---|---|
+| Relazione commerciale | `direct`: soluzione comparabile allo stesso bisogno; `substitute`: soluzione diversa ma alternativa nella stessa decisione di acquisto | Offerta, pubblico/occasione e territorio compatibili, motivazione e URL |
+| Ruolo diverso dal concorrente | `intermediary`: agenzia/marketplace/portale; `publisher`: contenuto informativo; `unresolved`: ruolo non accertato | Pagina e funzione osservate; un intermediario può anche vendere una soluzione concorrente, ma va motivata la relazione commerciale distinta |
+| Presenza organica | Query/campione, posizioni osservate, cluster coperti e pagine di destinazione | Motore/provider, data UTC, geo richiesta/effettiva, lingua, dispositivo, profondità e fonte |
+| Presenza Maps | Presenze e sedi pertinenti nel campione locale | Query, località, sede/identità e data; separata dall'organico |
+| Presenza paid | Annunci effettivamente osservati e relativi landing/advertiser | Fonte, ID, data, mercato e limiti; attività nella libreria non equivale a posizione sponsorizzata su una query |
+
+Per ciascun canale distinguere `not_checked`, `unavailable`, `sampled`. Solo nell'ultimo caso è possibile dire «osservato/non osservato nel campione». Mancata comparsa non significa assenza dal mercato, scarsa visibilità generale o nessuna pubblicità. Le ricerche esplorative web non certificano ranking Google geolocalizzati. Volumi di keyword non equivalgono a clienti/acquisti; numero annunci non misura budget, traffico, conversioni o quota di mercato. Non sommare presenze organiche, Maps e paid in un unico indicatore di successo.
+
+### 4.6 Proposta dei cinque e profondità di analisi
+
+L'agente applica il metodo alle evidenze; Python verifica i contratti e le condizioni. **Nessuna graduatoria unica o formula nascosta.** Per ogni candidato qualificare separatamente: sostituibilità (`verified`/`uncertain`/`not_relevant`), relazione diretta/sostitutiva quando verificabile, ruolo e presenza osservata nei canali. La verifica di sostituibilità è una valutazione motivata sostenuta da fonti, non una prestazione commerciale misurata.
+
+- **Ammissibilità al confronto commerciale:** offerta alternativa pertinente, pubblico/occasione e territorio verificati; cliente escluso; identità commerciale non ambigua. Un soggetto molto visibile ma non pertinente resta riferimento di acquisizione, non entra automaticamente tra i cinque. Un concorrente pertinente resta candidato anche con canali non verificati o senza presenze nel campione.
+- **Composizione motivata:** scegliere cinque profili che rappresentino le alternative concrete e i percorsi di acquisizione rilevati. Considerare diretti e sostitutivi, senza quote prefissate; ogni classe pertinente osservata nella longlist ma non rappresentata richiede una spiegazione. Non scegliere automaticamente i cinque più simili, più noti o meglio posizionati. Per inclusioni ed esclusioni esplicitare quale bisogno/cluster e quale confronto coprono; spiegare le ridondanze e le alternative scartate.
+- **Dati insufficienti:** se non si verificano cinque soggetti, presentare meno candidati con stato partial e lacune; non completare con nomi inventati o classificazioni non accertate. Non dichiarare «i migliori del mercato»: proposta motivata entro copertura e limiti del campione.
+- **Profondità:** cinque confermati più eventuali tre aggiunti ricevono il profilo approfondito già previsto dallo scope. Riferimenti di acquisizione, portali, editori e intermediari restano nello screening con fonti e ruolo; approfondirli come competitor richiede una reale offerta sostitutiva e inclusione nel perimetro approvato. Non creare automaticamente ulteriori profili completi o acquisti provider.
+- **Priorità strategica distinta dalla selezione:** descrivere ciò che si può confrontare sull'offerta e ciò che richiede analisi dei canali. L'assenza di visibilità misurata non elimina una minaccia commerciale; la sola visibilità non giustifica una strategia di attacco. Scelta dei canali e investimenti rimangono al Modulo 05.
+- **Revisione:** mostrare proposta, fonti, limiti, alternative ed esclusioni; l'utente conferma/sostituisce e può aggiungere fino a tre URL. Cambi sostanziali del contesto o del campione rendono obsoleta la proposta precedente e richiedono revisione esplicita.
+
+### 4.7 Contratto e accettazione del metodo
+
+Ogni analisi conserva `method_version`, contesto dell'offerta, versione e cluster del campione query; per candidato `candidate_id`, identità/dominio, ruolo, relazione commerciale, stato di sostituibilità, motivazione e fonti; per canale stato, query effettivamente controllate, presenze, riferimenti alle prove e contesto di rilevazione; per proposta inclusioni/esclusioni con motivazione, copertura delle classi, lacune e revisione del proprietario. Classificazioni e proposta sono valutazioni motivate; raw e osservazioni restano separati. Nessun dato cliente nel repository pubblico.
+
+Casi di accettazione: un sostituto pertinente e visibile può essere proposto anche fuori categoria; un diretto pertinente e non osservato in SERP resta candidato; un publisher molto visibile non diventa concorrente commerciale; un intermediario venditore è distinto da un mero referral; canale non controllato resta ignoto; advertiser ambiguo non forzato; cliente e duplicati noti esclusi; query/campioni e contesti di offerte diverse non mescolati; meno di cinque candidati verificati produce partial; classi pertinenti escluse richiedono motivazione; nessuna modifica al CCI v1.1. Test automatici verificano contratti, non l'efficacia strategica: QA con casi reali e revisione umana al Gate 4.
 
 ## 5. Website Intelligence
 
@@ -204,7 +244,7 @@ Il modulo potrà essere considerato **funzionante** quando un caso pilota dimost
 
 ## 15. Questioni operative ancora aperte (non nuove funzionalità)
 
-- Specifiche dettagliate delle query di market discovery, soglie di screening, diversificazione dei cinque e policy di sostituzione.
+- Collaudo del metodo `competitor-selection-v1`: cluster/query per mercato, limiti di raccolta e copertura della proposta motivata; nessun peso competitivo arbitrario da inventare.
 - Verifica degli script Python dell'utente: crawler siti, Google Reviews, Meta Graph.
 - Autorizzazioni e dati realmente ottenibili per Instagram Business Discovery, Facebook, Meta Ads Library e Google Ads Transparency; gestione dei casi non accessibili.
 - Collaudo Openapi Company per Italia; verifica delle fonti pertinenti per l'estero, senza assumere accessi o costi.
