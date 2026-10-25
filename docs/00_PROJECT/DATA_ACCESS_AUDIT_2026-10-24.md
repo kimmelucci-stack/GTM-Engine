@@ -65,6 +65,14 @@ Comando: `.venv/Scripts/python.exe -m gtm_engine.gate1b --live --confirmed-sampl
 
 `report.json` originale, raw, `verification.json` e contesto di autorizzazione in cartella privata ignorata. Costo DataForSEO invariato a 0,31847 USD; nessuna credenziale caricata. Il gate tecnico non valida ranking, ritorni commerciali, scoring o intero Modulo 02. Gate 1C e successivi non eseguiti.
 
+## Gate 1C — verifica nel browser autenticato, 25 ottobre 2026
+
+Ambiente distinto dal runtime Python: Graph API Explorer, versione osservata v25.0, app preesistente e token della sessione del proprietario. Nessuna creazione app, espansione permessi o copia del token nel progetto. Quattro query logiche con risposte osservate: `me/permissions` (nove permessi granted); `me/accounts` con `id,instagram_business_account{id}` e poi con `id,connected_instagram_account{id}` (una pagina, nessuno dei due campi Instagram restituito); `ads_archive` con paese IT, tipo/stato ALL e limite dieci (OAuthException codice 10, non transitorio, titolo Authorization and login needed). Una ricerca per nome, nessun advertiser identificato da risultati: non conteggiarla come validazione di un advertiser.
+
+**Esito NOT_PASSED:** accesso Ads Library negato; Business Discovery non interrogato perché manca un IG ID utilizzabile nella risposta. Campi Instagram assenti possono essere vuoti oppure non consentiti: non dichiarare inesistente il collegamento o l'account professionale. Il numero dei permessi granted non prova accesso a ciascun endpoint. Non acquisiti annunci, due advertiser o due account/50 media richiesti dal gate. HTTP status e timestamp esatti delle richieste non esposti dalla prova registrata: N/A; riepilogo registrato alle 12:57:48 UTC in `artifacts/private/meta/browser-probe-20261025/report.json`, senza token/ID/cursori. Nessuna fixture JSON API originale salvata: evidenza osservata nella UI, non riproduzione tramite adapter Python.
+
+Il percorso ufficiale `https://www.facebook.com/ads/library/api/` è stato aperto e verificato: indica conferma identità/località e accesso developer/app. Non determinato quale requisito specifico manchi all'account; l'errore richiede autorizzazione. Nessun fallback, spesa provider aggiuntiva o modifica di sicurezza effettuati. Configurazione locale e test UI sono stati separati; il precedente preflight offline resta storico valido per il suo ambiente.
+
 > **Aggiornamento storico, 24 ottobre 2026.** Il registro seguente conserva le evidenze del precedente ambiente; i registri del repository sopra prevalgono per il solo campione effettivamente riprodotto. Per le scelte vigenti consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
 
 ## Registro del precedente ambiente — DataForSEO, 24 ottobre 2026
