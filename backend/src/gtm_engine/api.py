@@ -1,0 +1,16 @@
+"""Process health only; does not certify access to external services."""
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI(title="GTM Engine", version="0.1.0")
+
+
+class HealthResponse(BaseModel):
+    status: str
+    service: str
+
+
+@app.get("/health", response_model=HealthResponse)
+def health() -> HealthResponse:
+    return HealthResponse(status="ok", service="gtm-engine-api")

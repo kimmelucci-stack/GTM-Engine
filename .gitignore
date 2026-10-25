@@ -1,0 +1,27 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+node_modules/
+dist/
+artifacts/private/
+.DS_Store
+# Credenziali, certificati, configurazioni locali e log non versionabili.
+.aws/
+.ssh/
+.codex/
+.idea/
+*.pem
+*.key
+*.p12
+*.pfx
+*.log
+credentials.json
+credentials.*.json
+service-account*.json
+secrets/
