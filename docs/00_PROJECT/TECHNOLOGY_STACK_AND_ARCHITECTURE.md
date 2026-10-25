@@ -57,7 +57,7 @@ Worker Python (Render background) ───────────────�
 - `cost_events(id, run_id, provider, endpoint, units, provider_price, currency, observed_or_estimated)`.
 - `provider_checks(id, provider, capability, status, sample_ref, checked_at, limitations)`.
 
-Schemi concettuali di MVP, NON migrazioni eseguite. Codex fissa schema e indici al Gate 2, senza aggiungere 20 tabelle speculative.
+Elenco concettuale MVP. Al Gate 2 la prima migrazione ha implementato soltanto projects/runs/jobs nello schema interno gtm, con owner su projects e indici/vincoli della coda; le altre tabelle restano da implementare. RLS attiva/forzata e nessun accesso client; ruolo backend e autorizzazione ancora da collegare. Nessun worker persistente già operativo. Dettagli di test nell'handoff, migrazioni in supabase/migrations.
 
 ## Stato job e comportamento UI
 `queued → running → completed | partial | failed | cancelled` con heartbeat, timeout e tentativi limitati. Frontend legge da API lo stato persistito; **mai indicare progresso finto**. Ogni modulo mostra nome italiano corto, risultato consultabile e approfondimenti nascosti di default.

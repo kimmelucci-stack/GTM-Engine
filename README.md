@@ -142,3 +142,9 @@ La directory corrente v1.1 comprende anche quattro organi/strutture collegiali e
 ## Foundation — loader KB e regole di budget
 
 Loader selettivo in `knowledge.py`: Markdown approved per fase, con versione/hash/fonti; un file cambiato richiede revisione. Nessuna libreria reale auto-approvata. `domain/run_budget.py`: prenotazioni e consuntivi USD trasversali, obiettivo 10/cap massimo 15; richieste incerte mantengono il massimale, costi mancanti non diventano zero. Sono componenti testati localmente, ancora da collegare a Postgres, worker e adapter prima di controllare un’esecuzione reale. Nessuna nuova spesa o connessione cloud implicita.
+
+## Foundation — database privato
+
+Progetto Supabase dedicato creato in UE il 25 ottobre 2026, preventivo Free 0 USD/mese. Prima migrazione in `supabase/migrations/`: schema interno `gtm`, tabelle projects/runs/jobs, proprietario obbligatorio, vincoli e indici della coda. RLS attiva e forzata, nessun accesso per anon/authenticated/service_role: il ruolo applicativo riservato e l'autorizzazione per proprietario sono ancora da collegare. Nessuna chiave recuperata o inserita nel frontend.
+
+Test SQL ripetibile in `supabase/tests/foundation_private_queue.sql`, eseguito via MCP sul progetto dedicato: dati sintetici, roundtrip amministrativo, rifiuto accessi dei tre ruoli e vincoli negativi; rollback e verifica tabelle vuote. Advisor senza ERROR/WARN; INFO per RLS senza policy (chiusura intenzionale) e indici non ancora usati. Storage, worker persistente, ledger transazionale e collegamento API restano da completare: Gate 2 aperto. La coda è uno schema, non un worker già operativo.
