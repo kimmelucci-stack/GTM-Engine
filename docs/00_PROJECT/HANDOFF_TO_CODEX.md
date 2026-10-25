@@ -63,11 +63,11 @@ Ogni PASS richiede i campi QA della roadmap: comando/data/versione/provider/endp
 - `backend/`: healthcheck FastAPI tipizzato, test API e ingresso worker `--check` (nessuna coda o persistenza).
 - `frontend/`: shell React minimale, stato preparazione e fonti espandibili. Non è un modulo funzionante né collegato all'API.
 - `.env.example`, `.gitignore`, workflow CI senza secret o chiamate provider.
-- Repository Git collegato a `https://github.com/kimmelucci-stack/GTM-Engine`, ramo `main`, preservando il commit iniziale del proprietario. Visibilità cambiata da pubblica a privata prima del caricamento; autenticazione tramite credential manager senza token negli URL.
+- Repository Git collegato a `https://github.com/kimmelucci-stack/GTM-Engine`, ramo `main`, preservando il commit iniziale. Prima del primo caricamento era stata resa privata; ora pubblica su richiesta esplicita del proprietario, dopo scansione di contenuti e cronologia. Autenticazione tramite credential manager senza token negli URL.
 - Guardia credenziali locale pre-commit e CI: controllo dei blob Git senza stampa dei valori, esclusione file sensibili, test con credenziali sintetiche. Non sostituisce la corretta gestione dei secret.
 - Esiti di installazione e controlli: vedere `GATE_0_VALIDATION.md`.
 
-Gate 0 **PASS**: healthcheck e guardia credenziali (5 test), ruff, ingresso worker e build/typecheck frontend riusciti; repository GitHub privata collegata e push effettuato. CI remota secrets/backend/frontend Success sul commit `cc17c7f`, registro in `GATE_0_VALIDATION.md`. Nessuna prova browser/E2E dell'applicazione. Non sono avviati gate applicativi successivi.
+Gate 0 **PASS e riconfermato dopo bonifica**: healthcheck e guardia credenziali (5 test), ruff, ingresso worker e build/typecheck frontend riusciti; repository pubblica collegata e push effettuato. CI secrets/backend/frontend Success anche sul consolidamento `5276c77`: https://github.com/kimmelucci-stack/GTM-Engine/actions/runs/40178552216 . Nessuna prova browser/E2E dell'applicazione. Non sono avviati gate applicativi successivi.
 
 Prossimo task: su richiesta avviare Gate 1A con credenziali DataForSEO e cap esplicito. Prima delle chiamate consultare documentazione ufficiale corrente, definire campioni e registro costi; salvare raw redatti, senza trasferire ciecamente risultati numerici dell'audit. Le credenziali vanno configurate privatamente, mai incollate in chat.
 
@@ -75,7 +75,7 @@ Prossimo task: su richiesta avviare Gate 1A con credenziali DataForSEO e cap esp
 
 | Fase | Cosa devo fare | Account/servizio | Credenziali o materiali necessari | Obbligatorio o condizionale | Stato |
 |---|---|---|---|---|---|
-| 0 | Indicare/creare repository e consentire collegamento | GitHub | URL repo e accesso autorizzato | Obbligatorio | Accesso verificato; repository privata collegata |
+| 0 | Indicare/creare repository e consentire collegamento | GitHub | URL repo e accesso autorizzato | Obbligatorio | Accesso verificato; repository pubblica per portfolio, senza secret versionati |
 | 0, poi AI | Configurare API e limite spesa | OpenAI API | OPENAI_API_KEY server-side e budget | Obbligatorio per agenti | Non verificato; nessuna prova live |
 | 1A | Configurare accesso API e limite richieste/costo | DataForSEO | DATAFORSEO_LOGIN/PASSWORD, credito, cap USD | Obbligatorio per Search | Da configurare/confermare nel runtime |
 | 1B | Confermare cinque siti e fornire script se esistono | Siti campione | URL competitor; crawler/reviews preesistenti | Campione obbligatorio; script facoltativi | Campione non confermato, script assenti |
@@ -97,11 +97,11 @@ Non inserire credenziali nella chat o nei documenti: usare variabili d'ambiente 
 
 | Categoria | Elementi | Come si chiude |
 |---|---|---|
-| Pronto per lo sviluppo | Gate 0 locale, scope 01–07, stack, modello scoring e contratti concettuali | Eseguire solo attività del gate corrente; progettazione non equivale a implementazione |
-| Da verificare tecnicamente | Build/test locali, tutti gli accessi nel runtime, crawler, geografie, PAA, fonti pubbliche, Structured Outputs e preview PPTX | Comandi/prove riproducibili con evidenze e limiti |
+| Pronto per lo sviluppo | Bonifica completata, Gate 0 PASS, scope 01–07, stack e scoring coerenti | Prossimo Gate 1A subordinato a credenziali private e cap confermato; nessuna riprogettazione |
+| Da verificare tecnicamente | Accessi provider nel runtime, crawler, geografie, PAA, fonti pubbliche, Structured Outputs e preview PPTX | Prove riproducibili con evidenze e limiti; build/test foundation già riusciti |
 | In attesa di credenziali | DataForSEO, Meta, Openapi, OpenAI; accessi Supabase e hosting ai gate pertinenti | Configurazione privata e prova riuscita; disponibilità account non presunta |
 | In attesa di approvazione economica | Cap richieste provider, Openapi/bilancio, API AI, Render e altri costi cloud | Importo/limite autorizzato prima della spesa |
 | Non accessibile o limitato | Trends pilota 3/53; spesa Ads privata, reach privata competitor, WTP non studiata, performance commerciali private | Mantenere unavailable/partial; nuova prova può aggiornare lo stato, mai riempimento inventato |
-| Collegamento proprietario — RISOLTO | GitHub assente nella cartella iniziale | Repository fornita dal proprietario, accesso Git verificato e remote configurato; visibilità privata |
+| Collegamento proprietario — RISOLTO | GitHub assente nella cartella iniziale | Repository fornita dal proprietario, accesso e remote verificati; pubblica dopo revisione e scansione |
 
 Rischi: copertura geografica scarsa, omonimie società/brand, autorizzazioni Meta insufficienti, costi/task duplicati, CCI non calibrato, assenza di playbook approvati e qualità strategica da validare con persone. Nessuno di questi impedisce di preparare la struttura locale; impediscono invece di dichiarare conclusi i rispettivi gate.
