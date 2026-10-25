@@ -323,3 +323,46 @@ def test_reviews_can_start_once_using_saved_maps_identity(tmp_path, monkeypatch)
     with pytest.raises(ProviderError):
         gate1a.execute(settings(), prices, directory, "synthetic-place", start_reviews=True)
     assert (directory / "budget.json").read_text() == before
+
+
+def synthetic_access_report():
+    checks = [{"probe": p["id"], "provider_status": 20000, "task_statuses": [20000],
+               "availability": "available", "sample_count": 1, "limitations": []}
+              for p in gate1a.plan()]
+    next(c for c in checks if c["probe"] == "organic")["paa_count"] = 1
+    return {"checks": checks}
+
+
+def test_access_gate_can_pass_with_sparse_trends_but_quality_stays_partial():
+    report = synthetic_access_report()
+    trend = next(c for c in report["checks"] if c["probe"] == "trends")
+    trend.update(availability="partial", limitations=["incomplete_series_no_interpolation"])
+    assert gate1a.gate_acceptance(report) == "PASS_WITH_LIMITATIONS"
+    assert trend["availability"] == "partial"
+
+
+def test_unavailable_required_data_or_wrong_geo_prevents_gate_pass():
+    report = synthetic_access_report()
+    report["checks"][1].update(availability="partial", limitations=["geography_mismatch_or_missing"])
+    assert gate1a.gate_acceptance(report) == "NOT_PASSED"
+
+
+def test_missing_paa_needs_a_successful_separate_query():
+    report = synthetic_access_report()
+    organic = next(c for c in report["checks"] if c["probe"] == "organic")
+    organic.update(paa_count=0, availability="partial", limitations=["paa_not_observed_in_sample"])
+    assert gate1a.gate_acceptance(report) == "NOT_PASSED"
+    report["supplemental_paa"] = {"availability": "available", "paa_count": 1,
+                                  "provider_status": 20000, "task_statuses": [20000]}
+    assert gate1a.gate_acceptance(report) == "PASS_WITH_LIMITATIONS"
+
+
+def test_supplemental_paa_is_bounded_to_one_attempt(tmp_path):
+    directory = tmp_path / "pilot"
+    directory.mkdir()
+    (directory / "report.json").write_text(json.dumps({"checks": [], "supplemental_paa": {"state": "attempted"}}))
+    previous = {"cap": "5", "reserved": "1", "observed": "0.5", "requests": 15, "halted": False}
+    (directory / "budget.json").write_text(json.dumps(previous))
+    with pytest.raises(ProviderError):
+        gate1a.execute(settings(), {"organic": Decimal("0.02")}, directory, check_paa=True)
+    assert json.loads((directory / "budget.json").read_text()) == previous

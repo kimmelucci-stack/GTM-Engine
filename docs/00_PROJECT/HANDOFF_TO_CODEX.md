@@ -69,7 +69,7 @@ Ogni PASS richiede i campi QA della roadmap: comando/data/versione/provider/endp
 
 Gate 0 **PASS e riconfermato dopo bonifica**: healthcheck e guardia credenziali (5 test), ruff, ingresso worker e build/typecheck frontend riusciti; repository pubblica collegata e push effettuato. CI secrets/backend/frontend Success anche sul consolidamento `5276c77`: https://github.com/kimmelucci-stack/GTM-Engine/actions/runs/40178552216 . Nessuna prova browser/E2E dell'applicazione. Non sono avviati gate applicativi successivi.
 
-Prossimo task: su richiesta avviare Gate 1A con credenziali DataForSEO e cap esplicito. Prima delle chiamate consultare documentazione ufficiale corrente, definire campioni e registro costi; salvare raw redatti, senza trasferire ciecamente risultati numerici dell'audit. Le credenziali vanno configurate privatamente, mai incollate in chat.
+Prossimo task dopo Gate 1A: Gate 1B, crawler su cinque siti con riuso di eventuali script del proprietario e verifica evidenze per claim. Gli accessi DataForSEO sono stati riprodotti come da registro finale sotto; continuazioni mantengono il ledger, senza azzerare costi o riutilizzare automaticamente tutti i dati come validati.
 
 ## C. Attività del proprietario
 
@@ -77,7 +77,7 @@ Prossimo task: su richiesta avviare Gate 1A con credenziali DataForSEO e cap esp
 |---|---|---|---|---|---|
 | 0 | Indicare/creare repository e consentire collegamento | GitHub | URL repo e accesso autorizzato | Obbligatorio | Accesso verificato; repository pubblica per portfolio, senza secret versionati |
 | 0, poi AI | Configurare API e limite spesa | OpenAI API | OPENAI_API_KEY server-side e budget | Obbligatorio per agenti | Non verificato; nessuna prova live |
-| 1A | Configurare accesso API e limite richieste/costo | DataForSEO | DATAFORSEO_LOGIN/PASSWORD, credito, cap USD | Obbligatorio per Search | Da configurare/confermare nel runtime |
+| 1A | Configurare accesso API e limite richieste/costo | DataForSEO | Secret solo server-side, credito, cap USD | Obbligatorio per Search | Configurato privatamente; Gate 1A eseguito entro 5 USD |
 | 1B | Confermare cinque siti e fornire script se esistono | Siti campione | URL competitor; crawler/reviews preesistenti | Campione obbligatorio; script facoltativi | Campione non confermato, script assenti |
 | 1C | Ottenere accessi Ads UE e IG separatamente | Meta Developer | App ID, token e permessi effettivi; script IG eventuale | Per Social/Meta ufficiale | Non verificato; autorizzazioni da provare |
 | 1D | Configurare token e approvare micro-spesa | Openapi Company | API key, tre società/P.IVA e bilancio di confronto | Per dati societari automatici | Non verificato; cap non confermato |
@@ -97,18 +97,18 @@ Non inserire credenziali nella chat o nei documenti: usare variabili d'ambiente 
 
 | Categoria | Elementi | Come si chiude |
 |---|---|---|
-| Pronto per lo sviluppo | Bonifica completata, Gate 0 PASS, scope 01–07, stack e scoring coerenti | Prossimo Gate 1A subordinato a credenziali private e cap confermato; nessuna riprogettazione |
+| Pronto per lo sviluppo | Bonifica e Gate 0 PASS; Gate 1A PASS_WITH_LIMITATIONS | Prossimo Gate 1B, nessuna riprogettazione |
 | Da verificare tecnicamente | Accessi provider nel runtime, crawler, geografie, PAA, fonti pubbliche, Structured Outputs e preview PPTX | Prove riproducibili con evidenze e limiti; build/test foundation già riusciti |
-| In attesa di credenziali | DataForSEO, Meta, Openapi, OpenAI; accessi Supabase e hosting ai gate pertinenti | Configurazione privata e prova riuscita; disponibilità account non presunta |
+| In attesa di credenziali | Meta, Openapi, OpenAI; Supabase/hosting ai gate pertinenti | DataForSEO configurato e verificato; nessun altro accesso presunto |
 | In attesa di approvazione economica | Cap richieste provider, Openapi/bilancio, API AI, Render e altri costi cloud | Importo/limite autorizzato prima della spesa |
 | Non accessibile o limitato | Trends pilota 3/53; spesa Ads privata, reach privata competitor, WTP non studiata, performance commerciali private | Mantenere unavailable/partial; nuova prova può aggiornare lo stato, mai riempimento inventato |
 | Collegamento proprietario — RISOLTO | GitHub assente nella cartella iniziale | Repository fornita dal proprietario, accesso e remote verificati; pubblica dopo revisione e scansione |
 
 Rischi: copertura geografica scarsa, omonimie società/brand, autorizzazioni Meta insufficienti, costi/task duplicati, CCI non calibrato, assenza di playbook approvati e qualità strategica da validare con persone. Nessuno di questi impedisce di preparare la struttura locale; impediscono invece di dichiarare conclusi i rispettivi gate.
 
-## Gate 1A — avvio sviluppo, 25 ottobre 2026
+## Gate 1A — cronologia avvio sviluppo, 25 ottobre 2026
 
-**Stato: codice pilota implementato; accesso live GATED, non PASS.** Il proprietario autorizza 5 USD totali per i test DataForSEO. Obiettivo del prodotto completo: 10 USD, massimo 15 USD per esecuzione GTM; fattibilità non misurata. Cap 5 USD preparato nel `.env` privato, escluso da Git. Preflight corrente: mancano login e password API, valori mai mostrati. Nessuna chiamata autenticata effettuata; spesa API osservata in questa attività: nessuna.
+**Stato storico all'avvio: codice pronto; accesso GATED.** Proprietario: 5 USD totali per il pilota, prodotto completo 10–15 USD per run. Inizialmente cap preparato e credenziali mancanti, nessuna chiamata. Configurazione e collaudo sono stati poi completati come nel registro finale sotto; questa cronologia non descrive il blocco attuale.
 
 Implementati `backend/src/gtm_engine/providers/dataforseo.py`, runner `backend/src/gtm_engine/gate1a.py` e configurazione locale a campi nascosti `scripts/configure_dataforseo.py`. Tredici campioni: catalogo IT; volumi città/regione/nazione; ideas; intent; autocomplete; organic/PAA; Maps; Trends; advertiser discovery; Ads Search; reviews POST/GET. Per reviews selezione di identità realmente osservata in Maps, avvio una sola volta e ripresa GET del task. Budget e journal persistiti prima dell'invio; nessuna riesecuzione automatica di POST dall'esito incerto. Nessun dato privato o fixture reale nel repository pubblico.
 
@@ -118,4 +118,10 @@ Documentazione ufficiale consultata il 25 ottobre 2026: [volumi](https://docs.da
 
 Prossimo intervento del proprietario: configurare login/password API nel terminale locale con campi nascosti come da README. Poi Codex verifica tariffe, prepara riserve compatibili con 5 USD, esegue le prove e aggiorna matrice/audit con ambiente/data/campioni/costi/fixture/limiti effettivi. Nessun gate successivo avviato.
 
-Codice pilota caricato nel commit `4058ad7`; CI remota **Success**, inclusi test backend, build frontend e protezioni/documentazione: https://github.com/kimmelucci-stack/GTM-Engine/actions/runs/40179619707 . Gate 1A resta GATED per credenziali mancanti e tariffe da revisionare, non superato dalle prove offline.
+Codice iniziale `4058ad7`, CI **Success**: https://github.com/kimmelucci-stack/GTM-Engine/actions/runs/40179619707 . Le sole prove offline non superavano Gate 1A; le successive prove live sono distinte sotto.
+
+## Gate 1A — esito live nel repository, 25 ottobre 2026
+
+**PASS_WITH_LIMITATIONS di accessibilità; qualità dati complessiva partial.** Tredici campioni, compresa nazione, più una query PAA supplementare: dati reali ottenuti, reviews POST 20100→GET 20000 con 10 recensioni. SERP iniziale senza PAA; query mirata con un blocco PAA. Trends solo 2 valori non null su 54: nessuna stagionalità inferita. Maps un'attività, Ads discovery 18 elementi e Ads Search 19 creatività; nessun censimento o spesa competitor dedotta.
+
+Spesa API 0,31847 USD (15 richieste dati); autenticazione/tariffe con endpoint gratuito a costo 0, senza divulgare dettagli account. Riserva conservativa 0,74644 USD, cap 5 USD. Fixture, tariffa e report solo nella cartella privata ignorata da Git; riepilogo pubblico nell'audit. Dataset sintetici e 47 test automatici PASS; ruff PASS. Nessun modulo applicativo end-to-end né altro provider collaudato. La misura del pilota non certifica ancora il target 10–15 USD del percorso completo. Prossimo gate: 1B, crawl cinque siti e verifiche delle fonti web.

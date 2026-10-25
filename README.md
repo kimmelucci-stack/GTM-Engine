@@ -6,7 +6,7 @@ Agentic Go To Market Tool.
 
 Progetto pubblico per portfolio, attualmente alla foundation: frontend React/TypeScript/Vite, API FastAPI/Pydantic e ingresso worker. Gate 0 verificato; Moduli 01–07 definiti funzionalmente, nessun modulo operativo end-to-end. Backend e worker previsti su Render, dati/storage su Supabase, deck modificabile via python-pptx. Nessun invio automatico di campagne nell'MVP.
 
-La documentazione è consolidata sulle decisioni definitive. Le prove DataForSEO del precedente ambiente sono conservate come evidenze storiche: non certificano l'accesso del repository corrente. KB-001, controllo fonti ogni 45 giorni, è assegnato al Gate 2 con test e verifica operativa prima della release.
+La documentazione segue le decisioni definitive. Gate 1A DataForSEO riprodotto nel repository: accessibilità superata con limiti, 0,31847 USD spesi; Trends insufficiente. Prove precedenti e attuali sono distinte nell'audit. KB-001, controllo fonti ogni 45 giorni, è assegnato al Gate 2 con test e verifica prima della release.
 
 ## Credenziali
 
@@ -52,7 +52,7 @@ La UI è una shell iniziale: nessuna analisi avviata o connessione simulata. Il 
 
 ## Gate 1A — DataForSEO
 
-Connettore e runner pilota implementati con test sintetici; **nessuna prova live ancora eseguita**. Il piano copre le 12 prove storiche e aggiunge il volume nazionale. Cap autorizzato dal proprietario: **5 USD per l'intero pilota**, mantenuto anche nella ripresa delle recensioni. Per il prodotto completo: obiettivo 10 USD, massimo 15 USD per run; fattibilità da misurare.
+Connettore e runner testati offline e con dati reali. **Gate 1A PASS_WITH_LIMITATIONS**, 13 campioni e una SERP supplementare PAA; 15 richieste dati, costo totale 0,31847 USD. Autenticazione/tariffe verificate con una richiesta gratuita separata. Serie Trends: 2/54 valori non null, non utilizzabile per stagionalità. Il report separa esito del gate da qualità parziale del dataset. Cap del proprietario: **5 USD per l'intero pilota**, mantenuto nelle continuazioni. Prodotto completo: obiettivo 10 USD, massimo 15 USD per run; fattibilità ancora da misurare.
 
 Configurazione privata, dal terminale nella root del progetto:
 
@@ -75,4 +75,4 @@ Questi comandi verificano configurazione e piano senza rete. Per prove pagate se
 
 Il runner usa la cartella privata unica `artifacts/private/dataforseo/pilot/` e non sovrascrive/ripete un pilota esistente. Risposte redatte delle credenziali, journal, budget e report rimangono privati; nessun raw caricato nel portfolio. Errori/timeout non ripetono POST fatturabili. Le prenotazioni di costo non vengono rimborsate automaticamente; nessun retry di pagamento incerto.
 
-Per le recensioni: scegliere prima un'identità pubblica verificata tra i candidati Maps del report privato. `--start-reviews --review-place-id IDENTIFICATIVO` avvia il solo task recensioni una volta, usando budget residuo e tariffe del pilota; il valore deve appartenere ai candidati salvati. `--resume-reviews` recupera il task salvato con soli GET, senza reinviarlo. Entrambe le opzioni richiedono `--live --rate-card` come sopra. Polling e richieste totali limitati; un blocco o crash richiede revisione dello stato, mai cancellazione automatica del budget.
+Per le recensioni: scegliere prima un'identità pubblica verificata tra i candidati Maps del report privato. `--start-reviews --review-place-id IDENTIFICATIVO` avvia il solo task recensioni una volta, usando budget residuo e tariffe del pilota; il valore deve appartenere ai candidati salvati. `--resume-reviews` recupera il task salvato con soli GET, senza reinviarlo. `--check-paa` esegue una sola query supplementare pertinente e conserva l'assenza PAA della query iniziale. Le continuazioni richiedono `--live --rate-card`, condividono ledger/cap e non sono ripetute automaticamente. Il pilota già eseguito rimane disponibile privatamente: non cancellarlo per riavviare. Un blocco o crash richiede riconciliazione.

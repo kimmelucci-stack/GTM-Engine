@@ -1,5 +1,5 @@
 # GTM Engine — Roadmap pronta per Codex, dipendenze e attività dell'utente
-**Decisioni del 24 ottobre 2026, consolidate il 25 ottobre.** Gate 0 realizzato e verificato, vedi `GATE_0_VALIDATION.md`; gate successivi non eseguiti. La pianificazione non certifica integrazioni. Repository pubblica per portfolio su richiesta del proprietario, con secret e dati privati esclusi; nessun deploy applicativo implicito.
+**Decisioni del 24 ottobre 2026, consolidate il 25 ottobre.** Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS (0,31847 USD, tredici campioni e approfondimento PAA). Audit e matrice riportano prove e limiti; Gate 1B e successivi non eseguiti. Repository pubblica per portfolio, con secret e dati privati esclusi; nessun deploy implicito.
 
 ## Sequenza vincolante, con ownership esplicita
 | Gate | Responsabile Codex | Responsabile utente | Deliverable e condizione di uscita |
@@ -18,7 +18,7 @@
 | **7 — Deck** | Mod.07, templates (main, optional section, two content), PPTX native, QA rendere | Fornire branding opzionale, approvare template, provare editabilità reale | Deck modificabile senza overflow e contenuti con source IDs |
 | **8 — Release** | E2E, failure provider, storage/deploy, costi; verifica operativa KB-001 prima della release | Approvare spese, pilota e rilascio; rivedere report fonti | Smoke production + acceptance B2B/B2C + KB-001 collaudato + checklist owner firmata |
 
-**Dipendenza critica:** i gate 1C e 1D non possono essere segnati superati senza token e permessi; Codex può sviluppare mock e altre fasi indipendenti ma non mostrare fonti come `tested` quando non lo sono. Gate 1A DataForSEO ha alcune prove nella chat Plus, da ripetere nel runtime Pro con test automatici riproducibili.
+**Dipendenza critica:** i gate 1C e 1D richiedono accessi e prove reali; mock non sono tested. Gate 1A riprodotto nel repository il 25 ottobre: dati e copertura del campione registrati nell'audit, Trends limitato. Nessuna estensione automatica della validazione a tutti i mercati o alle altre fonti.
 
 ## Checklist proprietà — SOLO azioni davvero tue
 | Quando | Azione tua | Credenziale / cosa fornire | Obbligatorietà | Risultato atteso |

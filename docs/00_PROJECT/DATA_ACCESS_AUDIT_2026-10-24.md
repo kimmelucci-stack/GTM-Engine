@@ -1,11 +1,38 @@
 # GTM Engine - Audit accessibilita dati: registro e archivio
 
-Consolidamento: 25 ottobre 2026. Le prove del 24 ottobre appartengono al precedente ambiente; non sono state riprodotte nel repository. Nessuna nuova chiamata provider durante la bonifica. Scelte correnti: [matrice](PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md) e [architettura](TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Foundation locale/CI: [Gate 0](GATE_0_VALIDATION.md).
+Consolidamento e prove repository: 25 ottobre 2026. Le prove del 24 ottobre appartengono al precedente ambiente; sono conservate nelle sezioni storiche. Nessuna chiamata durante la bonifica documentale; successivamente Gate 1A eseguito nel repository come segue. Scelte correnti: [matrice](PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md) e [architettura](TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Foundation locale/CI: [Gate 0](GATE_0_VALIDATION.md).
+
+## Gate 1A — prove nel repository, 25 ottobre 2026
+
+**Esito accessibilità: PASS_WITH_LIMITATIONS. Qualità complessiva dati: partial.** Tutti i tredici campioni previsti (dodici storici più volume nazionale) hanno restituito dati via richieste autenticate. HTTP 200 e codici task 20000 sui risultati; reviews task POST 20100 seguito da GET 20000. Un approfondimento SERP PAA separato è registrato con query distinta. Nessuna equivalenza tra successo di accesso e completezza/validità strategica del dato.
+
+| Campione | Riscontro nel repository | Qualità / limite |
+|---|---|---|
+| Catalogo località IT | 10.862 record località; codice Torino presente | Numero di record, non conteggio certificato di sole città; catalogo può cambiare |
+| Volume/CPC città | Un risultato su Torino, geografia richiesta/effettiva coincidente | Campione singola keyword, non validazione del mercato |
+| Volume/CPC regione | Un risultato su Piemonte, geografia coincidente | Non estendere a tutte le regioni |
+| Volume/CPC nazione | Un risultato su Italia, geografia coincidente | Non mescolare né sommare livelli geografici |
+| Keyword ideas | 5 risultati | Campione ridotto |
+| Search intent | Un risultato con probabilità | Classificazione modellistica, non acquisto osservato |
+| Autocomplete | 15 suggerimenti | Nessun volume attribuito automaticamente |
+| SERP organica iniziale | 9 risultati organici, PAA non presente | Feature non garantita per query |
+| SERP PAA supplementare | Query «quanto costa un team building aziendale»: 1 blocco PAA e 9 organici | Prova distinta; non modifica la SERP originale |
+| Maps | Una attività con sito, place_id e rating | Identità controllata tramite sito pubblico prima del task reviews; non censimento competitor |
+| Google Reviews | 10 recensioni con date e rating via POST→GET | Campione parziale rispetto al totale esistente; nessun testo/nominativo pubblicato |
+| Google Trends | 54 valori temporali, solo 2 non null | Serie insufficiente: non usare per stagionalità, non interpolare |
+| Google Ads advertiser discovery | 18 elementi restituiti | Distinguere account/aggregazioni/domini, non 18 aziende validate |
+| Google Ads Search | 19 creatività con identificativi | Attività osservata, nessuna stima di spesa/risultati competitor |
+
+Esecuzione UTC: 09:21–09:23 del 25 ottobre 2026. Comandi: runner Gate 1A `--live --rate-card`, poi `--start-reviews` per identità osservata in Maps e `--check-paa` una sola volta; dettagli input/output e timestamp esatti nei file privati. Versione applicazione 0.1.0, codice base `4058ad7` con continuazione PAA e separazione accessibilità/qualità aggiunte durante il collaudo. Test offline aggiornati: 47 PASS; ruff PASS.
+
+**Costi osservati:** 0,31847 USD complessivi per 15 richieste dati (incluse creazione/lettura reviews e SERP aggiuntiva); una richiesta gratuita preliminare a `/v3/appendix/user_data` per autenticazione e tariffe, costo 0. Cap autorizzato 5 USD; riserve conservative persistite 0,74644 USD, non spesa effettiva. Tariffe base verificate per l'account; supplementi non esposti da user_data coperti da margini conservativi e profondità minime del campione, senza opzioni a pagamento aggiuntive. Questa misura non dimostra il costo di un'intera strategia GTM o dei sette moduli.
+
+Evidenze raw redatte delle credenziali, ledger, tariffa verificata e report esclusivamente in `artifacts/private/dataforseo/` (ignorato da Git); il repository pubblico contiene solo riepilghi aggregati e test sintetici. Riferimenti privati: `pilot/journal.jsonl`, `pilot/report.json`, `pilot/budget.json`, `account-pricing.json`, `rates.json`. Nessun risultato esteso o dato account pubblicato. Il report separa `gate_status` da `status` dei dati e preserva i limiti Trends/PAA. Altri provider non collaudati.
 
 
 > **Aggiornamento successivo, 24 ottobre 2026 — priorità a questo registro.** La presente revisione sostituisce le scelte provider Google/Meta e integra i test effettivamente eseguiti dopo la prima stesura. Per il dettaglio dei gate consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
 
-## Registro prove aggiornato — DataForSEO (chiamate reali, piccolo campione)
+## Registro del precedente ambiente — DataForSEO, 24 ottobre 2026
 Tutti i risultati seguenti provengono da richieste autenticata al collegamento disponibile durante l'audit; il conto API e le credenziali **non sono automaticamente trasferiti** sull'account ChatGPT Pro.
 
 | Requisito | Endpoint e campione | Riscontro | Giudizio |

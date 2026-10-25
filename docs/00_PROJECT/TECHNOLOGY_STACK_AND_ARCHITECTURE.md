@@ -14,8 +14,8 @@
 | Raw data e deliverable | Supabase Storage | JSON, eventuali evidenze visive, PPTX | bucket privato/gestione server |
 | Knowledge Base | Markdown versionati in GitHub, loader Python per moduli | No vettori/RAG nella v1 | Fornire/approvare fonti e playbook |
 | Siti concorrenti | `httpx`, `BeautifulSoup4`, `trafilatura`; Playwright solo dove indispensabile | Parsing verificabile, ridurre costi e fragilità | eventuali script Python esistenti |
-| Keyword/SERP/Trends/Google Reviews | **DataForSEO** | Prove storiche nell'audit, nessuna riprodotta nel repository | Credenziali server-side e cap per Gate 1A |
-| **Google Ads Transparency competitor** | **DataForSEO Ads Search/Ads Advertisers**, prove nel precedente ambiente, Gate 1A da riprodurre | NO acquisto SearchAPI per Google finché DataForSEO basta | nessun token aggiuntivo |
+| Keyword/SERP/Trends/Google Reviews | **DataForSEO** | Gate 1A riprodotto il 25 ottobre; Trends limitato nel campione | Credenziali private configurate; pilota entro 5 USD |
+| **Google Ads Transparency competitor** | **DataForSEO Ads Search/Ads Advertisers**, riprodotti nel repository al Gate 1A | NO acquisto SearchAPI per Google finché DataForSEO basta | nessun token aggiuntivo |
 | **Meta Ads competitor IT/UE** | **Meta Ad Library API ufficiale `ads_archive`**; fallback SearchAPI, poi Apify | Il mercato IT rientra nel perimetro annunci EU; auth ufficiale necessaria | Facebook/Meta Developer, identità/autorizzazione/token se ottenibile; fallback solo previa approvazione |
 | Instagram competitor (fino 50 post) | Graph Business Discovery, poi Apify | Ufficiale ove account business/permessi supportati | script/permessi Meta, poi Apify solo se richiesto |
 | LinkedIn ads | SearchAPI solo se richiesto dall'ICP/strategia | Non imporre terzo provider per tutti | trial key opzionale |
@@ -67,7 +67,7 @@ Input/Brief validato → select related KB playbooks → provider adapters con c
 Ogni decisione agentica salva rationale e lista source IDs. Mod.07 utilizza solo risultati approvati, non riscrive la strategia.
 
 ## Provider selection: evitare costi duplicati
-1. DataForSEO per Search/Maps/Reviews/**Google Ads Transparency**: test nel precedente ambiente, da riprodurre qui al Gate 1A.
+1. DataForSEO per Search/Maps/Reviews/**Google Ads Transparency**: prove Gate 1A nel repository, con campioni e limiti nell'audit; non estendere l'esito a tutti i mercati/query.
 2. Meta official per Ads Library EU e IG Business Discovery **quando possibile**; i due flussi richiedono autorizzazioni differenti, non dedurre l'uno dall'altro.
 3. SearchAPI soltanto Meta fallback o LinkedIn Ads pertinente. Apify solo in fallback Instagram/Meta. Non attivare tutti questi abbonamenti per default.
 4. Openapi solo per Companies dopo confronto dei dati; null/Unavailable non diventano zeri.

@@ -209,14 +209,45 @@ def load_prices(path: Path, probes: list[dict[str, Any]]) -> dict[str, Decimal]:
     return prices
 
 
+def gate_acceptance(report: dict[str, Any]) -> str:
+    """Access proof is separate from dataset quality; sparse Trends never becomes complete."""
+    checks = report.get("checks", [])
+    if report.get("stop_code") or {c["probe"] for c in checks} != {p["id"] for p in plan()}:
+        return "NOT_PASSED"
+    if len(checks) != len(plan()):
+        return "NOT_PASSED"
+    allowed_limits = {
+        "paa_not_observed_in_sample", "incomplete_series_no_interpolation",
+        "relative_index_not_search_volume", "model_classification_not_observed_buyer_intent",
+    }
+    for check in checks:
+        if check.get("provider_status") != 20000 or check.get("task_statuses") != [20000]:
+            return "NOT_PASSED"
+        if check.get("availability") == "unavailable":
+            return "NOT_PASSED"
+        if check.get("sample_count", 0) <= 0:
+            return "NOT_PASSED"
+        if set(check.get("limitations", [])) - allowed_limits:
+            return "NOT_PASSED"
+    organic = next(c for c in checks if c["probe"] == "organic")
+    if not organic.get("paa_count"):
+        extra = report.get("supplemental_paa", {})
+        if (extra.get("availability") != "available" or not extra.get("paa_count")
+                or extra.get("provider_status") != 20000 or extra.get("task_statuses") != [20000]):
+            return "NOT_PASSED"
+    return "PASS_WITH_LIMITATIONS" if any(c.get("availability") == "partial" for c in checks) \
+        else "PASS"
+
+
 def execute(
     settings: Settings, prices: dict[str, Decimal], directory: Path,
     review_place_id: str | None = None, resume_reviews: bool = False, start_reviews: bool = False,
+    check_paa: bool = False,
 ) -> dict[str, Any]:
     if settings.cost_cap_usd > Decimal(5):
         raise ProviderError("cap_exceeds_authorized_pilot_limit")
     # Exclusive new directory prevents overwriting previous evidence or silently rerunning it.
-    directory.mkdir(parents=True, exist_ok=resume_reviews or start_reviews, mode=0o700)
+    directory.mkdir(parents=True, exist_ok=resume_reviews or start_reviews or check_paa, mode=0o700)
     lock = directory / "run.lock"
     try:
         lock_fd = os.open(lock, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -228,7 +259,7 @@ def execute(
     budget_path = directory / "budget.json"
     report: dict[str, Any] = {"gate": "1A", "status": "partial", "checks": []}
     task_id = None
-    if resume_reviews or start_reviews:
+    if resume_reviews or start_reviews or check_paa:
         try:
             report = json.loads((directory / "report.json").read_text(encoding="utf-8"))
             state = json.loads(budget_path.read_text(encoding="utf-8"))
@@ -241,6 +272,8 @@ def execute(
                 item["place_id"] for item in report.get("review_candidates", [])
             }):
                 raise ProviderError("review_identity_or_saved_task_requires_review")
+            if check_paa and report.get("supplemental_paa"):
+                raise ProviderError("supplemental_paa_already_attempted")
             budget.reserved, budget.observed = Decimal(state["reserved"]), Decimal(state["observed"])
             budget.requests = state["requests"]
         except (OSError, ValueError, KeyError, ProviderError):
@@ -266,6 +299,16 @@ def execute(
     client = DataForSEO(settings, budget, journal)
     place_id = review_place_id if start_reviews else None
     try:
+        if check_paa:
+            probe = next(p for p in plan() if p["id"] == "organic")
+            probe["payload"][0]["keyword"] = "quanto costa un team building aziendale"
+            report["supplemental_paa"] = {"state": "attempted", "test_input": probe["payload"]}
+            body = client.request("POST", probe["endpoint"], probe["payload"], prices["organic"])
+            report["supplemental_paa"].update(
+                assess(probe, body), endpoint=probe["endpoint"],
+                observed_at=datetime.now(UTC).isoformat(), raw_fixture_ref="journal.jsonl",
+            )
+            return report
         if resume_reviews:
             assert task_id is not None
             report.pop("stop_code", None)
@@ -333,6 +376,7 @@ def execute(
             and all(c["availability"] == "available" for c in report["checks"])
             and not report.get("stop_code")
         ) else "partial"
+        report["gate_status"] = gate_acceptance(report)
         report.update(cost_observed_usd=str(budget.observed),
                       cost_reserved_usd=str(budget.reserved), request_count=budget.requests,
                       raw_fixture_ref="journal.jsonl", version="0.1.0",
@@ -351,12 +395,13 @@ def main() -> int:
     parser.add_argument("--resume-reviews", action="store_true", help="GET saved task, never POST again")
     parser.add_argument("--start-reviews", action="store_true",
                         help="POST reviews once for a selected identity in saved Maps candidates")
+    parser.add_argument("--check-paa", action="store_true", help="One additional PAA query, same budget")
     args = parser.parse_args()
     if args.plan:
         print(json.dumps(plan(), indent=2, ensure_ascii=False))
         return 0
-    if args.resume_reviews and args.start_reviews:
-        parser.error("Choose start or resume, never both")
+    if sum([args.resume_reviews, args.start_reviews, args.check_paa]) > 1:
+        parser.error("Choose only one continuation mode")
     try:
         settings, missing = settings_from_environment()
     except (OSError, ValueError, TypeError):
@@ -383,13 +428,14 @@ def main() -> int:
         return 2
     try:
         report = execute(settings, prices, PRIVATE / "pilot", args.review_place_id,
-                         args.resume_reviews, args.start_reviews)
+                         args.resume_reviews, args.start_reviews, args.check_paa)
     except (ProviderError, OSError, ValueError, KeyError):
         print('{"status":"gated","reason":"pilot_state_requires_review_values_withheld"}')
         return 2
     print(json.dumps({"gate": "1A", "status": report["status"],
+                      "gate_status": report["gate_status"],
                       "request_count": report["request_count"], "raw": "private_only"}))
-    return 0 if report["status"] == "pass" else 2
+    return 0 if report["gate_status"].startswith("PASS") else 2
 
 
 if __name__ == "__main__":

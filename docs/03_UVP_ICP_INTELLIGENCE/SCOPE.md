@@ -5,7 +5,7 @@
 **Stato:** scoping funzionale consolidato; UX/form UVP da rifinire, PRD/TDD e validazione empirica da realizzare  
 **Dipendenze:** `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/01_DEMAND_INTELLIGENCE/SCOPE.md`, `docs/02_MARKET_INTELLIGENCE/SCOPE.md`.
 
-**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Gate 1A DataForSEO riprodotto nel repository il 25 ottobre 2026 con limiti di copertura; registro nell’audit. Altri provider non collaudati.
 
 ## 1. Obiettivo e perimetro
 

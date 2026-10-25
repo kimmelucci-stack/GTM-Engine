@@ -1,5 +1,5 @@
 # GTM Engine — Documentazione di progetto
-**Stato al 25 ottobre 2026:** scope 01–07 e stack consolidati; Gate 0 realizzato e verificato localmente e su CI. Nessun modulo end-to-end o provider applicativo verificato nel repository. Prove provider del precedente ambiente conservate nell'audit.
+**Stato al 25 ottobre 2026:** scope 01–07 consolidati; Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS con prove live nel repository. Nessun modulo end-to-end; altri provider non collaudati. Prove precedenti e nuove distinte nell'audit.
 
 ## Ordine di lettura per Codex
 1. `00_PROJECT/PROJECT_SCOPE.md` — requisiti trasversali.
@@ -25,6 +25,6 @@ Ogni modulo ha un solo `SCOPE.md` canonico; il Modulo 02 include `02_MARKET_INTE
 - Markdown Knowledge Base, NO vector RAG; PowerPoint editable via python-pptx.
 
 ## Nota sulle percentuali
-Completezza della specifica non significa integrazioni operative. La matrice distingue accessibilità della fonte, disponibilità dei dati e natura epistemica; T/T_LIMITED si riferiscono all'ambiente storico esplicitato, non a test del repository. La sezione archivio dell'audit conserva scelte superate senza renderle normative.
+Completezza della specifica non significa integrazioni operative. La matrice distingue accessibilità, disponibilità e natura epistemica; T/T_LIMITED richiedono ambiente/data/fixture. Il registro corrente del Gate 1A è distinto dalla tabella storica; l'archivio dell'audit conserva scelte superate senza renderle normative.
 
 Repository pubblica per portfolio su richiesta del proprietario; credenziali, utenze provider, token, dati cliente e raw privati esclusi dai contenuti e dalla cronologia pubblicabili. Codice pubblico non equivale a deploy dell'applicazione.

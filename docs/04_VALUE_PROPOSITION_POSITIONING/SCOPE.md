@@ -5,7 +5,7 @@
 **Stato:** workflow funzionale concluso; implementazione, integrazioni e validazione ancora da svolgere  
 **Dipendenze:** Project Brief, Moduli 01–03; linee guida UX in `docs/00_PROJECT/PROJECT_SCOPE.md`.
 
-**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Gate 1A DataForSEO riprodotto nel repository il 25 ottobre 2026 con limiti di copertura; registro nell’audit. Altri provider non collaudati.
 
 ## 1. Obiettivo
 
