@@ -1,5 +1,5 @@
 # GTM Engine — Roadmap pronta per Codex, dipendenze e attività dell'utente
-**Decisioni del 24 ottobre 2026, consolidate il 25 ottobre.** Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS (0,31847 USD, tredici campioni e approfondimento PAA). Audit e matrice riportano prove e limiti; Gate 1B e successivi non eseguiti. Repository pubblica per portfolio, con secret e dati privati esclusi; nessun deploy implicito.
+**Decisioni del 24 ottobre 2026, consolidate il 25 ottobre.** Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS (0,31847 USD, tredici campioni e approfondimento PAA). Gate 1B: crawler implementato, test locali su fixture sintetiche; conferma campione e cinque crawl reali ancora necessari. Gate successivi non eseguiti. Repository pubblica per portfolio, con secret e dati privati esclusi; nessun deploy implicito.
 
 ## Sequenza vincolante, con ownership esplicita
 | Gate | Responsabile Codex | Responsabile utente | Deliverable e condizione di uscita |

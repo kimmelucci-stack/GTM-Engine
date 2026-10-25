@@ -1,5 +1,5 @@
 # GTM Engine — Documentazione di progetto
-**Stato al 25 ottobre 2026:** scope 01–07 consolidati; Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS con prove live nel repository. Nessun modulo end-to-end; altri provider non collaudati. Prove precedenti e nuove distinte nell'audit.
+**Stato al 25 ottobre 2026:** scope 01–07 consolidati; Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS con prove live nel repository. Gate 1B in sviluppo: crawler e test sintetici, cinque siti ancora da confermare e collaudare. Nessun modulo end-to-end; altri provider non collaudati. Prove precedenti e nuove distinte nell'audit.
 
 ## Ordine di lettura per Codex
 1. `00_PROJECT/PROJECT_SCOPE.md` — requisiti trasversali.

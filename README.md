@@ -76,3 +76,18 @@ Questi comandi verificano configurazione e piano senza rete. Per prove pagate se
 Il runner usa la cartella privata unica `artifacts/private/dataforseo/pilot/` e non sovrascrive/ripete un pilota esistente. Risposte redatte delle credenziali, journal, budget e report rimangono privati; nessun raw caricato nel portfolio. Errori/timeout non ripetono POST fatturabili. Le prenotazioni di costo non vengono rimborsate automaticamente; nessun retry di pagamento incerto.
 
 Per le recensioni: scegliere prima un'identità pubblica verificata tra i candidati Maps del report privato. `--start-reviews --review-place-id IDENTIFICATIVO` avvia il solo task recensioni una volta, usando budget residuo e tariffe del pilota; il valore deve appartenere ai candidati salvati. `--resume-reviews` recupera il task salvato con soli GET, senza reinviarlo. `--check-paa` esegue una sola query supplementare pertinente e conserva l'assenza PAA della query iniziale. Le continuazioni richiedono `--live --rate-card`, condividono ledger/cap e non sono ripetute automaticamente. Il pilota già eseguito rimane disponibile privatamente: non cancellarlo per riavviare. Un blocco o crash richiede riconciliazione.
+
+## Gate 1B — Siti competitor
+
+Crawler HTTP con BeautifulSoup/trafilatura, fallback Playwright su HTML povero di testo. CLI locale, non esposta dall'API: quattro pagine per sito, solo HTTPS e dominio iniziale/con variante www, robots.txt verificato, timeout, tetto richieste e 2 MB per risposta. Nessun login, aggiramento anti-bot o invio di form. Ogni estratto conserva URL, data UTC, riferimento raw e natura osservata: un claim pubblicato non è un risultato dimostrato. Prezzi e casi non trovati sono `unavailable_in_sample`, non zero o assenza sull'intero sito.
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e './backend[dev,crawl]'
+$env:PLAYWRIGHT_BROWSERS_PATH = Join-Path (Get-Location) 'artifacts/private/playwright'
+.\.venv\Scripts\python.exe -m playwright install chromium
+.\.venv\Scripts\python.exe -m gtm_engine.gate1b --url https://madeinteam.it --url https://teambuildingitaly.com --url https://teambuilding.it --url https://teamworking.it --url https://sunnywayteambuilding.com
+```
+
+Il comando mostra il piano senza rete. Per il pilota aggiungere `--live --confirmed-sample --browser` solo dopo conferma dei cinque siti da parte del proprietario. Raw HTML e report normalizzato sono salvati esclusivamente nella cartella ignorata `artifacts/private/web`, creata una sola volta per evitare sovrascritture. Nuovi tentativi richiedono una nuova cartella privata e mantengono le prove precedenti. Non vengono lette credenziali. Nessun costo API; costo del calcolo locale non misurato.
+
+**Stato:** componente implementato e testato su fixture sintetiche; campione proposto in attesa di conferma. Gate 1B non superato finché non risultano cinque crawl reali con evidenze. Controllo DNS prima di ciascuna richiesta, senza pinning socket: prima di esporre URL arbitrari tramite API servono protezioni egress contro DNS rebinding. Risorse esterne, URL con query e WebSocket bloccati nel fallback; pagine che li richiedono possono restare partial/unavailable.
