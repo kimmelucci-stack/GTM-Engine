@@ -29,4 +29,4 @@ Completezza della specifica non significa integrazioni operative. La matrice dis
 
 Repository pubblica per portfolio su richiesta del proprietario; credenziali, utenze provider, token, dati cliente e raw privati esclusi dai contenuti e dalla cronologia pubblicabili. Codice pubblico non equivale a deploy dell'applicazione.
 
-Directory di riferimento per il buyer mapping B2B: [funzioni operative per reparto](03_UVP_ICP_INTELLIGENCE/BUSINESS_FUNCTION_DIRECTORY.md), con dati canonici nel backend; non è un organigramma né un catalogo di professioni.
+Directory principale B2B: [251 job title per il buying committee](03_UVP_ICP_INTELLIGENCE/BUYER_JOB_TITLE_DIRECTORY.md). Reparti e funzioni sono attributi di supporto, non sostituti dei job title.

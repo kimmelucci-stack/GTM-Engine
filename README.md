@@ -125,10 +125,15 @@ Prova reale: 3.257 codici ATECO importati da XLSX ufficiale, una cella Eurostat 
 KB-001 disponibile a richiesta: `python -m gtm_engine.source_refresh --registry PERCORSO_REGISTRO --output artifacts/private/source-refresh/NOME_UNICO`. Controllo calendario senza rete per default; `--live` abilita solo fonti approvate e scadute. Conserva ETag/Last-Modified/hash, tentativi ed errori separati, e scrive un nuovo report/registro senza modificare playbook o file di input. Registro reale da approvare; nessun monitor schedulato o deploy attivo. Dettagli e limiti in `docs/00_PROJECT/KNOWLEDGE_BASE.md`. Gate 2 avviato, non completato.
 
 
-## Directory delle funzioni aziendali
+## Supporto storico: funzioni operative e governance
 
 [Consulta le 60 funzioni operative nei 12 reparti](docs/03_UVP_ICP_INTELLIGENCE/BUSINESS_FUNCTION_DIRECTORY.md). Dati canonici in `backend/src/gtm_engine/domain/business_functions.v1_1.json`; disponibili da API con `GET /reference/business-functions` e filtro opzionale `department_id` (es. people). Nessun account o dato cliente esposto.
 
-Reparto, funzione operativa e ruolo di acquisto sono distinti. Job title facoltativo; il contratto Python rifiuta associazioni reparto/funzione incoerenti e stato Observed senza fonte. Sono riferimenti, non identificazione automatica di buyer reali; workflow del Modulo 03 ancora da implementare. ESCO non necessario: il runner pubblico v2 lo interroga soltanto con `--include-esco`. Le prove storiche e il relativo esito PARTIAL restano conservati.
+Nel precedente contratto di supporto reparto, funzione e ruolo di acquisto erano distinti e il job title facoltativo. Questo contratto è superato per il buyer mapping; ora è obbligatorio il titolo concreto. Nel solo supporto storico, il contratto Python rifiuta associazioni reparto/funzione incoerenti e stato Observed senza fonte. Sono riferimenti, non identificazione automatica di buyer reali; workflow del Modulo 03 ancora da implementare. ESCO non necessario: il runner pubblico v2 lo interroga soltanto con `--include-esco`. Le prove storiche e il relativo esito PARTIAL restano conservati.
 
 La directory corrente v1.1 comprende anche quattro organi/strutture collegiali e 25 ruoli di proprietà, governo e vertice (Owner, soci, Founder, Presidente, consiglieri, AD, CEO, direttore generale e direzioni funzionali). Cariche cumulabili, nessuna autorità di acquisto dedotta. API: `?version=business-functions-v1` per la versione storica; default v1.1. Buyer reference può indicare solo cariche/organi se la funzione operativa non è verificata. Nessuna migrazione o assegnazione a clienti eseguita.
+
+
+## Directory principale: job title del buying committee
+
+[251 job title nei 12 reparti](docs/03_UVP_ICP_INTELLIGENCE/BUYER_JOB_TITLE_DIRECTORY.md), inclusi manager, coordinatori, specialisti, buyer, referenti tecnici e assistenti, oltre al board. API `GET /reference/buyer-job-titles`, filtri `department_id` e `q` (italiano/inglese/varianti). La precedente directory funzioni/governance è supporto storico: il nuovo contratto richiede un titolo concreto per ogni membro. CommitteeMember e BuyingCommittee separano titolo, ruolo di acquisto ed evidenze; ApproachStep collega obiettivi e prove ai membri proposti. Non è ancora un workflow AI end-to-end. Nessuna autorità o appartenenza a un comitato reale dedotta dalla sola directory.

@@ -9,6 +9,7 @@ from gtm_engine.domain.business_functions import (
     FunctionDirectory,
     load_directory,
 )
+from gtm_engine.domain.buying_committee import JobTitleDirectory, load_job_titles
 
 app = FastAPI(title="GTM Engine", version="0.1.0")
 
@@ -21,6 +22,20 @@ class HealthResponse(BaseModel):
 @app.get("/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     return HealthResponse(status="ok", service="gtm-engine-api")
+
+
+@app.get("/reference/buyer-job-titles", response_model=JobTitleDirectory)
+def buyer_job_titles(department_id: str | None = None, q: str | None = None) -> JobTitleDirectory:
+    directory = load_job_titles()
+    if department_id is not None:
+        if department_id not in {d.department_id for d in directory.departments}:
+            raise HTTPException(status_code=404, detail="Reparto non presente nella directory")
+        directory.job_titles = [t for t in directory.job_titles if department_id in t.department_ids]
+    if q and q.strip():
+        term = q.strip().casefold()
+        directory.job_titles = [t for t in directory.job_titles if any(
+            term in name.casefold() for name in [t.title_it, t.title_en, *t.aliases])]
+    return directory
 
 
 @app.get("/reference/business-functions", response_model=FunctionDirectory)

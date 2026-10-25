@@ -1,6 +1,6 @@
 # GTM Engine — Modulo 03: UVP & ICP Intelligence
 
-**Versione:** 0.6 — Funzioni B2B, proprietà e governance, decisione del proprietario 25 ottobre 2026  
+**Versione:** 0.7 — Buying committee per job title in tutti i reparti, correzione del proprietario 25 ottobre 2026  
 **Data:** 24 ottobre 2026  
 **Stato:** scoping funzionale consolidato; UX/form UVP da rifinire, PRD/TDD e validazione empirica da realizzare  
 **Dipendenze:** `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/01_DEMAND_INTELLIGENCE/SCOPE.md`, `docs/02_MARKET_INTELLIGENCE/SCOPE.md`.
@@ -31,7 +31,7 @@ Per prodotti disponibili il modulo comprende **00 — UVP** con formulario e cha
 5. **RESEARCH:** ricerca le evidenze pertinenti, prioritariamente riutilizzando i Moduli 01–02. Utilizza **al massimo un ciclo di approfondimento aggiuntivo** per lacune davvero decisive; nessuna ricerca illimitata.
 6. **VALIDATE:** distingue obbligatoriamente **Problem Evidence**, **Solution/Purchase Evidence** e **Commercial/UVP Fit**. Esiti: `ADVANCE`, `INVESTIGATE`, `REJECT`, tutti motivati.
 7. **CLASSIFY:** in B2B determina settori, geografia, dimensioni e caratteristiche aziendali; in B2C definisce contesto individuale o household pertinente. Per B2B italiano mostra **massimo 3 ATECO esemplificativi**, verificati; ATECO non equivale a bisogno.
-8. **MAP BUYERS:** identifica **funzioni operative B2B associate ai reparti** oppure **ruoli individuali/familiari B2C**; ruoli decisionali come attributi separati, job title B2B facoltativo. Nessun nominativo; evidenze distinte da ipotesi.
+8. **MAP BUYERS:** identifica job title B2B concreti per tutti i reparti pertinenti oppure ruoli individuali/familiari B2C; reparto/funzione di supporto e ruolo nell’acquisto separati. Non limitarsi al board o ai dirigenti; nessun nominativo, evidenze distinte da ipotesi.
 9. **SYNTHESIZE:** seleziona l'ICP raccomandato con giudizio strategico motivato; il pulsante `+` genera profili distinti **riutilizzando la ricerca già effettuata**.
 10. Nessun sistema di scoring numerico 0–100 in questo modulo. Le decisioni devono essere argomentate, con evidenze e limiti.
 11. Ogni affermazione sostanziale del profilo è riconducibile a fonte, data, contesto e stato epistemico (`Observed`, `Inferred`, `Unverified`).
@@ -68,7 +68,7 @@ Un solo **UVP & ICP Intelligence Agent** orchestra analisi, ricerca ed estrazion
 | **02 — RESEARCH** | Verifica bisogni, contesto d'acquisto e caratteristiche organizzative tramite evidenze pertinenti | Evidence Matrix | Fonti originali e pertinenti; un solo approfondimento mirato |
 | **03 — VALIDATE** | Controlla le evidenze, il fit con la UVP **quando presente** o la coerenza con il bisogno in sviluppo, le alternative e le controprove; decide | ADVANCE / INVESTIGATE / REJECT | Problem ≠ purchase; decisione motivata e verificabile |
 | **04 — CLASSIFY** | Traduce il segmento in attributi **firmografici B2B o individuali/household B2C**; ATECO solo se pertinente al B2B Italia | Segment Profile | Non attribuire numeri/soglie senza base documentata |
-| **05 — MAP BUYERS** | Individua **funzioni operative B2B** associate ai reparti oppure **ruoli relazionali B2C** e relativi processi decisionali | Buyer / Household Map | Attributi decisionali ≠ ruoli; niente organigrammi o stereotipi inventati |
+| **05 — MAP BUYERS** | Individua job title B2B, inclusi referenti, coordinatori e valutatori; oppure ruoli relazionali B2C | Buying Committee / Household Map | Titolo distinto da autorità; contesto ed evidenze; nessun organigramma inventato |
 | **06 — SYNTHESIZE** | Confronta i candidati, formula raccomandazione, controlla qualità e consegna | Primo ICP + max 2 su `+` | Unicità sostanziale; niente informazioni inventate |
 
 ### 4.1 Step 00 — UVP: formulario e chat
@@ -160,22 +160,17 @@ Per ogni segmento `ADVANCE`, definire:
 
 Non inventare precisione: se il range di fatturato o addetti non è giustificabile, indicare **non determinato**, esplicitando il motivo.
 
-### 4.6 Step 05 — MAP BUYERS: funzioni operative B2B o relazioni B2C
+### 4.6 Step 05 — MAP BUYERS: buying committee per job title B2B
 
-Per ogni segmento qualificato, costruire una **Buyer Map** adattata al tipo di mercato. **Nel B2B l’output principale è una selezione di funzioni operative della directory interna, associate ai reparti pertinenti, con organi di governo e ruoli di vertice quando rilevanti**; nel B2C sono ruoli individuali/relazionali, eventualmente nel nucleo familiare:
+Per ogni offerta e occasione di acquisto, costruire un buying committee di **job title concreti**, dai reparti pertinenti. Non restituire attività (es. formazione), reparti (HR) o soli ruoli decisionali (influencer) al posto dei titoli (Training Manager, Training Coordinator, HR Specialist).
 
-| Output principale | Esempi | Attributi secondari |
-|---|---|---|
-| **B2B — Funzione operativa e reparto** | Formazione e sviluppo (HR), progettazione eventi (Marketing), logistica eventi (servizi generali), qualificazione fornitori (Acquisti) | Chi avvia, influenza, utilizza, finanzia o approva la decisione; bisogni, criteri e obiezioni |
-| **B2C — Ruolo nella scelta** | Individuo, partner, madre/padre, figlio, nonno/nonna, tutore | Partecipazione alla scelta, impatto, pagamento, influenze; configurazione della famiglia se pertinente |
+Directory canonica: [job title per reparto](BUYER_JOB_TITLE_DIRECTORY.md), versione buyer-job-titles-v1, 251 titoli/posizioni con denominazioni italiane/inglesi, varianti e reparti condivisi. Include board/proprietà/C-level, direttori, head, manager, team lead, supervisori, coordinatori, specialisti, buyer, referenti e assistenti. È estensibile: denominazioni settoriali o specifiche possono essere aggiunte motivandole; nessuna esaustività universale presunta.
 
-**Configurazioni B2C da investigare quando rilevanti:** individuo, coppia, nucleo familiare, monoparentale, allargata/multigenerazionale; forme gerarchiche o patriarcali soltanto quando osservate, mai assunte come regola.
+Ogni membro B2B conserva `job_title_id` oppure `custom_job_title` concreto, `department_id`, `buying_roles`, motivazione, bisogni, criteri, obiezioni, fonti e stato Observed/Inferred/Unverified. Observed richiede fonti. Ruoli possibili: iniziatore, promotore, influenzatore, valutatore, decisore, approvatore budget, acquisti, utilizzatore e filtro d’accesso. Nessun ruolo o autorità viene assegnato automaticamente dal titolo o livello. La directory non prova presenza o potere nella singola azienda.
 
-Per B2B: `directory_version / department_id / function_id / job_title (optional) / buying_roles / needs / criteria / barriers / evidence / status`. Per B2C: `relationship_role / household_configuration / participation_in_choice / needs / barriers / evidence / status`. La funzione decisionale (*initiator, influencer, budget owner...*) è un **attributo separato** e non sostituisce la funzione operativa o il ruolo familiare.
+L’eventuale strategia di approccio conserva punto d’ingresso e sequenza di coinvolgimento, obiettivo, motivazione e prove da presentare; ogni passaggio fa riferimento ai membri effettivamente proposti. Nessun contatto nominativo o invio automatico. In sviluppo restano vietati claim e messaging promozionali. Non inserire l’intera directory nel comitato: selezionare in base al bisogno e alle evidenze.
 
-Non tutti i ruoli sono necessariamente distinti. Nelle imprese piccole possono coincidere; in quelle maggiori è possibile un processo più articolato. **La responsabilità del problema non dimostra il controllo del budget.** Non inventare organigrammi, nominativi o passaggi di autorizzazione: indicare `Hypothesized` dove l'evidenza non è sufficiente.
-
-Le fonti sono le evidenze pertinenti già raccolte, più eventuali fonti specifiche sul buying process del settore. Non utilizzare Sales Navigator né elenchi di contatti.
+Per B2C mantenere ruoli individuali/relazionali e configurazione household quando pertinenti; nessuna estensione dei job title aziendali alle famiglie e nessuno stereotipo. La responsabilità del problema non dimostra il controllo del budget. Organi collegiali distinti dalle persone, cariche cumulabili; Owner, Founder, CEO e AD non sono sinonimi automatici.
 
 ### 4.7 Step 06 — SYNTHESIZE: raccomandazione e profili ICP
 
@@ -219,8 +214,8 @@ Ogni scheda contiene:
 | Needs & Pain Points | Problemi e priorità, collegati alle evidenze |
 | Desired Outcomes | Risultati ricercati e relazione con la Working UVP, **solo se disponibile** |
 | Buying Triggers | Situazioni favorevoli osservate o ipotizzate |
-| Key Roles | B2B: **funzioni operative associate ai reparti**, job title facoltativo; B2C: **ruoli individuali/familiari** |
-| Decision Makers | B2B: funzioni con autorità documentata o ipotizzata esplicitamente, non dedotta dal reparto; B2C: relazioni decisionali e pagatore se pertinente, mai presunti da età/genere |
+| Key Roles | B2B: **job title concreti di tutti i reparti pertinenti**, non funzioni; B2C: ruoli individuali/familiari |
+| Decision Makers | B2B: job title con ruolo decisionale documentato o ipotizzato esplicitamente; B2C: relazioni decisionali e pagatore quando pertinente |
 | Purchase Criteria & Barriers | Fattori di scelta e ostacoli |
 | ATECO examples | **Fino a 3 esempi** con descrizione ufficiale e razionale, **solo per profili di aziende italiane**; non applicabile ai nuclei B2C |
 | Strategic Rationale | Perché questo ICP è raccomandato, trade-off e limiti |
@@ -283,7 +278,7 @@ Il flag nel Project Brief **«Il prodotto o servizio è ancora in fase di svilup
 
 ### Buyer mapping effettivo
 
-- **B2B:** l'unità mostrata è una **funzione operativa** associata al reparto, dalla directory interna; il job title è facoltativo. Iniziatore, valutatore, decisore, approvatore del budget, acquirente e utilizzatore sono attributi separati; non dedurli dall'appartenenza al reparto.
+- **B2B:** unità mostrata = **job title concreto**. Includere livelli manageriali e interlocutori con possibile influenza, coordinamento o valutazione anche senza potere di firma. Reparto, funzione e ruolo nell’acquisto restano attributi separati.
 - **B2C:** considerare consumatore individuale o **household decision unit**. Se l'acquisto è familiare, investigare coppia, famiglia nucleare, monoparentale, allargata/multigenerazionale, contesti patriarcali **solo se supportati dal caso e dalle evidenze**, e ruoli di partner, genitori, figli, nonni/tutori. Non presupporre chi paga o decide in base al genere o alla struttura del nucleo.
 - Per B2C `Company Size`, fatturato e ATECO **non sono campi obbligatori** né si applicano a persone/famiglie. Il massimo di tre ATECO vale soltanto per gli **ICP aziendali italiani**, come esempi non esaustivi.
 
@@ -303,13 +298,6 @@ L'agente accede a playbook e framework di ricerca sui buyer, segmentazione, vali
 Non usare RAG vettoriale nella prima versione; il caricamento è orchestrato da Python. Fonti e playbook hanno provenienza, versione e stato di approvazione. Vedere `docs/00_PROJECT/KNOWLEDGE_BASE.md`.
 
 
-## Directory delle funzioni B2B — aggiornamento del proprietario
+## Stato implementazione della directory buyer
 
-Riferimento: [directory delle funzioni](BUSINESS_FUNCTION_DIRECTORY.md), 12 reparti e 60 funzioni operative, versione corrente business-functions-v1.1, con v1 conservata per i riferimenti storici. Definizioni interne, non catalogo di professioni o organigramma universale. La stessa funzione può essere condivisa, accorpata o esternalizzata. Nessuna assegnazione automatica a un cliente o autorità di acquisto implicita; selezione motivata e stato epistemico obbligatori. ESCO non è necessario per il buyer mapping B2B. I ruoli B2C e le competenze operative del team GTM non sono modificati. Implementati soltanto directory, API di riferimento e contratto Python; Modulo 03 end-to-end non implementato.
-
-
-### Proprietà, board e direzione
-
-La directory v1.1 include quattro organi/strutture collegiali e 25 ruoli/posizioni di proprietà, fondazione, governance e direzione. CdA, assemblea dei soci, comitato esecutivo e advisory board sono distinti dalle persone. Owner, socio, Founder, Presidente, AD, CEO, direttore generale e altre cariche non sono sinonimi automatici. Una persona può cumulare più ruoli; nessun organo o ruolo è obbligatorio in ogni impresa.
-
-BuyerFunctionReference può indicare `governance_role_ids` e `governance_body_ids`, anche senza funzione operativa se non verificata. `department_id` e `function_id` vanno forniti entrambi se si associa una funzione. Le associazioni del catalogo indicano ambiti pertinenti da investigare, non incarichi reali o deleghe. Ruoli di acquisto, budget e firma richiedono valutazione distinta ed evidenze; nessuna autorità dedotta da una carica. L’API conserva accesso a entrambe le versioni; nessuna modifica retroattiva dei riferimenti storici.
+Implementati catalogo job title, API di riferimento ricercabile/filtrabile e contratti CommitteeMember/BuyingCommittee/ApproachStep. La precedente directory delle funzioni è soltanto supporto organizzativo storico: non è output alternativo al buying committee. ESCO non necessario. Orchestrazione AI, raccolta di evidenze sul comitato reale, persistenza approvazioni e UI del Modulo 03 restano da implementare; non dichiarare il workflow end-to-end completato.

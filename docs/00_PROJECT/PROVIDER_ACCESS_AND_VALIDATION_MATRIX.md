@@ -13,7 +13,7 @@ Meta Gate 1C: preflight Python locale non configurato; successiva prova distinta
 
 Gate 1C lasciato in attesa su richiesta del proprietario. Gate 1D: chiave Openapi assente e nessun cap specifico autorizzato, zero chiamate. Gate 1E PARTIAL: ISTAT HTTP 200 con 3.257 codici ATECO importati e tre lookup; Eurostat HTTP 200 con una cella Torino NUTS 3/2023 e unità; OpenAlex HTTP 200 con tre record bibliografici. ESCO HTTP 307 alla pagina di indisponibilità, nessun dato importato. Raw/hash/query privati, dettagli e costo tecnico OpenAlex nell’audit. Non è validazione di domanda, buyer o studi.
 
-Decisione successiva del proprietario: directory interna delle funzioni operative B2B, non catalogo di professioni. ESCO non è prerequisito del buyer mapping; runner Gate 1E v2 lo interroga solo con `--include-esco`. Il precedente esito PARTIAL resta storico e non viene riscritto.
+Decisione vigente del proprietario: buying committee B2B per job title concreti in tutti i reparti, directory interna buyer-job-titles-v1. Le precedenti funzioni operative sono solo supporto e non sostituiscono i titoli. ESCO non è prerequisito del buyer mapping; runner Gate 1E v2 lo interroga solo con `--include-esco`. Il precedente esito PARTIAL resta storico e non viene riscritto.
 
 ## Livelli da non confondere
 - **T / TESTED_DATA:** richiesta autenticata con dati nell'ambiente specificato. La tabella storica si riferisce al precedente ambiente; il registro corrente indica le prove del repository. Ogni T richiede ambiente, data e fixture.
@@ -59,7 +59,7 @@ Le sigle della tabella sono riepiloghi di progettazione/storici. Le forme `U/D`,
 | Dipendenti con anno | Openapi Company | altre banche dati commerciali verificabili | G | Openapi key | addetti/anno, null se mancano |
 | ATECO 2025 official descriptions | ISTAT classificazione scaricabile | riferimento statico versionato | T_LIMITED: tavola importata, raccordi non testati | nessuno | download e lookup tre codici con descrizione |
 | Studi e dati per ICP/B2B/B2C | OpenAlex, ISTAT/Eurostat SDMX; ESCO opzionale | documenti primari pubblici; KB | T_LIMITED Eurostat/OpenAlex; ESCO unavailable nel campione | fonti proprietarie se esistono | 1 query/download per fonte, pubblicazione e pertinenza |
-| Funzioni buyer B2B / ruoli B2C | Directory interna business-functions-v1.1, incluse proprietà/governance/vertice, + evidenze ICP; ESCO non necessario | feedback utente per assegnazioni specifiche | Directory implementata, assegnazioni da validare | validare ICP | funzione operativa distinta da reparto e ruolo decisionale; nessun contatto |
+| Job title buying committee B2B / ruoli B2C | Directory interna buyer-job-titles-v1 + evidenze ICP; funzioni di supporto, ESCO non necessario | Feedback utente e fonti per ogni assegnazione | Catalogo implementato, comitato reale da verificare | Validare ICP e processo di acquisto | 251 titoli per 12 reparti; titolo distinto da potere decisionale |
 | UVP reale / proof / claims | brief utente e fonti possedute | sito e casi pubblici, verifica | U/D | approvare materiali reali | no claim in development |
 | Relevance canali + segnali | dati 01–04, SERP, news/RSS aziende, KB | DataForSEO news LIVE se necessario | D/T ereditato | nulla salvo obiettivi e budget | canale/segno/tattica distinti; fonti e fattibilità |
 | Paid budget | input utente solo media/inserzioni | nessuna inferenza | U | euro mensili paid | non confondere tool/freelance con media budget |

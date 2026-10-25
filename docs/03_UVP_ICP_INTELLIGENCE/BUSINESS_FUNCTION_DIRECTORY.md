@@ -1,4 +1,6 @@
-# Directory delle funzioni aziendali — v1.1
+# Funzioni operative e governance — supporto organizzativo storico
+
+**Superata come directory buyer:** usare la [directory dei job title](BUYER_JOB_TITLE_DIRECTORY.md). Questo documento conserva le funzioni/attività di supporto e non deve sostituire i titoli del buying committee.
 
 Directory interna del GTM Engine, creata su richiesta del proprietario. **Reparto = area organizzativa; funzione = responsabilità/attività svolta; ruolo d’acquisto = partecipazione a una specifica decisione.** Nessuno dei tre identifica automaticamente una professione o una persona.
 

@@ -1,0 +1,2626 @@
+{
+  "version": "buyer-job-titles-v1",
+  "kind": "internal_reference",
+  "departments": [
+    {
+      "department_id": "leadership",
+      "label": "Direzione e proprietà"
+    },
+    {
+      "department_id": "people",
+      "label": "Risorse umane e formazione"
+    },
+    {
+      "department_id": "marketing",
+      "label": "Marketing e comunicazione"
+    },
+    {
+      "department_id": "sales",
+      "label": "Commerciale e sviluppo business"
+    },
+    {
+      "department_id": "finance",
+      "label": "Amministrazione, finanza e controllo"
+    },
+    {
+      "department_id": "procurement",
+      "label": "Acquisti"
+    },
+    {
+      "department_id": "operations",
+      "label": "Operations, produzione ed erogazione servizi"
+    },
+    {
+      "department_id": "it",
+      "label": "IT e sistemi informativi"
+    },
+    {
+      "department_id": "technical",
+      "label": "Area tecnica, prodotto e ricerca"
+    },
+    {
+      "department_id": "legal",
+      "label": "Legale e compliance"
+    },
+    {
+      "department_id": "quality_safety",
+      "label": "Qualità, sicurezza e ambiente"
+    },
+    {
+      "department_id": "general_services",
+      "label": "Segreteria, servizi generali e organizzazione interna"
+    }
+  ],
+  "job_titles": [
+    {
+      "job_title_id": "country_manager",
+      "title_en": "Country Manager",
+      "title_it": "Responsabile Paese",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "regional_director",
+      "title_en": "Regional Director",
+      "title_it": "Direttore regionale",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "business_unit_director",
+      "title_en": "Business Unit Director",
+      "title_it": "Direttore di business unit",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "managing_partner",
+      "title_en": "Managing Partner",
+      "title_it": "Socio amministratore",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "chief_strategy_officer",
+      "title_en": "Chief Strategy Officer",
+      "title_it": "Direttore strategia",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "transformation_director",
+      "title_en": "Transformation Director",
+      "title_it": "Direttore trasformazione",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "program_director",
+      "title_en": "Program Director",
+      "title_it": "Direttore di programma",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "hr_director",
+      "title_en": "HR Director",
+      "title_it": "Direttore risorse umane",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_people",
+      "title_en": "Head of People",
+      "title_it": "Responsabile area persone",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "hr_manager",
+      "title_en": "HR Manager",
+      "title_it": "Responsabile risorse umane",
+      "aliases": [
+        "Human Resources Manager",
+        "Responsabile del personale"
+      ],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "hr_business_partner",
+      "title_en": "HR Business Partner",
+      "title_it": "Partner HR del business",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "hr_coordinator",
+      "title_en": "HR Coordinator",
+      "title_it": "Coordinatore risorse umane",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "hr_specialist",
+      "title_en": "HR Specialist",
+      "title_it": "Specialista risorse umane",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "talent_acquisition_manager",
+      "title_en": "Talent Acquisition Manager",
+      "title_it": "Responsabile selezione",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "recruiting_team_lead",
+      "title_en": "Recruiting Team Lead",
+      "title_it": "Responsabile team recruiting",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "recruiter",
+      "title_en": "Recruiter",
+      "title_it": "Addetto ricerca e selezione",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "learning_development_manager",
+      "title_en": "Learning and Development Manager",
+      "title_it": "Responsabile formazione e sviluppo",
+      "aliases": [
+        "L&D Manager",
+        "Responsabile sviluppo e formazione"
+      ],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "training_manager",
+      "title_en": "Training Manager",
+      "title_it": "Responsabile formazione",
+      "aliases": [],
+      "department_ids": [
+        "people",
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "training_coordinator",
+      "title_en": "Training Coordinator",
+      "title_it": "Coordinatore formazione",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "training_specialist",
+      "title_en": "Training Specialist",
+      "title_it": "Specialista formazione",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "talent_manager",
+      "title_en": "Talent Manager",
+      "title_it": "Responsabile sviluppo talenti",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "organizational_development_manager",
+      "title_en": "Organizational Development Manager",
+      "title_it": "Responsabile sviluppo organizzativo",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "employee_experience_manager",
+      "title_en": "Employee Experience Manager",
+      "title_it": "Responsabile esperienza dipendenti",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "employee_engagement_specialist",
+      "title_en": "Employee Engagement Specialist",
+      "title_it": "Specialista coinvolgimento dipendenti",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "welfare_manager",
+      "title_en": "Corporate Welfare Manager",
+      "title_it": "Responsabile welfare aziendale",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "compensation_benefits_manager",
+      "title_en": "Compensation and Benefits Manager",
+      "title_it": "Responsabile retribuzioni e benefit",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "hr_operations_manager",
+      "title_en": "HR Operations Manager",
+      "title_it": "Responsabile processi HR",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "payroll_manager",
+      "title_en": "Payroll Manager",
+      "title_it": "Responsabile paghe",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "industrial_relations_manager",
+      "title_en": "Industrial Relations Manager",
+      "title_it": "Responsabile relazioni industriali",
+      "aliases": [],
+      "department_ids": [
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "marketing_director",
+      "title_en": "Marketing Director",
+      "title_it": "Direttore marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_marketing",
+      "title_en": "Head of Marketing",
+      "title_it": "Responsabile area marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "marketing_manager",
+      "title_en": "Marketing Manager",
+      "title_it": "Responsabile marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "marketing_coordinator",
+      "title_en": "Marketing Coordinator",
+      "title_it": "Coordinatore marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "marketing_specialist",
+      "title_en": "Marketing Specialist",
+      "title_it": "Specialista marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "brand_manager",
+      "title_en": "Brand Manager",
+      "title_it": "Responsabile di marca",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "communications_director",
+      "title_en": "Communications Director",
+      "title_it": "Direttore comunicazione",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "communications_manager",
+      "title_en": "Communications Manager",
+      "title_it": "Responsabile comunicazione",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "internal_communications_manager",
+      "title_en": "Internal Communications Manager",
+      "title_it": "Responsabile comunicazione interna",
+      "aliases": [],
+      "department_ids": [
+        "marketing",
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "internal_communications_specialist",
+      "title_en": "Internal Communications Specialist",
+      "title_it": "Specialista comunicazione interna",
+      "aliases": [],
+      "department_ids": [
+        "marketing",
+        "people"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "event_manager",
+      "title_en": "Event Manager",
+      "title_it": "Responsabile eventi",
+      "aliases": [],
+      "department_ids": [
+        "marketing",
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "event_coordinator",
+      "title_en": "Event Coordinator",
+      "title_it": "Coordinatore eventi",
+      "aliases": [],
+      "department_ids": [
+        "marketing",
+        "general_services"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "event_specialist",
+      "title_en": "Event Specialist",
+      "title_it": "Specialista eventi",
+      "aliases": [],
+      "department_ids": [
+        "marketing",
+        "general_services"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "trade_marketing_manager",
+      "title_en": "Trade Marketing Manager",
+      "title_it": "Responsabile trade marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "digital_marketing_manager",
+      "title_en": "Digital Marketing Manager",
+      "title_it": "Responsabile marketing digitale",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "growth_manager",
+      "title_en": "Growth Manager",
+      "title_it": "Responsabile crescita",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "demand_generation_manager",
+      "title_en": "Demand Generation Manager",
+      "title_it": "Responsabile generazione domanda",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "content_manager",
+      "title_en": "Content Manager",
+      "title_it": "Responsabile contenuti",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "social_media_manager",
+      "title_en": "Social Media Manager",
+      "title_it": "Responsabile social media",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "pr_manager",
+      "title_en": "Public Relations Manager",
+      "title_it": "Responsabile pubbliche relazioni",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "market_research_manager",
+      "title_en": "Market Research Manager",
+      "title_it": "Responsabile ricerche di mercato",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "marketing_analyst",
+      "title_en": "Marketing Analyst",
+      "title_it": "Analista marketing",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "product_marketing_manager",
+      "title_en": "Product Marketing Manager",
+      "title_it": "Responsabile marketing di prodotto",
+      "aliases": [],
+      "department_ids": [
+        "marketing"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "sales_director",
+      "title_en": "Sales Director",
+      "title_it": "Direttore vendite",
+      "aliases": [
+        "Direttore commerciale",
+        "Chief Sales Officer"
+      ],
+      "department_ids": [
+        "sales",
+        "leadership"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_sales",
+      "title_en": "Head of Sales",
+      "title_it": "Responsabile area vendite",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "sales_manager",
+      "title_en": "Sales Manager",
+      "title_it": "Responsabile vendite",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "area_sales_manager",
+      "title_en": "Area Sales Manager",
+      "title_it": "Responsabile vendite di area",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "regional_sales_manager",
+      "title_en": "Regional Sales Manager",
+      "title_it": "Responsabile vendite regionale",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "sales_team_lead",
+      "title_en": "Sales Team Lead",
+      "title_it": "Responsabile team vendite",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "sales_supervisor",
+      "title_en": "Sales Supervisor",
+      "title_it": "Supervisore vendite",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "supervisor"
+    },
+    {
+      "job_title_id": "business_development_director",
+      "title_en": "Business Development Director",
+      "title_it": "Direttore sviluppo commerciale",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "business_development_manager",
+      "title_en": "Business Development Manager",
+      "title_it": "Responsabile sviluppo commerciale",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "key_account_manager",
+      "title_en": "Key Account Manager",
+      "title_it": "Responsabile clienti strategici",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "account_manager",
+      "title_en": "Account Manager",
+      "title_it": "Responsabile clienti",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "account_executive",
+      "title_en": "Account Executive",
+      "title_it": "Referente commerciale",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "sales_operations_manager",
+      "title_en": "Sales Operations Manager",
+      "title_it": "Responsabile processi commerciali",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "sales_enablement_manager",
+      "title_en": "Sales Enablement Manager",
+      "title_it": "Responsabile sviluppo capacità commerciali",
+      "aliases": [],
+      "department_ids": [
+        "sales",
+        "people"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "channel_manager",
+      "title_en": "Channel Manager",
+      "title_it": "Responsabile canale commerciale",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "partnership_manager",
+      "title_en": "Partnership Manager",
+      "title_it": "Responsabile partnership",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "customer_success_manager",
+      "title_en": "Customer Success Manager",
+      "title_it": "Responsabile successo clienti",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "customer_success_team_lead",
+      "title_en": "Customer Success Team Lead",
+      "title_it": "Responsabile team customer success",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "sales_analyst",
+      "title_en": "Sales Analyst",
+      "title_it": "Analista commerciale",
+      "aliases": [],
+      "department_ids": [
+        "sales"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "finance_director",
+      "title_en": "Finance Director",
+      "title_it": "Direttore finanza",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_finance",
+      "title_en": "Head of Finance",
+      "title_it": "Responsabile area finanza",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "finance_manager",
+      "title_en": "Finance Manager",
+      "title_it": "Responsabile finanziario",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "administration_director",
+      "title_en": "Administration Director",
+      "title_it": "Direttore amministrativo",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "administration_manager",
+      "title_en": "Administration Manager",
+      "title_it": "Responsabile amministrazione",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "accounting_manager",
+      "title_en": "Accounting Manager",
+      "title_it": "Responsabile contabilità",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "chief_accountant",
+      "title_en": "Chief Accountant",
+      "title_it": "Capo contabile",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "accounting_team_lead",
+      "title_en": "Accounting Team Lead",
+      "title_it": "Responsabile team contabilità",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "senior_accountant",
+      "title_en": "Senior Accountant",
+      "title_it": "Contabile senior",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "treasury_manager",
+      "title_en": "Treasury Manager",
+      "title_it": "Responsabile tesoreria",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "treasury_specialist",
+      "title_en": "Treasury Specialist",
+      "title_it": "Specialista tesoreria",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "financial_controller",
+      "title_en": "Financial Controller",
+      "title_it": "Responsabile controllo finanziario",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "business_controller",
+      "title_en": "Business Controller",
+      "title_it": "Controller di business",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "management_control_manager",
+      "title_en": "Management Control Manager",
+      "title_it": "Responsabile controllo di gestione",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "fp_and_a_manager",
+      "title_en": "Financial Planning and Analysis Manager",
+      "title_it": "Responsabile pianificazione e analisi finanziaria",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "financial_analyst",
+      "title_en": "Financial Analyst",
+      "title_it": "Analista finanziario",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "accounts_payable_manager",
+      "title_en": "Accounts Payable Manager",
+      "title_it": "Responsabile contabilità fornitori",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "accounts_payable_specialist",
+      "title_en": "Accounts Payable Specialist",
+      "title_it": "Specialista contabilità fornitori",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "credit_manager",
+      "title_en": "Credit Manager",
+      "title_it": "Responsabile credito",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "tax_manager",
+      "title_en": "Tax Manager",
+      "title_it": "Responsabile fiscale",
+      "aliases": [],
+      "department_ids": [
+        "finance"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "chief_procurement_officer",
+      "title_en": "Chief Procurement Officer",
+      "title_it": "Direttore acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "procurement_director",
+      "title_en": "Procurement Director",
+      "title_it": "Direttore approvvigionamenti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_procurement",
+      "title_en": "Head of Procurement",
+      "title_it": "Responsabile area acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "procurement_manager",
+      "title_en": "Procurement Manager",
+      "title_it": "Responsabile acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "purchasing_manager",
+      "title_en": "Purchasing Manager",
+      "title_it": "Responsabile acquisti operativi",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "procurement_team_lead",
+      "title_en": "Procurement Team Lead",
+      "title_it": "Responsabile team acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "procurement_coordinator",
+      "title_en": "Procurement Coordinator",
+      "title_it": "Coordinatore acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "category_manager",
+      "title_en": "Category Manager",
+      "title_it": "Responsabile categoria acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "strategic_sourcing_manager",
+      "title_en": "Strategic Sourcing Manager",
+      "title_it": "Responsabile sourcing strategico",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "indirect_procurement_manager",
+      "title_en": "Indirect Procurement Manager",
+      "title_it": "Responsabile acquisti indiretti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "services_procurement_manager",
+      "title_en": "Services Procurement Manager",
+      "title_it": "Responsabile acquisti servizi",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "senior_buyer",
+      "title_en": "Senior Buyer",
+      "title_it": "Buyer senior",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "buyer",
+      "title_en": "Buyer",
+      "title_it": "Addetto acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "procurement_specialist",
+      "title_en": "Procurement Specialist",
+      "title_it": "Specialista acquisti",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "vendor_manager",
+      "title_en": "Vendor Manager",
+      "title_it": "Responsabile fornitori",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "supplier_quality_manager",
+      "title_en": "Supplier Quality Manager",
+      "title_it": "Responsabile qualità fornitori",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "purchasing_contract_manager",
+      "title_en": "Purchasing Contract Manager",
+      "title_it": "Responsabile contratti di acquisto",
+      "aliases": [],
+      "department_ids": [
+        "procurement"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "operations_director",
+      "title_en": "Operations Director",
+      "title_it": "Direttore operativo",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_operations",
+      "title_en": "Head of Operations",
+      "title_it": "Responsabile area operations",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "operations_manager",
+      "title_en": "Operations Manager",
+      "title_it": "Responsabile operativo",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "plant_manager",
+      "title_en": "Plant Manager",
+      "title_it": "Direttore di stabilimento",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "site_manager",
+      "title_en": "Site Manager",
+      "title_it": "Responsabile di sito",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "production_manager",
+      "title_en": "Production Manager",
+      "title_it": "Responsabile produzione",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "production_supervisor",
+      "title_en": "Production Supervisor",
+      "title_it": "Supervisore produzione",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "supervisor"
+    },
+    {
+      "job_title_id": "shift_manager",
+      "title_en": "Shift Manager",
+      "title_it": "Responsabile di turno",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "supervisor"
+    },
+    {
+      "job_title_id": "production_team_lead",
+      "title_en": "Production Team Lead",
+      "title_it": "Capo squadra produzione",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "department_supervisor",
+      "title_en": "Department Supervisor",
+      "title_it": "Capo reparto operativo",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "supervisor"
+    },
+    {
+      "job_title_id": "service_delivery_manager",
+      "title_en": "Service Delivery Manager",
+      "title_it": "Responsabile erogazione servizi",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "service_team_lead",
+      "title_en": "Service Team Lead",
+      "title_it": "Responsabile team erogazione",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "project_manager",
+      "title_en": "Project Manager",
+      "title_it": "Responsabile di progetto",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "program_manager",
+      "title_en": "Program Manager",
+      "title_it": "Responsabile di programma",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "process_owner",
+      "title_en": "Process Owner",
+      "title_it": "Responsabile di processo",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "continuous_improvement_manager",
+      "title_en": "Continuous Improvement Manager",
+      "title_it": "Responsabile miglioramento continuo",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "supply_chain_manager",
+      "title_en": "Supply Chain Manager",
+      "title_it": "Responsabile catena di fornitura",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "logistics_manager",
+      "title_en": "Logistics Manager",
+      "title_it": "Responsabile logistica",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "warehouse_manager",
+      "title_en": "Warehouse Manager",
+      "title_it": "Responsabile magazzino",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "warehouse_supervisor",
+      "title_en": "Warehouse Supervisor",
+      "title_it": "Capo magazzino",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "supervisor"
+    },
+    {
+      "job_title_id": "customer_service_manager",
+      "title_en": "Customer Service Manager",
+      "title_it": "Responsabile servizio clienti",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "customer_support_team_lead",
+      "title_en": "Customer Support Team Lead",
+      "title_it": "Responsabile team assistenza clienti",
+      "aliases": [],
+      "department_ids": [
+        "operations"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "it_director",
+      "title_en": "IT Director",
+      "title_it": "Direttore IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_it",
+      "title_en": "Head of IT",
+      "title_it": "Responsabile area IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "it_manager",
+      "title_en": "IT Manager",
+      "title_it": "Responsabile IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "it_team_lead",
+      "title_en": "IT Team Lead",
+      "title_it": "Responsabile team IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "it_project_manager",
+      "title_en": "IT Project Manager",
+      "title_it": "Responsabile progetto informatico",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "it_service_manager",
+      "title_en": "IT Service Manager",
+      "title_it": "Responsabile servizi IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "infrastructure_manager",
+      "title_en": "IT Infrastructure Manager",
+      "title_it": "Responsabile infrastruttura IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "application_manager",
+      "title_en": "Application Manager",
+      "title_it": "Responsabile applicazioni",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "erp_manager",
+      "title_en": "ERP Manager",
+      "title_it": "Responsabile ERP",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "crm_manager",
+      "title_en": "CRM Manager",
+      "title_it": "Responsabile CRM",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "business_systems_analyst",
+      "title_en": "Business Systems Analyst",
+      "title_it": "Analista sistemi aziendali",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "solution_architect",
+      "title_en": "Solution Architect",
+      "title_it": "Architetto delle soluzioni",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "enterprise_architect",
+      "title_en": "Enterprise Architect",
+      "title_it": "Architetto dei sistemi aziendali",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "it_technical_lead",
+      "title_en": "IT Technical Lead",
+      "title_it": "Referente tecnico IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "system_administrator",
+      "title_en": "System Administrator",
+      "title_it": "Amministratore di sistema",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "it_key_user",
+      "title_en": "IT Key User",
+      "title_it": "Utente referente applicativo",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "data_manager",
+      "title_en": "Data Manager",
+      "title_it": "Responsabile dati",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "business_intelligence_manager",
+      "title_en": "Business Intelligence Manager",
+      "title_it": "Responsabile business intelligence",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "data_analyst",
+      "title_en": "Data Analyst",
+      "title_it": "Analista dati",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "chief_information_security_officer",
+      "title_en": "Chief Information Security Officer",
+      "title_it": "Direttore sicurezza informatica",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "information_security_manager",
+      "title_en": "Information Security Manager",
+      "title_it": "Responsabile sicurezza delle informazioni",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "security_analyst",
+      "title_en": "Security Analyst",
+      "title_it": "Analista sicurezza informatica",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "it_support_manager",
+      "title_en": "IT Support Manager",
+      "title_it": "Responsabile supporto IT",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "service_desk_team_lead",
+      "title_en": "Service Desk Team Lead",
+      "title_it": "Responsabile team service desk",
+      "aliases": [],
+      "department_ids": [
+        "it"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "technical_director",
+      "title_en": "Technical Director",
+      "title_it": "Direttore tecnico",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_product",
+      "title_en": "Head of Product",
+      "title_it": "Responsabile area prodotto",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "product_director",
+      "title_en": "Product Director",
+      "title_it": "Direttore prodotto",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "product_manager",
+      "title_en": "Product Manager",
+      "title_it": "Responsabile prodotto",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "product_owner",
+      "title_en": "Product Owner",
+      "title_it": "Referente priorità di prodotto",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "engineering_director",
+      "title_en": "Engineering Director",
+      "title_it": "Direttore ingegneria",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "engineering_manager",
+      "title_en": "Engineering Manager",
+      "title_it": "Responsabile ingegneria",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "engineering_team_lead",
+      "title_en": "Engineering Team Lead",
+      "title_it": "Responsabile team tecnico",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "technical_lead",
+      "title_en": "Technical Lead",
+      "title_it": "Referente tecnico",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "senior_engineer",
+      "title_en": "Senior Engineer",
+      "title_it": "Ingegnere senior",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "research_development_director",
+      "title_en": "Research and Development Director",
+      "title_it": "Direttore ricerca e sviluppo",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "research_development_manager",
+      "title_en": "Research and Development Manager",
+      "title_it": "Responsabile ricerca e sviluppo",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "research_team_lead",
+      "title_en": "Research Team Lead",
+      "title_it": "Responsabile team ricerca",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "innovation_manager",
+      "title_en": "Innovation Manager",
+      "title_it": "Responsabile innovazione",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "design_director",
+      "title_en": "Design Director",
+      "title_it": "Direttore design",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "design_manager",
+      "title_en": "Design Manager",
+      "title_it": "Responsabile design",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "design_team_lead",
+      "title_en": "Design Team Lead",
+      "title_it": "Responsabile team design",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "senior_product_designer",
+      "title_en": "Senior Product Designer",
+      "title_it": "Designer di prodotto senior",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "testing_manager",
+      "title_en": "Testing Manager",
+      "title_it": "Responsabile prove e collaudi",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "test_engineer",
+      "title_en": "Test Engineer",
+      "title_it": "Tecnico prove e collaudi",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "technical_project_manager",
+      "title_en": "Technical Project Manager",
+      "title_it": "Responsabile progetto tecnico",
+      "aliases": [],
+      "department_ids": [
+        "technical"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "general_counsel",
+      "title_en": "General Counsel",
+      "title_it": "Direttore affari legali",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "legal_director",
+      "title_en": "Legal Director",
+      "title_it": "Direttore legale",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "head_of_legal",
+      "title_en": "Head of Legal",
+      "title_it": "Responsabile area legale",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "head"
+    },
+    {
+      "job_title_id": "legal_manager",
+      "title_en": "Legal Manager",
+      "title_it": "Responsabile legale",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "legal_counsel",
+      "title_en": "Legal Counsel",
+      "title_it": "Legale d’impresa",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "senior_legal_counsel",
+      "title_en": "Senior Legal Counsel",
+      "title_it": "Legale d’impresa senior",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "legal_operations_manager",
+      "title_en": "Legal Operations Manager",
+      "title_it": "Responsabile processi legali",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "legal_contract_manager",
+      "title_en": "Legal Contract Manager",
+      "title_it": "Responsabile gestione contratti",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "chief_compliance_officer",
+      "title_en": "Chief Compliance Officer",
+      "title_it": "Direttore compliance",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "compliance_manager",
+      "title_en": "Compliance Manager",
+      "title_it": "Responsabile compliance",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "compliance_officer",
+      "title_en": "Compliance Officer",
+      "title_it": "Referente compliance",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "data_protection_officer",
+      "title_en": "Data Protection Officer",
+      "title_it": "Responsabile protezione dati",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "privacy_manager",
+      "title_en": "Privacy Manager",
+      "title_it": "Responsabile gestione privacy",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "privacy_specialist",
+      "title_en": "Privacy Specialist",
+      "title_it": "Specialista privacy",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "intellectual_property_manager",
+      "title_en": "Intellectual Property Manager",
+      "title_it": "Responsabile proprietà intellettuale",
+      "aliases": [],
+      "department_ids": [
+        "legal"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "quality_director",
+      "title_en": "Quality Director",
+      "title_it": "Direttore qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "quality_manager",
+      "title_en": "Quality Manager",
+      "title_it": "Responsabile qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "quality_assurance_manager",
+      "title_en": "Quality Assurance Manager",
+      "title_it": "Responsabile assicurazione qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "quality_control_manager",
+      "title_en": "Quality Control Manager",
+      "title_it": "Responsabile controllo qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "quality_team_lead",
+      "title_en": "Quality Team Lead",
+      "title_it": "Responsabile team qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "quality_engineer",
+      "title_en": "Quality Engineer",
+      "title_it": "Tecnico qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "quality_specialist",
+      "title_en": "Quality Specialist",
+      "title_it": "Specialista qualità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "hse_director",
+      "title_en": "HSE Director",
+      "title_it": "Direttore salute sicurezza e ambiente",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "hse_manager",
+      "title_en": "HSE Manager",
+      "title_it": "Responsabile salute sicurezza e ambiente",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "hse_coordinator",
+      "title_en": "HSE Coordinator",
+      "title_it": "Coordinatore salute sicurezza e ambiente",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "hse_specialist",
+      "title_en": "HSE Specialist",
+      "title_it": "Specialista salute sicurezza e ambiente",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "health_safety_manager",
+      "title_en": "Health and Safety Manager",
+      "title_it": "Responsabile salute e sicurezza",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "rspp",
+      "title_en": "RSPP",
+      "title_it": "Responsabile servizio prevenzione e protezione",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "aspp",
+      "title_en": "ASPP",
+      "title_it": "Addetto servizio prevenzione e protezione",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "environmental_manager",
+      "title_en": "Environmental Manager",
+      "title_it": "Responsabile ambiente",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "sustainability_manager",
+      "title_en": "Sustainability Manager",
+      "title_it": "Responsabile sostenibilità",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "internal_audit_manager",
+      "title_en": "Internal Audit Manager",
+      "title_it": "Responsabile audit interno",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "risk_manager",
+      "title_en": "Risk Manager",
+      "title_it": "Responsabile gestione rischi",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "business_continuity_manager",
+      "title_en": "Business Continuity Manager",
+      "title_it": "Responsabile continuità operativa",
+      "aliases": [],
+      "department_ids": [
+        "quality_safety"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "general_services_director",
+      "title_en": "General Services Director",
+      "title_it": "Direttore servizi generali",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "director"
+    },
+    {
+      "job_title_id": "general_services_manager",
+      "title_en": "General Services Manager",
+      "title_it": "Responsabile servizi generali",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "office_manager",
+      "title_en": "Office Manager",
+      "title_it": "Responsabile organizzazione ufficio",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "office_coordinator",
+      "title_en": "Office Coordinator",
+      "title_it": "Coordinatore ufficio",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "executive_assistant",
+      "title_en": "Executive Assistant",
+      "title_it": "Assistente di direzione",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "personal_assistant",
+      "title_en": "Personal Assistant",
+      "title_it": "Assistente personale del dirigente",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "executive_assistant_team_lead",
+      "title_en": "Executive Assistant Team Lead",
+      "title_it": "Responsabile segreteria di direzione",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "team_lead"
+    },
+    {
+      "job_title_id": "administrative_coordinator",
+      "title_en": "Administrative Coordinator",
+      "title_it": "Coordinatore amministrativo di sede",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "administrative_assistant",
+      "title_en": "Administrative Assistant",
+      "title_it": "Assistente amministrativo",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "facility_manager",
+      "title_en": "Facility Manager",
+      "title_it": "Responsabile servizi e strutture",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "facility_coordinator",
+      "title_en": "Facility Coordinator",
+      "title_it": "Coordinatore servizi di sede",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "workplace_manager",
+      "title_en": "Workplace Manager",
+      "title_it": "Responsabile ambienti di lavoro",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "travel_manager",
+      "title_en": "Travel Manager",
+      "title_it": "Responsabile trasferte aziendali",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "travel_coordinator",
+      "title_en": "Travel Coordinator",
+      "title_it": "Coordinatore trasferte",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "meeting_planner",
+      "title_en": "Meeting Planner",
+      "title_it": "Organizzatore riunioni aziendali",
+      "aliases": [],
+      "department_ids": [
+        "general_services",
+        "marketing"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "corporate_event_planner",
+      "title_en": "Corporate Event Planner",
+      "title_it": "Organizzatore eventi aziendali",
+      "aliases": [],
+      "department_ids": [
+        "general_services",
+        "marketing"
+      ],
+      "level": "specialist"
+    },
+    {
+      "job_title_id": "reception_supervisor",
+      "title_en": "Reception Supervisor",
+      "title_it": "Responsabile accoglienza",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "supervisor"
+    },
+    {
+      "job_title_id": "document_control_manager",
+      "title_en": "Document Control Manager",
+      "title_it": "Responsabile gestione documentale",
+      "aliases": [],
+      "department_ids": [
+        "general_services"
+      ],
+      "level": "manager"
+    },
+    {
+      "job_title_id": "owner",
+      "title_en": "Owner",
+      "title_it": "Proprietario",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "ownership"
+    },
+    {
+      "job_title_id": "co_owner",
+      "title_en": "Co-owner",
+      "title_it": "Comproprietario",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "ownership"
+    },
+    {
+      "job_title_id": "shareholder",
+      "title_en": "Azionista",
+      "title_it": "Socio",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "ownership"
+    },
+    {
+      "job_title_id": "controlling_shareholder",
+      "title_en": "Socio di controllo",
+      "title_it": "Socio di controllo",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "ownership"
+    },
+    {
+      "job_title_id": "founder",
+      "title_en": "Founder",
+      "title_it": "Fondatore",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "ownership"
+    },
+    {
+      "job_title_id": "co_founder",
+      "title_en": "Co-founder",
+      "title_it": "Cofondatore",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "ownership"
+    },
+    {
+      "job_title_id": "chair",
+      "title_en": "Chair",
+      "title_it": "Presidente del CdA",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "vice_chair",
+      "title_en": "Vicepresidente del CdA",
+      "title_it": "Vicepresidente del CdA",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "board_member",
+      "title_en": "Board member",
+      "title_it": "Consigliere di amministrazione",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "executive_director",
+      "title_en": "Executive director",
+      "title_it": "Consigliere esecutivo",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "non_executive_director",
+      "title_en": "Consigliere non esecutivo",
+      "title_it": "Consigliere non esecutivo",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "independent_director",
+      "title_en": "Consigliere indipendente",
+      "title_it": "Consigliere indipendente",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "managing_director",
+      "title_en": "AD",
+      "title_it": "Amministratore delegato",
+      "aliases": [
+        "AD",
+        "Amministratore Delegato"
+      ],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "ceo",
+      "title_en": "CEO",
+      "title_it": "Chief Executive Officer",
+      "aliases": [
+        "Chief Executive Officer"
+      ],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "general_manager",
+      "title_en": "General Manager",
+      "title_it": "Direttore generale",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "sole_director",
+      "title_en": "Amministratore unico",
+      "title_it": "Amministratore unico",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "board"
+    },
+    {
+      "job_title_id": "coo",
+      "title_en": "COO",
+      "title_it": "Direttore operativo",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "operations"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "cfo",
+      "title_en": "CFO",
+      "title_it": "Direttore finanziario",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "finance"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "chro",
+      "title_en": "CHRO",
+      "title_it": "Direttore risorse umane",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "people"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "cmo",
+      "title_en": "CMO",
+      "title_it": "Direttore marketing",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "marketing"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "cto",
+      "title_en": "CTO",
+      "title_it": "Direttore tecnologico",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "technical"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "cio",
+      "title_en": "CIO",
+      "title_it": "Direttore sistemi informativi",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "it"
+      ],
+      "level": "executive"
+    },
+    {
+      "job_title_id": "chief_of_staff",
+      "title_en": "Coordinamento della direzione",
+      "title_it": "Chief of Staff",
+      "aliases": [],
+      "department_ids": [
+        "leadership"
+      ],
+      "level": "coordinator"
+    },
+    {
+      "job_title_id": "board_secretary",
+      "title_en": "Board Secretary",
+      "title_it": "Segretario del CdA",
+      "aliases": [],
+      "department_ids": [
+        "leadership",
+        "general_services"
+      ],
+      "level": "coordinator"
+    }
+  ],
+  "governance_bodies": [
+    {
+      "body_id": "board_of_directors",
+      "label": "Consiglio di amministrazione / Board of Directors",
+      "responsibility": "Organo collegiale di amministrazione quando presente nell’assetto dell’impresa."
+    },
+    {
+      "body_id": "shareholders_meeting",
+      "label": "Assemblea dei soci / Shareholders’ meeting",
+      "responsibility": "Sede collegiale delle decisioni dei soci nelle materie loro attribuite."
+    },
+    {
+      "body_id": "executive_committee",
+      "label": "Comitato esecutivo",
+      "responsibility": "Organo o comitato con funzioni delegate da verificare nell’assetto effettivo."
+    },
+    {
+      "body_id": "advisory_board",
+      "label": "Advisory Board / Comitato consultivo",
+      "responsibility": "Supporto consultivo; nessun potere amministrativo o deliberativo presunto."
+    }
+  ],
+  "limitations": [
+    "Catalogo interno ampio ed estensibile, non elenco universalmente esaustivo di tutte le denominazioni aziendali.",
+    "Ogni titolo è un candidato al buying committee: partecipazione, autorità, budget e firma richiedono contesto ed evidenze.",
+    "Include coordinatori, referenti tecnici e specialisti con possibile influenza o valutazione, non solo dirigenti.",
+    "Nessun organigramma obbligatorio, nessuna gerarchia di potere dedotta dal livello o dal titolo.",
+    "Organi collettivi separati dai job title; proprietà, fondazione e gestione non sono equivalenti."
+  ]
+}
