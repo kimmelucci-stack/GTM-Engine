@@ -2,7 +2,9 @@
 
 **Versione:** 0.3 — Scope funzionale + Knowledge Base condivisa  
 **Data:** 20 ottobre 2026  
-**Stato:** scoping funzionale definito; test DataForSEO, PRD/TDD e realizzazione non effettuati
+**Stato:** scope funzionale definito; prove DataForSEO nel precedente ambiente documentate nell'audit, nessuna riprodotta qui. Modulo non implementato end-to-end.
+
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
 
 ## 1. Scopo
 
@@ -59,7 +61,7 @@ Pulizia, deduplicazione e classificazione per bisogno, categoria prodotto, tema 
 **Output:** cluster e metriche, con assegnazioni e classificazioni verificabili.
 
 ### 05 — Investigate: approfondimento automatico
-L'agente cerca aree incomplete, interroga formulazioni simili ad AnswerThePublic (quando fornite da sorgenti reali), controlla trend, seleziona SERP rappresentative e avvia ulteriori ricerche dove opportuno. Il limite dell'iterazione dovrà essere definito tecnicamente; in questa fase **non si progetta sulla base dei costi**.
+L'agente cerca aree incomplete, interroga formulazioni simili ad AnswerThePublic (quando fornite da sorgenti reali), controlla trend, seleziona SERP rappresentative e approfondisce dove opportuno. Limiti di iterazione, timeout e cap economico confermato seguono l'architettura approvata; le modalità restano livelli di profondità, non fasce di prezzo.
 
 **Output:** evidenze di approfondimento, copertura effettiva e prima lista di domini/inserzionisti osservati.
 
@@ -102,7 +104,7 @@ Una SERP isolata non dimostra la continuità della spesa pubblicitaria di un'azi
 
 ## 6. Fonti e integrazioni — da testare
 
-**Provider principale candidato:** DataForSEO.
+**Provider principale approvato:** DataForSEO; accessibilità effettiva da riprodurre nel Gate 1A.
 
 Famiglie di dati da verificare con la documentazione corrente e una prova integrata reale:
 - Google Ads Search Volume e metriche associate;
@@ -141,9 +143,9 @@ Record suggeriti (schema tecnico da finalizzare nel TDD):
 
 ## 9. Architettura e ruolo dell'agente
 
-**Scelta progettuale condivisa:** un solo Demand Intelligence Agent che coordina strumenti specializzati, senza agenti multipli per ogni micro-operazione. L'agente potrà essere realizzato in Python; non è obbligatorio usare n8n. Il modello AI è esterno e accessibile via API; il codice dell'agente gira nel runtime del backend/job worker, da definire per il deployment online.
+**Scelta approvata:** un Demand Intelligence Agent coordina strumenti specializzati, senza agenti per ogni micro-operazione. Orchestrazione Python e OpenAI Responses nel worker Render; nessun n8n nell'MVP.
 
-Orientamento tecnico: Python per integrazioni e trattamento dati, React per interfaccia, PostgreSQL per persistenza e Vercel per frontend. FastAPI, librerie agent e orchestrazione sono ancora proposte tecniche da confermare con prove. L'utente desidera operazioni LIVE; se specifici endpoint non le supportano, il sistema deve segnalarlo e non promettere immediatezza impossibile.
+Stack approvato: FastAPI/Pydantic, React/TypeScript/Vite su Vercel, Supabase Postgres/Storage e worker Render. Preferire LIVE dove supportato; per endpoint TASK mostrare lo stato asincrono reale. Le prove di deploy e accesso restano necessarie.
 
 ## 10. Caso pilota
 
@@ -154,7 +156,7 @@ Orientamento tecnico: Python per integrazioni e trattamento dati, React per inte
 **Seed facoltative:** `team building aziendale`; `location eventi aziendali`  
 **Modalità:** Deep  
 
-La precedente richiesta di **raggio 25 km è stata rimossa** dalla configurazione: non va reintrodotta né tradotta in presunta precisione geografica dei volumi. Le due seed dovrebbero essere mantenute come ipotesi iniziali relative a bisogni distinti. I volumi non sono stati ancora misurati.
+La precedente richiesta di **raggio 25 km è stata rimossa**: non va reintrodotta né tradotta in presunta precisione geografica. Le due seed restano ipotesi relative a bisogni distinti. L'audit storico riporta campioni Torino/Piemonte, non riprodotti qui e non estendibili all'intero universo keyword.
 
 ## 11. Vincoli di affidabilità e criteri per considerarlo funzionante
 
@@ -173,7 +175,7 @@ La precedente richiesta di **raggio 25 km è stata rimossa** dalla configurazion
 1. Definire con precisione l'insieme di strumenti ed endpoint per ciascuna modalità Exploratory / Standard / Deep.
 2. Validare la copertura effettiva di città, regioni e nazioni italiane e internazionali per ciascun endpoint richiesto.
 3. Verificare le capacità LIVE, i tempi reali e gli eventuali casi in cui un endpoint non lo consente.
-4. Definire le regole di selezione/iterazione per keyword, SERP e approfondimenti, per evitare cicli infiniti o rumore nei dati (indipendentemente dal costo).
+4. Implementare regole di selezione/iterazione per evitare cicli e rumore, rispettando limiti e cap economici confermati.
 5. Confermare tassonomia linguistica e intent; gestire keyword associate a più bisogni.
 6. Definire gli schemi dati, i controlli QA e le visualizzazioni del modulo.
 7. Specificare layout e contenuti della sezione Demand Intelligence nel deck finale.

@@ -50,6 +50,7 @@ def findings(path: str, data: bytes) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tracked", action="store_true")
+    parser.add_argument("--history", action="store_true", help="Also scan all reachable commits")
     args = parser.parse_args()
     try:
         paths = git("ls-files", "-z") if args.tracked else git(
@@ -64,6 +65,26 @@ def main() -> int:
             for reason in findings(path, git("show", f":{path}")):
                 print(f"BLOCKED: {path} ({reason}; value withheld)")
                 rejected += 1
+        if args.history:
+            checked = set()
+            commits = git("rev-list", "--all").decode().splitlines()
+            for commit in commits:
+                for entry in git("ls-tree", "-r", "-z", commit).split(b"\0"):
+                    if not entry:
+                        continue
+                    metadata, raw_path = entry.split(b"\t", 1)
+                    _, kind, oid = metadata.split()
+                    if kind != b"blob":
+                        continue
+                    path = raw_path.decode("utf-8")
+                    identity = (path, oid)
+                    if identity in checked:
+                        continue
+                    checked.add(identity)
+                    for reason in findings(path, git("cat-file", "blob", oid.decode())):
+                        print(f"BLOCKED history: {path} ({reason}; value withheld)")
+                        rejected += 1
+            print(f"History checked: {len(commits)} commits, {len(checked)} distinct file blobs.")
         if rejected:
             print("Secret check failed. Remove credentials before committing.")
             return 1

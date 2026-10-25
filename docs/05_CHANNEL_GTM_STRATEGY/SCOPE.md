@@ -5,6 +5,8 @@
 **Stato:** progettazione funzionale definita; fonti operative, benchmark, PRD/TDD e test strategici ancora da completare  
 **Dipendenze:** Project Brief, Moduli 01–04, `docs/00_PROJECT/KNOWLEDGE_BASE.md`.
 
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+
 ## 1. Obiettivo e perimetro
 
 Definire **quali canali di acquisizione utilizzare, per quali ICP, per intercettare quale domanda e perché**, distinguendo canali prioritari, complementari e non raccomandati. La strategia deve integrare marketing digitale, social, contenuti, performance, Search, inbound, outbound e approcci **signal-based** quando pertinenti, senza consigliare automaticamente tutti i canali.
@@ -114,6 +116,6 @@ Il modulo sarà considerato funzionante se:
 - Caricamento selettivo dei playbook via Python, convenzione metadati e test degli agenti.
 - Capacità correnti delle piattaforme e condizioni d'accesso: non considerate già collaudate.
 - Contratto dati verso il Modulo 06, stato dei job, archiviazione e output deck.
-- Hosting backend e worker, autorizzazioni ai servizi e costi effettivi delle integrazioni.
+- Collaudo API e worker Render, persistenza Supabase, autorizzazioni e costi; hosting e libreria PPTX sono già approvati nell'architettura.
 
 **Conclusione:** lo scoping funzionale del Modulo 05 è definito. Nessuna strategia è stata ancora verificata su campagne reali, e nessun servizio esterno è dichiarato connesso o operativo.

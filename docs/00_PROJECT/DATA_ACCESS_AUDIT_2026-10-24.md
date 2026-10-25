@@ -1,3 +1,7 @@
+# GTM Engine - Audit accessibilita dati: registro e archivio
+
+Consolidamento: 25 ottobre 2026. Le prove del 24 ottobre appartengono al precedente ambiente; non sono state riprodotte nel repository. Nessuna nuova chiamata provider durante la bonifica. Scelte correnti: [matrice](PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md) e [architettura](TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Foundation locale/CI: [Gate 0](GATE_0_VALIDATION.md).
+
 
 > **Aggiornamento successivo, 24 ottobre 2026 — priorità a questo registro.** La presente revisione sostituisce le scelte provider Google/Meta e integra i test effettivamente eseguiti dopo la prima stesura. Per il dettaglio dei gate consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
 
@@ -26,6 +30,53 @@ Tutti i risultati seguenti provengono da richieste autenticata al collegamento d
 **Nota QA:** `status_code=20000` con `items=[]` o serie con valori null **non** equivale a copertura informativa valida. Ogni raccolta deve controllare presenza e qualità dei dati, non soltanto successo HTTP.
 
 ---
+
+
+## Registro integrazioni e Gate per il codice
+| Fonte | Copertura e scelta | Cosa deve dare l'utente | Prova tecnica necessaria prima di sviluppare il modulo |
+|---|---|---|---|
+| DataForSEO | **PRIMARIO**, collegamento già testato in chat | Credenziali API nell'ambiente Pro/Codex, credito/account API | Per nuovi endpoint fare uno smoke test con Italia/Torino/lingua it, JSON di esempio salvato |
+| Python crawler | **PRIMARIO** per siti | URL eventuali di 3 competitor manuali e script esistenti da riutilizzare | 5 siti diversi, pages fetch/fallback dinamico e citazione pagina |
+| Meta Instagram Graph | Priorità al metodo già usato dal proprietario | Script preesistente + app Meta/account professionale autorizzato + token/permessi (mai incollarli nel repository) | 50 post di competitor professionale, verifica campi esposti e percentuale media accessibile |
+| Meta Ads UE | Prima opzione: API ufficiale `GET /ads_archive`; non testata qui | Developer app, token/permessi Ads specifici e cap | Due advertiser IT, due pagine, campi/creatività/copertura; altrimenti blocco motivato e valutazione fallback |
+| Apify Instagram | Fallback automatico condizionato | Account Apify/token, scelta actor, approvazione costo | 5 competitor x 50 post (ove disponibili), verifica prezzi e success rate |
+| SearchAPI | Fallback Meta dopo gap ufficiale; LinkedIn solo se pertinente; Google solo per gap DataForSEO dimostrato | Solo se necessario: account/API key e approvazione costo | Per la sola capacità necessaria verificare advertiser italiano, identificativo, date, creatività e paginazione |
+| SerpApi | Solo gap Google Transparency non coperto da DataForSEO | Token solo dopo prova del gap e approvazione | Stessi criteri prova SearchAPI, evitare due provider duplicati |
+| Openapi Company | Fonte approvata dati impresa Italia, accesso da collaudare | Configurare token privatamente e approvare micro-spesa | Match P.IVA a 3 società; ATECO, fatturato e anno, addetti e anno; confrontare 1 bilancio ufficiale |
+| Istat/Eurostat/ESCO/OpenAlex | Fonti aperte istituzionali | Nessun token per endpoint pubblici, eventuale free key OpenAlex per limiti maggiori | Import ATECO2025; query dataset pertinenti; normalizzazione lingua/date |
+| OpenAI API | Agenti, classificazioni e output strutturati | **Chiave API separata dal piano ChatGPT Pro** e limite di spesa | JSON schema, grounding/evidence, costi per run su dataset pilota |
+| Supabase | Applicazione | Progetto, database URL, service key server-side | Migrazioni schema, upload artefatti e polling dei job |
+| Vercel | Frontend | Account, repository GitHub, deployment project | Preview + endpoint backend esterno, no long-poll eseguito in browser |
+| Render | API/worker per task lunghi | Account e autorizzazione spesa per servizio Python/worker | POST→job→worker→stato, callback task DataForSEO, generazione PPTX |
+| GitHub | Source of Truth/version control | Repo o invito accesso a Codex nel conto Pro | CI test, secrets separati, loader Markdown KB |
+
+## Bibliografia tecnica / URL primari e fornitori
+- DataForSEO geolocalizzazione: https://docs.dataforseo.com/v3/keywords_data/google_ads/locations/ ; https://dataforseo.com/help-center/sv-for-city-or-coordinates
+- DataForSEO volumi: https://docs.dataforseo.com/v3/keywords_data-google_ads-search_volume-live/
+- DataForSEO Labs: https://docs.dataforseo.com/v3/dataforseo_labs/google/keyword_ideas/live ; https://docs.dataforseo.com/v3/dataforseo_labs/google/search_intent/live
+- SERP: https://docs.dataforseo.com/v3/serp/google/organic/live/advanced/ ; https://docs.dataforseo.com/v3/serp-google-autocomplete-live-advanced/
+- Google Trends: https://docs.dataforseo.com/v3/keywords_data-google-trends-explore-live/
+- Forecast con limiti: https://docs.dataforseo.com/v3/keywords_data-google-ads-ad_traffic_by_keywords-live/
+- Reviews: https://docs.dataforseo.com/v3/business_data-google-reviews-task_post/ ; https://docs.dataforseo.com/v3/business_data-trustpilot-reviews-task_post/
+- Google Places max 5 reviews: https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places
+- Meta Business Discovery: https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login/business-discovery
+- Apify Instagram actor: https://apify.com/apify/instagram-post-scraper
+- SearchAPI Meta: https://www.searchapi.io/docs/meta-ad-library-api ; https://www.searchapi.io/docs/meta-ad-library-page-search-api
+- SearchAPI Google Transparency: https://www.searchapi.io/docs/google-ads-transparency-center-api
+- SearchAPI LinkedIn Ads: https://www.searchapi.io/docs/linkedin-ad-library-api
+- Openapi company: https://console.openapi.com/apis/company/documentation ; https://openapi.com/pricing ; https://openapi.com/products/italian-company-balance-sheet
+- ISTAT ATECO2025: https://www.istat.it/classificazione/ateco-2025/
+- ISTAT API: https://www.istat.it/classificazioni-e-strumenti/web-services-sdmx/
+- Eurostat API: https://ec.europa.eu/eurostat/en/web/user-guides/data-browser/api-data-access/api-introduction
+- ESCO API: https://esco.ec.europa.eu/en/use-esco/use-esco-services-api
+- OpenAlex API: https://help.openalex.org/api/
+
+## Archivio storico - prima stesura, superata
+
+Questa sezione conserva integralmente evidenze e valutazioni della prima stesura. NON e una specifica operativa corrente. Le affermazioni storiche su SearchAPI primario, recensioni non raccolte e regione non provata sono superate dal registro aggiornato qui sopra. I prezzi e le policy citati sono riferimenti storici, non verifiche attuali. Legenda T/D/C/I/X storica, non sostitutiva dei tre assi della matrice corrente.
+
+<details>
+<summary>Prima stesura storica del 24 ottobre 2026 (non normativa)</summary>
 
 # GTM Engine — Audit accessibilità dati, 24 ottobre 2026
 
@@ -157,40 +208,5 @@ Tutti i risultati seguenti provengono da richieste autenticata al collegamento d
 6. Budget Paid «minimo per ottenere vendite» garantite; sono ammissibili soltanto soglie per **test osservabile** e scenari condizionati.
 7. Accessi e credenziali disponibili: una pagina di pricing/documentazione non attiva un contratto.
 
-## Registro integrazioni e Gate per il codice
-| Fonte | Copertura e scelta | Cosa deve dare l'utente | Prova tecnica necessaria prima di sviluppare il modulo |
-|---|---|---|---|
-| DataForSEO | **PRIMARIO**, collegamento già testato in chat | Credenziali API nell'ambiente Pro/Codex, credito/account API | Per nuovi endpoint fare uno smoke test con Italia/Torino/lingua it, JSON di esempio salvato |
-| Python crawler | **PRIMARIO** per siti | URL eventuali di 3 competitor manuali e script esistenti da riutilizzare | 5 siti diversi, pages fetch/fallback dinamico e citazione pagina |
-| Meta Instagram Graph | Priorità al metodo già usato dal proprietario | Script preesistente + app Meta/account professionale autorizzato + token/permessi (mai incollarli nel repository) | 50 post di competitor professionale, verifica campi esposti e percentuale media accessibile |
-| Apify Instagram | Fallback automatico condizionato | Account Apify/token, scelta actor, approvazione costo | 5 competitor x 50 post (ove disponibili), verifica prezzi e success rate |
-| SearchAPI | **PRIMO CANDIDATO UNICO** per Meta/Google/LinkedIn Ads Library | Account/API key, approvazione eventuale piano | Per **uno stesso advertiser italiano** verificare Meta/Google/LinkedIn, identificativo, data, creatività e paginazione |
-| SerpApi | Solo fallback Google Transparency | Account API key se SearchAPI fallisce | Stessi criteri prova SearchAPI, evitare due provider duplicati |
-| Openapi Company | **PRIMO CANDIDATO** dati impresa Italia | Creare account, API token, approvare micro-spesa | Match P.IVA a 3 società; ATECO, fatturato e anno, addetti e anno; confrontare 1 bilancio ufficiale |
-| Istat/Eurostat/ESCO/OpenAlex | Fonti aperte istituzionali | Nessun token per endpoint pubblici, eventuale free key OpenAlex per limiti maggiori | Import ATECO2025; query dataset pertinenti; normalizzazione lingua/date |
-| OpenAI API | Agenti, classificazioni e output strutturati | **Chiave API separata dal piano ChatGPT Pro** e limite di spesa | JSON schema, grounding/evidence, costi per run su dataset pilota |
-| Supabase | Applicazione | Progetto, database URL, service key server-side | Migrazioni schema, upload artefatti e polling dei job |
-| Vercel | Frontend | Account, repository GitHub, deployment project | Preview + endpoint backend esterno, no long-poll eseguito in browser |
-| Render (o hosting Python equivalente) | API/worker per task lunghi | Account e autorizzazione spesa per servizio Python/worker | POST→job→worker→stato, callback task DataForSEO, generazione PPTX |
-| GitHub | Source of Truth/version control | Repo o invito accesso a Codex nel conto Pro | CI test, secrets separati, loader Markdown KB |
 
-## Bibliografia tecnica / URL primari e fornitori
-- DataForSEO geolocalizzazione: https://docs.dataforseo.com/v3/keywords_data/google_ads/locations/ ; https://dataforseo.com/help-center/sv-for-city-or-coordinates
-- DataForSEO volumi: https://docs.dataforseo.com/v3/keywords_data-google_ads-search_volume-live/
-- DataForSEO Labs: https://docs.dataforseo.com/v3/dataforseo_labs/google/keyword_ideas/live ; https://docs.dataforseo.com/v3/dataforseo_labs/google/search_intent/live
-- SERP: https://docs.dataforseo.com/v3/serp/google/organic/live/advanced/ ; https://docs.dataforseo.com/v3/serp-google-autocomplete-live-advanced/
-- Google Trends: https://docs.dataforseo.com/v3/keywords_data-google-trends-explore-live/
-- Forecast con limiti: https://docs.dataforseo.com/v3/keywords_data-google-ads-ad_traffic_by_keywords-live/
-- Reviews: https://docs.dataforseo.com/v3/business_data-google-reviews-task_post/ ; https://docs.dataforseo.com/v3/business_data-trustpilot-reviews-task_post/
-- Google Places max 5 reviews: https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places
-- Meta Business Discovery: https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login/business-discovery
-- Apify Instagram actor: https://apify.com/apify/instagram-post-scraper
-- SearchAPI Meta: https://www.searchapi.io/docs/meta-ad-library-api ; https://www.searchapi.io/docs/meta-ad-library-page-search-api
-- SearchAPI Google Transparency: https://www.searchapi.io/docs/google-ads-transparency-center-api
-- SearchAPI LinkedIn Ads: https://www.searchapi.io/docs/linkedin-ad-library-api
-- Openapi company: https://console.openapi.com/apis/company/documentation ; https://openapi.com/pricing ; https://openapi.com/products/italian-company-balance-sheet
-- ISTAT ATECO2025: https://www.istat.it/classificazione/ateco-2025/
-- ISTAT API: https://www.istat.it/classificazioni-e-strumenti/web-services-sdmx/
-- Eurostat API: https://ec.europa.eu/eurostat/en/web/user-guides/data-browser/api-data-access/api-introduction
-- ESCO API: https://esco.ec.europa.eu/en/use-esco/use-esco-services-api
-- OpenAlex API: https://help.openalex.org/api/
+</details>

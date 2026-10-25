@@ -32,3 +32,11 @@ Provider/endpoint/status rete/campione/copertura/raw fixture: N/A per build e te
 Push su `main` riuscito e CI remota osservata: secrets 7s, backend 14s, frontend 13s; stato complessivo Success. Warning non bloccanti dei runner: azioni con runtime Node 20 eseguite forzatamente con Node 24, migrazione ubuntu-latest. La CI non richiede secret provider. Scansione pre-commit completata senza credenziali corrispondenti alle regole; unico file ambiente versionato `.env.example` con valori vuoti. Hook attivo nella copia locale; dopo nuovi cloni va riattivato come da README.
 
 Non iniziare Gate 1A automaticamente. Test frontend comportamentali/E2E saranno aggiunti con i flussi applicativi; nessuna verifica visuale browser eseguita per la shell. Provider, persistenza e worker operativo restano ai gate successivi.
+
+## Consolidamento e riconferma Gate 0 — 25 ottobre 2026
+
+Bonifica delle dieci incoerenze completata su istruzione del proprietario; backlog duplicato rimosso dopo confronto, scope 06–07 con vecchi nomi ridotti a rimandi. Archivio API originale conservato integralmente e marcato non normativo; nessuna prova provider eseguita qui. Scoring v1.1 invariato rispetto al commit precedente.
+
+Controlli ripetuti dopo la bonifica: `scripts/check_docs.py` PASS (22 Markdown, 85 riferimenti interni); pytest PASS (5 test); ruff su backend/scripts PASS; worker `--check` PASS; TypeScript/Vite build PASS (28 moduli). Guardia credenziali e controllo completo della storia Git obbligatori prima della pubblicazione. CI aggiornata per ricontrollare anche la coerenza documentale. Warning Starlette/httpx preesistente, non bloccante.
+
+Audience richiesta: repository pubblica per portfolio con esclusione di credenziali e dati privati; la riga privacy precedente descrive la protezione storica prima del primo push, non un vincolo permanente. Nessun deploy o costo provider autorizzato dalla sola pubblicazione del codice. Esito pubblico/CI della revisione da registrare dopo verifica.

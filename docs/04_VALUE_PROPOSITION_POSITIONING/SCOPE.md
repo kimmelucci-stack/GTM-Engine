@@ -5,6 +5,8 @@
 **Stato:** workflow funzionale concluso; implementazione, integrazioni e validazione ancora da svolgere  
 **Dipendenze:** Project Brief, Moduli 01–03; linee guida UX in `docs/00_PROJECT/PROJECT_SCOPE.md`.
 
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+
 ## 1. Obiettivo
 
 Stabilire **perché un cliente dovrebbe scegliere l'offerta rispetto alle alternative disponibili** e, soltanto quando l'offerta è sufficientemente definita, costruire posizionamento e architettura di messaging coerenti con i profili ICP. Non generare campagne, email o inserzioni: questi appartengono ai moduli successivi.
@@ -153,7 +155,7 @@ La UI mostra **solo**: titolo modulo, un indicatore di avanzamento con etichette
 
 ## 8. Questioni tecniche aperte (non modificano lo scope)
 
-Schema tecnico/contract API, versionamento dei documenti, scelta dei modelli e procedure di test TOV multilingua, accesso reale alle fonti, condizioni di refresh degli input, componenti UI, formato e libreria del deck modificabile, infrastruttura dei job. Da definire in PRD/TDD e verificare con prototipo integrato.
+Da dettagliare e collaudare: contratti API, versionamento, configurazione modelli OpenAI e test TOV multilingua, accesso fonti, refresh input e componenti UI. Le scelte tecniche sono definitive: Render API/worker, Supabase Postgres/Storage e PPTX python-pptx con preview LibreOffice; nessuna riapertura dello stack.
 
 
 ## 9. Knowledge Base condivisa e handoff verso Channel Strategy

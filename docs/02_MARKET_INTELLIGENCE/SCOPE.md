@@ -5,6 +5,8 @@
 **Stato:** scoping approvato nelle sue linee funzionali; PRD/TDD e verifiche tecniche non ancora completati  
 **Documento collegato:** `SCORING_MODEL.md` (specifica matematica sperimentale)
 
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+
 ## 1. Scopo e confini
 
 Analizzare il panorama competitivo del prodotto/servizio definito nel **Project Brief** del GTM Engine; identificare i concorrenti commercialmente rilevanti, studiarne offerta e comportamento, raccogliere evidenze da fonti verificabili e produrre dati strutturati, analytics, confronti e insight utilizzabili nel **GTM Strategy Deck**.
@@ -21,11 +23,11 @@ Analizzare il panorama competitivo del prodotto/servizio definito nel **Project 
 2. **Fino a tre competitor aggiuntivi** inserendo il sito web; numero finale 5–8, salvo candidati non verificabili segnalati esplicitamente.
 3. **Scraping approfondito** delle pagine rilevanti di ciascun sito: prodotti, servizi, prezzi pubblicati, value proposition, CTA, case study, testimonianze, recensioni presenti sul sito e altri contenuti commerciali accessibili. Riutilizzo degli script Python esistenti dopo revisione.
 4. **Instagram principale**, fino a 50 post accessibili per competitor tramite Meta Graph API / Business Discovery, previo test delle autorizzazioni; l'utente può fornire/correggere il link dell'account. **Facebook secondario**, quando l'accesso ai contenuti è tecnicamente disponibile. **TikTok escluso dalla prima versione.**
-5. **Advertising Intelligence**: Meta Ads Library e Google Ads Transparency Center; raccolta automatica quando consentita dai servizi/API e, per Google, fallback di verifica assistita manuale qualora non esista un accesso programmatico utilizzabile. Nessun dato inventato.
+5. **Advertising Intelligence**: Google Ads Transparency via DataForSEO Ads Advertisers/Ads Search LIVE; Meta Ad Library API ufficiale prima opzione per annunci UE. Fallback automatici solo per gap dimostrati, con accesso verificato e costo approvato; altrimenti `partial/unavailable`, senza ricerca manuale obbligatoria.
 6. **Review Intelligence**: recupero e analisi di tutte le recensioni effettivamente accessibili dalle fonti integrate, con Google Reviews/DataForSEO tra i candidati principali, e script Python dedicato da valutare. Numero recuperato e copertura dichiarati.
 7. **Company Intelligence**: dati societari di base, fatturato e dipendenti/addetti, quando reperibili. Per l'Italia valutare fonti camerali ufficiali e fornitori API; per l'estero fonti nazionali pertinenti. Dati mancanti = non disponibili, non zero.
 8. **Competitive Scoring**: sei score per azienda, ciascuno 0–100 e calcolato autonomamente; aggregazione opzionale tramite due indici *distinti*, CCI₆ e CCI₄, secondo allegato v1.1. I parametri dipendenti dal mercato devono essere fissati e versionati prima dell'esecuzione.
-9. **Un Market Intelligence Agent** coordina l'intera fase e gli strumenti Python. Non è necessario n8n; eventuale utilizzo è accessorio.
+9. **Un Market Intelligence Agent** coordina la fase tramite orchestrazione Python; n8n escluso dall'MVP.
 10. **Servizi a pagamento:** DataForSEO e API OpenAI ammessi. Altri servizi, anche a pagamento, possono essere proposti **solo dopo verifica di copertura, utilità e costi**, senza acquisti o integrazioni assunti automaticamente.
 11. I dati originali, normalizzati e derivati restano distinti; tutte le metriche e le analisi devono essere tracciabili fino alla fonte.
 
@@ -90,7 +92,7 @@ La schermata presenta cinque candidati con: nome, sito, tipologia, motivazione, 
 
 ## 7. Advertising Intelligence
 
-**Fonti:** Meta Ads Library e Google Ads Transparency Center. Per quest'ultimo: verificare accesso API ufficiale al dataset pertinente e requisiti di autorizzazione; in alternativa valutare provider esterni con costi e affidabilità verificati; se indisponibili, modalità di verifica assistita (senza simulare un'estrazione automatica).
+**Fonti approvate:** DataForSEO Ads Advertisers e Ads Search LIVE per Google Ads Transparency; Meta ufficiale `GET /ads_archive` come prima opzione UE. Le prove DataForSEO del precedente ambiente sono nell'audit e vanno riprodotte al Gate 1A. Meta richiede Gate 1C con autorizzazioni proprie, distinte da Instagram. SearchAPI/Apify per Meta e SearchAPI/SerpApi per gap Google solo dopo necessità dimostrata e approvazione; nessun acquisto duplicato. Fonte non accessibile: `partial/unavailable`, senza raccolta manuale obbligatoria.
 
 **Dati quando disponibili:** inserzionista, ID pagina/advertiser, annuncio, testo, formato, creatività, prodotto/servizio, landing page, date e piattaforme osservate, attributi UE/SEE disponibili nel dataset. L'identità inserzionista–competitor va verificata.
 
@@ -112,7 +114,7 @@ La schermata presenta cinque candidati con: nome, sito, tipologia, motivazione, 
 
 **Campi:** denominazione, P. IVA/identificativo, ATECO/settore, sede, anno costituzione, fatturato con esercizio, dipendenti/addetti con definizione e riferimento temporale, eventuali altri bilanci disponibili.
 
-**Fonti candidate:** Registro Imprese/InfoCamere per l'Italia e servizi API societari da verificare, inclusi servizi commerciali; per l'estero fonti registrali nazionali o altre fonti attendibili. **Non è stata scelta né autorizzata una sottoscrizione esterna.** Costi, copertura e limiti sono parte del test di fattibilità.
+**Fonte approvata Italia:** Openapi Company, con token, limite economico e match da verificare al Gate 1D. La scelta del provider non autorizza una sottoscrizione o spesa. Bilancio ufficiale per confronto del campione; per l'estero fonti nazionali pertinenti, senza assumere copertura Openapi universale.
 
 **Identità:** associare correttamente dominio, brand e persona giuridica; il fatturato della società non equivale automaticamente al fatturato dello specifico prodotto/servizio analizzato. Se non verificabile, richiedere conferma o mostrare `unavailable`.
 
@@ -171,14 +173,14 @@ I due indici **non sono intercambiabili**; non si ricalcolano automaticamente i 
 - Dashboard con metriche originali, trend, cluster, score e loro qualità; possibilità di ispezionare le evidenze.
 - Input prodotto/target/geografia **ereditati dal Project Brief**, non duplicati inutilmente nel modulo.
 
-## 13. Architettura: orientamento, non TDD
+## 13. Architettura approvata, implementazione da collaudare
 
 - **Agent:** un solo orchestratore Market Intelligence con tool calling e output strutturati.
-- **Worker Python:** discovery, scraper siti, adapter Meta, adapter Ads Transparency, Reviews, Company Data, trasformazioni e scoring; n8n non obbligatorio.
-- **API applicativa:** proposta FastAPI.
-- **Data layer:** proposta PostgreSQL, raw payload/versioni e dataset normalizzati.
+- **Worker Python Render:** discovery, scraper, adapter Meta/Ads/Reviews/Company, trasformazioni e scoring; niente n8n nell'MVP.
+- **API applicativa:** FastAPI/Pydantic su Render.
+- **Data layer:** Supabase Postgres e Storage privato, raw/versioni e normalizzati separati.
 - **UI:** React; hosting frontend Vercel già scelto.
-- **Deployment di job lunghi:** da definire indipendentemente dall'hosting del frontend.
+- **Deployment di job lunghi:** worker Python separato su Render, polling job su Postgres; implementazione al Gate 2.
 - **Sviluppo:** Codex desktop, PyCharm e GitHub; riutilizzare gli script esistenti previa revisione.
 
 La preferenza per chiamate **LIVE** resta in vigore ove l'endpoint la supporti. I limiti effettivi vanno verificati per ogni API; il sistema non deve dichiarare LIVE un flusso Standard/asincrono.
@@ -192,20 +194,20 @@ Il modulo potrà essere considerato **funzionante** quando un caso pilota dimost
 3. Risoluzione dell'identità e segnalazione di ambiguità brand/dominio/società/social.
 4. Scansione di pagine commerciali pertinenti e recupero di campi osservabili con URL e timestamp.
 5. Recupero dei post Instagram permessi dalle autorizzazioni reali e gestione corretta dei campi mancanti.
-6. Acquisizione di annunci tramite integrazione verificata oppure dichiarazione chiara del fallback assistito.
+6. Acquisizione automatica annunci mediante connettore verificato; fallback solo se approvato e collaudato, altrimenti `partial/unavailable` con causa e copertura.
 7. Raccolta di recensioni tramite integrazione reale; copertura e limiti documentati.
 8. Recupero di dati societari quando disponibili; corretta distinzione dei dati mancanti.
 9. Calcolo Python delle sei dimensioni, CCI₄/CCI₆ solo quando validi e superamento dei test matematici della v1.1.
 10. Report e visualizzazioni ricostruibili dai dataset; insight collegati alle evidenze; output utilizzabile dal deck.
 
-**La validazione matematica e quella strategico-empirica dello scoring sono due verifiche differenti.** I test automatici non bastano per garantire che l'indice misuri la competitività reale.
+**La validazione matematica e quella strategico-empirica dello scoring sono due verifiche differenti.** I test automatici non bastano per garantire che l'indice misuri la competitività reale. Il modello v1.1 resta congelato; eventuali calibrazioni richiedono nuova versione e approvazione.
 
 ## 15. Questioni operative ancora aperte (non nuove funzionalità)
 
 - Specifiche dettagliate delle query di market discovery, soglie di screening, diversificazione dei cinque e policy di sostituzione.
 - Verifica degli script Python dell'utente: crawler siti, Google Reviews, Meta Graph.
 - Autorizzazioni e dati realmente ottenibili per Instagram Business Discovery, Facebook, Meta Ads Library e Google Ads Transparency; gestione dei casi non accessibili.
-- Selezione delle fonti camerali/aziendali in Italia e all'estero: copertura, accesso API e costi.
+- Collaudo Openapi Company per Italia; verifica delle fonti pertinenti per l'estero, senza assumere accessi o costi.
 - Implementazione finale e calibrazione dello scoring v1.1, inclusi parametri e soglie di qualità; prova dati reali prima dell'approvazione come indice affidabile.
 - Limiti del crawling, politiche di refresh, job orchestration e persistenza; analisi comparativa dei costi dei servizi a pagamento.
 - Definizione dei grafici finali e dei layout del blocco deck di questo modulo.

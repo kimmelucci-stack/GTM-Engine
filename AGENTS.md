@@ -3,9 +3,9 @@
 ## Missione e fonti autorevoli
 Sviluppare frontend e backend della piattaforma GTM a sette moduli già progettata, con risultati tracciabili e PowerPoint nativo modificabile. Non riprogettare lo scope. Questo file governa Codex, non gli agenti AI del prodotto.
 
-Leggere nell'ordine: `docs/README.md`, poi in `docs/00_PROJECT/` `PROJECT_SCOPE.md`, `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`, `TECHNOLOGY_STACK_AND_ARCHITECTURE.md`, `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`, `DATA_ACCESS_AUDIT_2026-10-24.md`, `KNOWLEDGE_BASE.md`; quindi gli `SCOPE.md` dei Moduli 01–07, `docs/02_MARKET_INTELLIGENCE/SCORING_MODEL.md` e `docs/00_PROJECT/EVOLUTION_BACKLOG.md`.
+Leggere nell'ordine: `docs/README.md`, `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/00_PROJECT/PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`, `docs/00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md`, `docs/00_PROJECT/DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`, `docs/00_PROJECT/DATA_ACCESS_AUDIT_2026-10-24.md`, `docs/00_PROJECT/KNOWLEDGE_BASE.md`; quindi gli `SCOPE.md` canonici dei Moduli 01–07 elencati in `docs/README.md`, `docs/02_MARKET_INTELLIGENCE/SCORING_MODEL.md` e `docs/00_PROJECT/EVOLUTION_BACKLOG.md`.
 
-Le istruzioni esplicite del proprietario prevalgono. Per stack/provider usare le decisioni definitive di architettura e matrice e l'aggiornamento iniziale dell'audit; per comportamento funzionale gli scope aggiornati; per formule esclusivamente scoring v1.1. Segnalare conflitti sostanziali prima di modificare documenti approvati; non risolverli riscrivendo tacitamente requisiti. I duplicati storici sono registrati in `docs/00_PROJECT/HANDOFF_TO_CODEX.md`.
+Le istruzioni esplicite del proprietario prevalgono. Stack e provider: architettura e matrice canoniche; comportamento: gli `SCOPE.md`; formule: scoring v1.1 invariato. Audit: registro prove del precedente ambiente e archivio storico esplicitamente superato, non fonte di scelte correnti. Segnalare nuovi conflitti prima di modificare requisiti approvati. L'handoff registra il consolidamento; le copie compatibili dei Moduli 06–07 rimandano ai soli `SCOPE.md` canonici.
 
 ## Architettura e convenzioni
 - React/TypeScript/Vite in `frontend/` → Vercel; Python 3.12+, FastAPI/Pydantic in `backend/` → Render API e processo worker separato; Supabase PostgreSQL/Storage privato. Niente Lovable.
@@ -28,6 +28,7 @@ Le istruzioni esplicite del proprietario prevalgono. Per stack/provider usare le
 - DataForSEO primario anche Google Ads Transparency; Meta ufficiale prima per Ads UE e Business Discovery, con permessi separati. Fallback solo dopo gap dimostrato e approvazione; niente acquisti duplicati.
 - Chiamate limitate da timeout, numero massimo, budget confermato, cache e backoff. Per task fatturabili non ripetere automaticamente POST dall'esito incerto; riconciliare il task. Su errore/limite/costo esporre partial/unavailable e causa, senza dati sintetici sostitutivi.
 - Credenziali solo secret o variabili d'ambiente server-side; `.env.example` contiene solo nomi/valori vuoti. Mai secret nel frontend, Git, fixture, log o documenti. Redigere fixture e metadati prima del versionamento.
+- Repository pubblica per portfolio su istruzione del proprietario: solo codice, documentazione e campioni sintetici o pubblici già verificati; nessun dato cliente o raw privato in Git, inclusa la cronologia. Controllare l'intera cronologia prima di cambiare visibilità. La pubblicazione del codice non autorizza deploy, spese o pubblicazione di dati.
 - Mai stampare valori delle credenziali o elencare l'ambiente. Autenticazione Git tramite credential manager, mai token nell'URL. Prima di ogni commit eseguire `scripts/check_secrets.py`; attivare gli hook con `git config core.hooksPath .githooks`. Il controllo è euristico e non sostituisce la revisione. Errori futuri di provider devono essere redatti prima di log/API/UI.
 
 ## Esecuzione, test e consegna

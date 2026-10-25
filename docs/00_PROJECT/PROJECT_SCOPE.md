@@ -1,8 +1,8 @@
 # GTM Engine — Project Scope
 
-**Versione:** 0.5 — Moduli 01–07 + access audit e architettura definiti per MVP
-**Data:** 24 ottobre 2026  
-**Stato:** scoping funzionale 01–07 completato; stack e roadmap definiti; provider esterni da convalidare dove indicato; sviluppo software NON ancora avviato.
+**Versione:** 0.6 — Consolidamento documentale del 25 ottobre 2026
+**Data delle decisioni funzionali:** 24 ottobre 2026
+**Stato:** Moduli 01–07 definiti; stack approvato; foundation locale Gate 0 sviluppata e verificata. Nessun modulo end-to-end o provider applicativo convalidato nel repository; stato operativo in `docs/00_PROJECT/HANDOFF_TO_CODEX.md`.
 
 ## 1. Visione
 
@@ -20,7 +20,7 @@ Il sistema deve raccogliere dati da fonti identificabili, eseguire analisi ripro
 6. Generare un deck finale riutilizzando gli output di ciascuna fase.
 7. Consentire l'adattamento a nuovi clienti tramite configurazioni, non modifiche ad hoc del codice.
 
-## 3. Macrofasi proposte
+## 3. Macrofasi definite
 
 | ID | Macrofase | Obiettivo / output indicativo | Stato |
 |---|---|---|---|
@@ -29,10 +29,10 @@ Il sistema deve raccogliere dati da fonti identificabili, eseguire analisi ripro
 | 03 | UVP & ICP Intelligence | Working UVP, segmentazione, profili ICP e Buying Committee | Scope funzionale disponibile |
 | 04 | Value Proposition & Positioning | Alternative, differenziazione, fit, posizionamento e messaging; modalità in sviluppo analitica | Scope funzionale disponibile |
 | 05 | Channel & GTM Strategy | Scelta e priorità dei canali per ICP, combinazioni inbound/outbound/signal-based | Scope funzionale disponibile |
-| 06 | GTM Execution Planning | Attività, priorità, KPI e roadmap | Macro-fase proposta, dettaglio da definire |
-| 07 | GTM Strategy Deck | Presentazione finale basata sulle evidenze prodotte | Output obbligatorio; specifiche da definire |
+| 06 | GTM Execution Planning | Attività, priorità, KPI, budget Paid e gap operativi | Scope funzionale definito |
+| 07 | GTM Strategy Deck | Presentazione finale basata sulle evidenze prodotte | Scope definito; PPTX modificabile obbligatorio |
 
-**Confine da decidere:** il prodotto si ferma alla definizione di una strategia e del piano di esecuzione oppure avvia anche campagne, prospecting, outreach e altre attività operative? Il perimetro non è ancora deciso.
+**Confine MVP approvato:** analisi, strategia e pianificazione GTM; nessun avvio automatico di campagne, prospecting o outreach. Il Modulo 06 progetta l'esecuzione, non la effettua.
 
 ## 4. Modello operativo
 
@@ -43,24 +43,25 @@ Il sistema deve raccogliere dati da fonti identificabili, eseguire analisi ripro
 - **Output interoperabili:** dati strutturati e versionati con fonti, località, date, parametri e limitazioni. Le revisioni sostanziali di offerta/UVP/target devono segnalare gli output precedenti potenzialmente obsoleti e consentire una rivalutazione o riesecuzione esplicita.
 - **Analytics e deck:** dati grezzi e derivati vengono conservati separatamente per permettere nuovi cluster e visualizzazioni senza dover necessariamente ripetere ogni interrogazione.
 
-## 5. Architettura — orientamento attuale, non TDD approvato
+## 5. Architettura approvata MVP
 
 | Livello | Tecnologie/orientamento | Stato |
 |---|---|---|
-| Frontend | React | Orientamento condiviso |
+| Frontend | React + TypeScript + Vite | Approvato |
 | Hosting frontend | Vercel | Scelto; piano e limiti da verificare in fase di deploy |
-| Backend | Python + FastAPI | Proposto |
-| Agenti | Python con SDK per tool calling (es. OpenAI Agents SDK) | Proposto; da validare |
-| Elaborazione dati | Python, librerie appropriate (es. Pandas) | Proposto |
+| Backend | Python 3.12+ + FastAPI + Pydantic su Render | Approvato; deploy da collaudare |
+| Agenti | OpenAI Responses API, Structured Outputs e tool calling, orchestrazione Python per modulo | Approvato; integrazione da collaudare |
+| Elaborazione dati | Python deterministico per normalizzazione, scoring e pianificazione | Approvato |
 | Database applicativo | **Supabase (PostgreSQL)** | Scelta architetturale di riferimento; piano e integrazione da verificare |
-| Orchestrazione | Logica applicativa propria; n8n opzionale | Orientamento condiviso |
+| Orchestrazione | Worker Python separato su Render, job persistiti e polling su Postgres | Approvato; niente n8n/Redis/Celery nell'MVP |
+| Storage | Supabase Storage privato per raw e deliverable | Approvato; accessi da collaudare |
 | Repository e Source of Truth KB | GitHub + Markdown | Scelto: documenti approvati, framework e playbook condivisi |
 | Knowledge Base agenti | File Markdown selezionati e letti da Python | Scelto per la prima versione: **senza RAG vettoriale, embeddings o File Search** |
 | Sviluppo | Codex desktop e PyCharm, cartella locale condivisa | Scelto come workflow |
-| Deck | **Deck finale modificabile obbligatorio**; formato e motore da definire | Requisito confermato; implementazione aperta |
-| Hosting backend/job | Da decidere separatamente dal frontend | Aperto |
+| Deck | PPTX nativo modificabile via python-pptx; LibreOffice headless per preview/QA | Approvato; implementazione da verificare |
+| Hosting backend/job | Render API e background worker separati | Approvato; piano/costi/deploy da verificare |
 
-**Nota importante:** pubblicare React su Vercel non equivale a ospitare un backend Python che esegua analisi Deep di lunga durata. L'infrastruttura dei job va progettata e verificata a parte.
+**Topologia:** Vercel ospita il frontend; Render ospita API e worker; Supabase persiste dati e artefatti. Dettagli e contratti in `docs/00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md`; le scelte non equivalgono a connessioni operative.
 
 ## 6. Requisiti trasversali di qualità
 
@@ -83,11 +84,11 @@ Il sistema deve raccogliere dati da fonti identificabili, eseguire analisi ripro
 
 ## 8. Documentazione e sviluppo
 
-La presente documentazione viene inizialmente elaborata nel progetto ChatGPT. Durante lo sviluppo sarà collocata nel repository/cartella del progetto, accessibile da Codex e PyCharm. L'utente desidera una guida passo passo per cartella locale, ambiente Python/PyCharm, Codex, GitHub, Vercel e integrazioni.
+La documentazione approvata è nel repository, accessibile a Codex e PyCharm. Setup locale in `README.md`, istruzioni permanenti in `AGENTS.md`, gate e attività del proprietario nella roadmap. Origine: progettazione nel precedente ambiente ChatGPT; prove storiche conservate nell'audit.
 
 Documenti previsti:
 - Project Scope (questo documento).
-- PRD generale, dopo conferma delle macrofasi.
+- Dettagli implementativi dei contratti, senza riaprire le macrofasi approvate.
 - PRD dettagliato per macrofase (prima Demand Intelligence).
 - TDD e schemi dati/API, dopo le decisioni funzionali.
 - Istruzioni operative per Codex e guida setup/deployment.
@@ -96,24 +97,24 @@ Documenti previsti:
 
 - Obiettivo discusso: circa 20 ore per un prototipo end-to-end *fortemente limitato*.
 - Stima preliminare proposta per un tool multi-fase: **100–180 ore**, a forte incertezza e dipendente da perimetro, affidabilità attesa, integrazioni, hosting e complessità del deck.
-- La stima va riformulata dopo la definizione delle macrofasi e del confine tra analisi/strategia ed esecuzione operativa.
+- Queste sono stime storiche, non una pianificazione vigente; la roadmap richiede una stima basata sui risultati effettivi del Gate 1. Macrofasi e confine MVP sono definiti.
 
 ## 10. Decisioni / questioni aperte
 
 **Scelte e indirizzi già espressi**
 - Documentazione nel progetto ChatGPT, poi repository locale GitHub per sviluppo in Codex.
 - Frontend React ospitato su Vercel.
-- Un AI Agent per ciascuna macrofase, senza obbligo di n8n.
+- Un AI Agent per ciascuna macrofase, con orchestrazione Python e senza n8n nell'MVP.
 - Output finale sempre costituito da un **deck modificabile**.
 - Target iniziale registrato nel Project Brief e riutilizzato dai moduli; il Modulo 03 produce ICP motivati da evidenze e può suggerire revisioni delle ipotesi iniziali.
 
-**Da chiarire prima del PRD/TDD generale**
-- Perimetro finale: strategia/piano vs esecuzione operativa delle campagne; i Moduli 05–06 non devono essere confusi con un motore automatico di invio campagne.
+**Dettagli di implementazione e collaudo, non decisioni di stack aperte**
+- Perimetro fissato: strategia e piano senza invio automatico; applicare il vincolo ai Moduli 05–06.
 - Documentare nel PRD l’interfaccia di configurazione budget/obiettivi per il Modulo 05; in mancanza di valori non produrre stime economiche arbitrarie.
-- Schema completo del Project Brief e confini fra macrofasi.
-- Dipendenze e punti di approvazione fra fasi.
-- Motore, struttura, formato e template del deck.
-- Stack effettivo di runtime degli agenti, job queue e hosting backend.
+- Schemi tecnici del Project Brief, usando i campi e i confini funzionali già approvati.
+- Implementare dipendenze e approvazioni previste dagli scope e dalla roadmap.
+- Implementare python-pptx con Main Cover, Section Cover opzionali e due famiglie contenuto del Modulo 07; verificare layout ed editabilità.
+- Implementare worker Render e persistenza Supabase secondo architettura approvata.
 - Gestione di versioni e ri-esecuzioni parziali.
 
 ---
@@ -140,6 +141,6 @@ Documenti previsti:
 - **Modulo 05 approvato a livello funzionale:** leggere contesto dei Moduli 01–04 e scegliere una strategia di acquisizione, **un canale primario e fino a due complementari**, solo quando sostenibili. Canale ≠ tattica ≠ segnale; confronto qualitativo motivato, **nessuno score arbitrario 0–100**, nessun CAC/CPL/conversion rate inventato. Specifica: `docs/05_CHANNEL_GTM_STRATEGY/SCOPE.md`.
 - **Marketing Source of Truth:** repository GitHub di framework/playbook/versioni approvati; **Knowledge Base:** insieme più ampio di conoscenze e fonti consultabili. Agenti leggono via Python solo i file pertinenti, sulla base dei metadati e delle regole del compito. **Non implementare RAG vettoriale, embeddings, pgvector o OpenAI File Search nella prima versione.**
 - **Marketing Knowledge Base trasversale:** accessibile a tutti gli agenti, con regole generali e playbook specifici. Avere documenti non equivale ad avere decisioni corrette: prevedere test strategici con valutazione umana. Fonte e metodologia vanno tracciate.
-- **Controllo fonti KB:** controllo leggero delle fonti registrate **ogni 45 giorni** previsto se tecnicamente semplice; solo rilevazione di link non raggiungibili/modifiche e report, senza riscrittura automatica dei playbook. Aggiornamento/acquisizione autonoma della conoscenza, RAG e altri sistemi complessi restano nel backlog.
-- **Per Codex:** gli SCOPE dei Moduli 01–07, la Development Roadmap, la Technology Stack & Architecture e la Provider Access Matrix sono stati redatti. Il passo successivo è predisporre `AGENTS.md`, avviare Gate 0 e riprodurre i test delle API in Codex. `AGENTS.md` non sostituisce i documenti approvati.
-- **Stato realizzativo:** nessun agente, connettore o source-monitor è dichiarato attivo o collaudato. Supabase non ospita automaticamente i job Python lunghi; backend/worker e deploy rimangono da scegliere nello stack finale.
+- **Controllo fonti KB:** controllo leggero delle fonti registrate **ogni 45 giorni**, KB-001: implementazione al Gate 2, test di accettazione e verifica operativa al Gate 8 prima della release. Solo rilevazione modifiche/link e report, nessuna riscrittura dei playbook. Evolutive complesse nel backlog canonico.
+- **Per Codex:** `AGENTS.md` e Gate 0 sono realizzati; verificare la foundation dopo il consolidamento, poi procedere ai gate di accesso secondo roadmap. Le prove API del precedente ambiente non certificano il runtime corrente.
+- **Stato realizzativo:** nessun agente applicativo, connettore o source-monitor è dichiarato operativo. Render ospiterà backend/worker; Supabase persiste job/dati/storage. Sono scelte definitive, non deploy già eseguiti.

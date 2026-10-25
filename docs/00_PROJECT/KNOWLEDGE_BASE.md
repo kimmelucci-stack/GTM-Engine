@@ -55,9 +55,9 @@ L'implementazione minima può essere una configurazione del tipo `phase → [pla
 
 - **I file ufficiali sono approvati dall'utente o dal responsabile del progetto**, non riscritti autonomamente dall'agente.
 - Verifica leggera **ogni 45 giorni** per le fonti già registrate, senza rielaborare ogni documento con AI: stato URL, eventuale `ETag`/`Last-Modified` o impronta contenuto quando accessibile, esito e ultima verifica. Siti dinamici/anti-bot possono richiedere verifica manuale; una modifica non è automaticamente un cambiamento sostanziale delle conclusioni.
-- Implementazione proposta: piccolo script Python eseguibile con GitHub Actions o a richiesta; se la pianificazione a intervalli di 45 giorni non è disponibile direttamente, un controllo quotidiano **solo del calendario/scadenze** può eseguire gli HTTP check esclusivamente sulle fonti scadute.
+- Implementazione KB-001 al Gate 2: script Python con GitHub Actions o a richiesta; controllo giornaliero **solo del calendario**, HTTP esclusivamente sulle fonti scadute dopo 45 giorni. Verifica e test di accettazione obbligatori prima della release al Gate 8. Errori/tentativi non aggiornano la data dell'ultima verifica riuscita.
 - **Output:** report delle fonti cambiate/non raggiungibili/da riesaminare. **Mai** sovrascrivere automaticamente i framework e i playbook.
-- I dettagli di deploy, permessi, costi reali e periodicità sono da formalizzare nella Development Roadmap. Il costo può essere nullo entro quote disponibili, ma **non** è garantito senza misurazioni.
+- Scadenze, test e verifica operativa sono definiti nella `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`; permessi, quote e costi effettivi vanno collaudati. Il costo può essere nullo entro quote disponibili, ma non è garantito. Nessun monitor è già attivo.
 
 ## 6. Controllo qualità della competenza strategica
 

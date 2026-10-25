@@ -1,5 +1,5 @@
 # GTM Engine — Documentazione di progetto
-**Stato al 24 ottobre 2026:** Scoping funzionale 01–07 completo; architettura e roadmap MVP definite per Codex. L'integrazione dei provider non è tutta verificata. Nessun software end-to-end sviluppato.
+**Stato al 25 ottobre 2026:** scope 01–07 e stack consolidati; Gate 0 realizzato e verificato localmente e su CI. Nessun modulo end-to-end o provider applicativo verificato nel repository. Prove provider del precedente ambiente conservate nell'audit.
 
 ## Ordine di lettura per Codex
 1. `00_PROJECT/PROJECT_SCOPE.md` — requisiti trasversali.
@@ -8,11 +8,13 @@
 4. `00_PROJECT/DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md` — gate/compiti utente/criteri superamento.
 5. `00_PROJECT/DATA_ACCESS_AUDIT_2026-10-24.md` — dettagli metodi, test e fonti.
 6. `00_PROJECT/KNOWLEDGE_BASE.md` — playbook condivisi GitHub Markdown.
-7. `01_.../SCOPE.md` … `07_.../SCOPE.md`; `02_.../SCORING_MODEL.md`.
-8. `00_PROJECT/EVOLUTION_BACKLOG.md` — evolutive, non MVP.
+7. [Demand](01_DEMAND_INTELLIGENCE/SCOPE.md), [Market](02_MARKET_INTELLIGENCE/SCOPE.md), [UVP/ICP](03_UVP_ICP_INTELLIGENCE/SCOPE.md), [Positioning](04_VALUE_PROPOSITION_POSITIONING/SCOPE.md), [Channels](05_CHANNEL_GTM_STRATEGY/SCOPE.md), [Execution](06_GTM_EXECUTION_PLANNING/SCOPE.md), [Deck](07_GTM_STRATEGY_DECK/SCOPE.md); [Scoring v1.1](02_MARKET_INTELLIGENCE/SCORING_MODEL.md).
+8. `00_PROJECT/EVOLUTION_BACKLOG.md` — evolutive e KB-001 assegnato al Gate 2 con accettazione prima della release al Gate 8.
+
+Stato e consegne: [handoff](00_PROJECT/HANDOFF_TO_CODEX.md) e [verifiche Gate 0](00_PROJECT/GATE_0_VALIDATION.md).
 
 ## Naming
-Ogni modulo ha `SCOPE.md`; il Modulo 02 include `SCORING_MODEL.md`. Il file istruzioni Codex si chiama **`AGENTS.md`** nella root del repository (ancora da redigere dopo questa fase). Non rinominare in `agents.md`.
+Ogni modulo ha un solo `SCOPE.md` canonico; il Modulo 02 include `02_MARKET_INTELLIGENCE/SCORING_MODEL.md` v1.1, invariato. I vecchi nomi dei Moduli 06–07 sono solo rimandi compatibili. Il backlog canonico è esclusivamente `00_PROJECT/EVOLUTION_BACKLOG.md`. [AGENTS.md](../AGENTS.md) nella root contiene le istruzioni permanenti per Codex.
 
 ## Scelte confermate
 - React/TypeScript frontend creato da **Codex**, non Lovable; Vercel deploy.
@@ -23,4 +25,6 @@ Ogni modulo ha `SCOPE.md`; il Modulo 02 include `SCORING_MODEL.md`. Il file istr
 - Markdown Knowledge Base, NO vector RAG; PowerPoint editable via python-pptx.
 
 ## Nota sulle percentuali
-100% specifica architettura/roadmap = scelte e azioni definite, **non** connessioni o moduli installati. `T / T_LIMITED / D / G / U / X` nella matrice è l'unico stato ufficiale di accessibilità fino ai test Codex.
+Completezza della specifica non significa integrazioni operative. La matrice distingue accessibilità della fonte, disponibilità dei dati e natura epistemica; T/T_LIMITED si riferiscono all'ambiente storico esplicitato, non a test del repository. La sezione archivio dell'audit conserva scelte superate senza renderle normative.
+
+Repository pubblica per portfolio su richiesta del proprietario; credenziali, utenze provider, token, dati cliente e raw privati esclusi dai contenuti e dalla cronologia pubblicabili. Codice pubblico non equivale a deploy dell'applicazione.

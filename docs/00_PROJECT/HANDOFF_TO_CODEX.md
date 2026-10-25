@@ -16,21 +16,24 @@ Il registro aggiornato iniziale di `DATA_ACCESS_AUDIT_2026-10-24.md` riporta 12 
 
 Da collaudare in questo runtime: tutti i provider, crawler su cinque siti, Meta Ads UE, Instagram Business Discovery, Openapi su tre società e un bilancio, ISTAT/Eurostat/ESCO/OpenAlex, OpenAI, Supabase, hosting e PPTX. Nessuna chiamata autenticata eseguita durante l'inizializzazione.
 
-### Audit documentale: conflitti e duplicati conservati
+### Consolidamento documentale del 25 ottobre 2026 — dieci incoerenze chiuse
 
 | Riferimento | Riscontro | Regola operativa per l'avvio |
 |---|---|---|
-| `PROJECT_SCOPE.md` §§3/5/10 e ultima nota §12 | Moduli 06–07 ancora aperti, stack proposto, hosting da scegliere, perimetro campagne indeciso | Richiesta del proprietario, stack definitivo, roadmap e scope aggiornati chiudono queste scelte; nessuna campagna inviata |
-| Scope 01/02 e altre sezioni tecniche degli scope | «Test mai eseguiti», runtime/deck da scegliere | Sono stati funzionali storici; audit aggiornato distingue le prove successive e architettura fissa lo stack |
-| Corpo storico dell'audit e sua tabella integrazioni | SearchAPI primaria Google/Meta, reviews non raccolte, regione non provata | L'aggiornamento iniziale sostituisce esplicitamente queste affermazioni: DataForSEO Google, Meta ufficiale prima; reviews e Piemonte testati nel precedente ambiente |
-| Scope 02, fallback manuale Ads | Verifica assistita proposta storicamente | Matrice aggiornata: nessuna ricerca manuale obbligatoria; partial/unavailable se manca connettore verificato |
-| `docs/EVOLUTION_BACKLOG.md` v0.1 | Duplicato divergente: riferimento a riallineamento RAG | Canonico `docs/00_PROJECT/EVOLUTION_BACKLOG.md` v0.2, senza vettori MVP |
-| Modulo 06 `06_GTM_EXECUTION_PLANNING_SCOPE.md` e `SCOPE.md` | SHA256 identici | Canonico `SCOPE.md`; copia conservata |
-| Modulo 07 `SCOPE_MODULO_07.md` e `SCOPE.md` | SHA256 identici | Canonico `SCOPE.md`; copia conservata |
-| Matrice: riga buyer `D/I` | `I` non compare nella legenda principale della matrice; audit lo usa per inferenze | Non confondere accessibilità provider e natura epistemica; definire campi distinti al Gate 2 |
-| Backlog KB-001 | Controllo leggero 45 giorni previsto ma non assegnato a un gate | Collocazione da concordare prima della release; nessuna automazione attivata ora |
+| Project Scope: moduli e campagne | Stati funzionali e confine MVP allineati | 01–07 definiti, nessun invio automatico; chiuso |
+| Stack negli scope 01–07 | Indicazioni tecniche superate sostituite | Render API/worker, Supabase e python-pptx definitivi; chiuso |
+| Priorità provider | Registro attuale allineato alla matrice | DataForSEO Google; Meta ufficiale UE prima; fallback condizionati; chiuso |
+| Cronologia prove API | Registro aggiornato e prima stesura separati | Evidenze precedenti conservate integralmente nell'archivio non normativo; nessun PASS locale inventato; chiuso |
+| Ads Modulo 02 | Rimosso requisito di verifica assistita obbligatoria | Raccolta automatica oppure partial/unavailable motivato; chiuso |
+| Backlog duplicato v0.1 | Contenuto confrontato con canonico | Canonico v0.3 in `docs/00_PROJECT/`, riferimento pricing storico recuperato; duplicato rimosso, storia in Git; chiuso |
+| Legenda matrice | Accessibilità, disponibilità e inferenze separati | Tre assi, ambiente/data/fixture espliciti; chiuso |
+| KB-001 | Inserito nella roadmap e nella KB | Implementazione/test Gate 2; verifica operativa prima della release Gate 8; chiuso, non implementato |
+| README/handoff/rimandi | Stato aggiornato e duplicati scope consolidati | File con vecchi nomi 06–07 solo rimandi ai canonici, contenuti originali in Git; chiuso |
+| AGENTS | Riferimenti e precedenze consolidati | Solo documenti canonici; archivio non normativo; chiuso |
 
-Non sono stati eliminati duplicati o riscritti documenti approvati. Le priorità esplicite già disponibili consentono il Gate 0; eventuali ulteriori conflitti sostanziali richiedono segnalazione prima di una modifica normativa.
+Bonifica autorizzata dal proprietario: nessun requisito funzionale approvato modificato, nessun servizio aggiunto e nessuna evidenza storica API eliminata. Scoring v1.1 invariato. Restano dettagli implementativi e prove reali, non conflitti di stack: geografie/feature endpoint, permessi Meta, identità societarie, calibrazione empirica CCI, contratti tecnici e qualità strategica da collaudare.
+
+Il proprietario richiede repository pubblica per portfolio. Pubblicazione limitata a codice/documentazione e campioni pubblici o sintetici revisionati; secret e dati cliente esclusi, inclusa la storia Git. L'impostazione privata prima del primo caricamento è una precauzione storica, non l'audience finale richiesta.
 
 ## B. Piano operativo e dipendenze
 
@@ -44,13 +47,13 @@ Seguire `DEVELOPMENT_ROADMAP_AND_OWNER_ACTIONS.md`, un gate alla volta.
 | 1C Meta/IG | App/token/permessi distinti Ads e IG | Due advertiser IT con due pagine; due account professionali fino a 50 media ove disponibili, copertura o blocco motivato |
 | 1D Company | Token Openapi, cap, aziende e bilancio | Tre match verificati, dati con anno, confronto un bilancio |
 | 1E Pubbliche | Accesso rete e condizioni correnti | Download/query reale per ISTAT, Eurostat, ESCO, OpenAlex con query/versione/data |
-| 2 Foundation | Prove accesso, Supabase, Render, Vercel | Adapter, persistenza evidenze/raw, REST→job→worker→storage, retry/fail/timeout, cap e KB loader |
+| 2 Foundation | Prove accesso, Supabase, Render, Vercel | Adapter, evidenze/raw, REST→job→worker→storage, retry/fail/timeout, cap, KB loader e KB-001 con test 45 giorni |
 | 3 Demand | Foundation e dati utilizzabili | Pilota Torino, 20 keyword e tre cluster validati dal proprietario |
 | 4 Competitive | Demand e fonti con stati espliciti | Cinque aziende, tre scorecard riviste, regressioni scoring v1.1 e missing data |
 | 5 UVP/ICP/Positioning | Output 01–02 e input/prove proprietario | B2B/B2C e offerta disponibile/in sviluppo; approvazioni, nessun claim falso |
 | 6 Channels/Execution | Strategia e risorse dichiarate | Budget insufficiente, ore/skill gap e costi separati; revisione strategica |
 | 7 Deck | Snapshot approvati, template approvato | PPTX nativo editabile, render senza overflow e prova di modifica |
-| 8 Release | Gate precedenti e consenso owner | E2E, failure provider, smoke produzione, costi e accettazione firmata |
+| 8 Release | Gate precedenti e consenso owner | E2E, failure provider, smoke produzione, KB-001 verificato operativamente, costi e accettazione firmata |
 
 Ogni PASS richiede i campi QA della roadmap: comando/data/versione/provider/endpoint/input/status/campione/copertura/costo/raw/limiti e approvazione se prevista. Test automatici non sostituiscono validazione business o prova live.
 

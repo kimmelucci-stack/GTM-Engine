@@ -1,16 +1,23 @@
 # GTM Engine — Matrice definitiva delle fonti, dei test e degli accessi
-**24 ottobre 2026.** Perimetro: tutti i dati richiesti negli SCOPE dei moduli 00–07. Questo documento è **completo al livello della progettazione delle fonti e dei test**, ma non certifica l'accesso live ai provider che richiedono credenziali mancanti.
+**Decisioni del 24 ottobre 2026; legenda consolidata il 25 ottobre.** Perimetro: dati degli scope 00–07. Progettazione fonti e test completa; nessuna prova provider riprodotta nel repository attuale. Gli stati storici sono evidenze del precedente ambiente, non accessi correnti certificati.
 
 ## Livelli da non confondere
-- **T / TESTED_DATA:** richiesta autenticata e risultati dati reali disponibili in questa sessione. Per test di produzione Codex deve riprodurre la prova nel proprio ambiente.
+- **T / TESTED_DATA:** richiesta autenticata con dati nel precedente ambiente, secondo audit; non riprodotta nel repository. Ogni futuro T deve specificare ambiente, data e fixture.
 - **T_LIMITED:** endpoint interrogato ma copertura insufficiente, qualità da verificare o campione ridotto.
 - **D / DOCUMENTED:** servizio e metodo verificati nella documentazione attuale, nessun test autenticato nel runtime applicativo.
 - **G / GATED:** account/token/permessi/piano da procurare; test necessario prima di dichiarare la fonte operativa.
 - **U / USER:** dato che conosce e immette l'utente o approvazione richiesta.
 - **X / UNOBSERVABLE:** il dato non è lecitamente e affidabilmente disponibile tramite le fonti identificate; segnare unavailable, non compilare a fantasia.
 
+### Tre assi distinti
+1. **Accessibilità della fonte:** `documented`, `gated`, `tested`, `failed`, sempre con ambiente/data/limiti. T storico non equivale a tested nel repository; G non prova che l'account non esista, solo che l'accesso non è verificato.
+2. **Disponibilità del dato:** `available`, `partial`, `unavailable`, `not_checked`; preservare null, zero verificato ed errore come casi diversi. T_LIMITED riassume accesso storico riuscito con dati parziali; un HTTP 200 non garantisce disponibilità.
+3. **Natura epistemica:** `Observed`, `Derived` (metodo/versione) o `Inferred` (interpretazione/ipotesi); supporto del claim separato (`Supported/Mixed/Unverified` secondo Modulo 03). L'AI non determina l'accessibilità della fonte. `I` significa inferenza, non stato API; `U` indica input/approvazione utente, non test provider.
+
+Le sigle della tabella sono riepiloghi di progettazione/storici. Le forme `U/D`, `D/I` e `D/T ereditato` combinano provenienza o natura, non nuovi stati di accesso. I tre assi saranno persistiti separatamente al Gate 2. Stato locale di tutte le capacità provider: `not_checked`; prove applicative in `GATE_0_VALIDATION.md` riguardano soltanto la foundation.
+
 ## Copertura e fallback: nessun obbligo di ricerca manuale su dati esterni pubblici
-| Dato/campo | Primaria (metodo) | Riserva / condizione | Stato adesso | Azione dell'utente | Prova di chiusura |
+| Dato/campo | Primaria (metodo) | Riserva / condizione | Stato storico/progettazione | Azione dell'utente | Prova di chiusura |
 |---|---|---|---|---|---|
 | Brief offerta, obiettivi, stato prodotto | Modulo 00 form | sito pubblico in supporto | U | Descrivere offerta; selezionare sviluppo sì/no | campi validati; nessuna inferenza promossa a fatto |
 | URL sito, competitor aggiunti e asset | input + crawler | URL aggiuntivi opzionali | U/D | Fornire se disponibili | URL apribile o assenza esplicita |

@@ -5,6 +5,8 @@
 **Stato:** scoping funzionale consolidato; UX/form UVP da rifinire, PRD/TDD e validazione empirica da realizzare  
 **Dipendenze:** `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/01_DEMAND_INTELLIGENCE/SCOPE.md`, `docs/02_MARKET_INTELLIGENCE/SCOPE.md`.
 
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+
 ## 1. Obiettivo e perimetro
 
 Individuare e raccomandare **profili di clienti ideali (ICP) B2B o B2C**, collegando la UVP quando disponibile, i bisogni, le evidenze di domanda, i comportamenti commerciali e le caratteristiche organizzative o familiari. Il modulo deve produrre una **raccomandazione da Marketing Strategist**, argomentata e verificabile, non una buyer persona narrativa inventata dal modello.

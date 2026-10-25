@@ -5,6 +5,8 @@
 **Stato:** **100% dei requisiti funzionali concordati specificati**; implementazione, benchmark, integrazioni e validazione empirica **non eseguiti**.  
 **Dipendenze:** Project Brief, output Moduli 01–05, `docs/00_PROJECT/KNOWLEDGE_BASE.md`.
 
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+
 ## 1. Obiettivo e confini
 
 Trasformare la strategia del Modulo 05 in **un piano GTM eseguibile e motivato**, con combinazione di canali, attività essenziali, budget Paid, costi separati, capacità richieste, lacune, KPI e roadmap di esecuzione. L'agente **pianifica**, non avvia campagne, non invia outreach e non produce automaticamente piani editoriali dettagliati.
@@ -138,7 +140,7 @@ L'output è una **raccomandazione tecnica e strategica controllabile**, non l'av
 - Schema completo di `Project Brief`, persistenza dei campi e richieste di approvazione.
 - Raccolta effettiva di benchmark attuali, accessi API/prezzi fornitori e regole per non confrontare geografie/canali incompatibili.
 - Stime delle ore per work package e processo di revisione dei relativi presupposti.
-- Scelta finale hosting backend/worker, storage, contratti dati, job logging e deck modificabile.
+- Implementazione contratti e logging su API/worker Render, Supabase Postgres/Storage e deck python-pptx; le scelte sono definitive, gli accessi e il deploy da collaudare.
 - Struttura dei test automatizzati e dataset dei casi di collaudo; nessuna promessa di accuratezza quantitativa prima di misurarla.
 
 ---

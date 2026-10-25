@@ -5,6 +5,8 @@
 **Stato:** requisiti funzionali approvati e documentati; implementazione, collaudo grafico ed export reale da sviluppare e validare.  
 **Dipendenze:** `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/00_PROJECT/KNOWLEDGE_BASE.md`, output approvati dei Moduli 01–06.
 
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Prove provider storiche nell’audit del 24 ottobre; nessuna riprodotta nel repository attuale.
+
 ## 1. Obiettivo e perimetro
 
 Convertire le evidenze e le decisioni strategiche dei Moduli 01–06 in un **GTM Strategy Deck professionale, sintetico, narrativamente coerente e realmente modificabile in PowerPoint (`.pptx`)**.
@@ -103,7 +105,7 @@ La Knowledge Base supporta stile, narrative design e controllo metodologico ma *
 
 **Vietato:** esportare una slide intera come PNG/JPEG e inserirla in una presentazione presentandola come editabile. Per gli elementi complessi non supportati dal generatore, dichiarare il limite e preferire un layout nativo più semplice; non degradare silenziosamente l'editabilità.
 
-Separare rigorosamente **contenuto strutturato**, **layout/template** e **renderer PPTX**: l'agente sceglie messaggio e famiglia di layout, mentre un renderer deterministico applica regole di posizionamento. La scelta esatta della libreria (ad es. `python-pptx`), del motore di anteprima e del servizio di rendering appartiene al documento *Technology Stack & Architecture*, non a questo scope.
+Separare **contenuto strutturato**, **layout/template** e **renderer PPTX**: l'agente sceglie messaggio e famiglia di layout; il renderer deterministico applica le regole. L'architettura approva python-pptx, preview LibreOffice headless sul worker Render e Supabase Storage privato. Restano da implementare e verificare editabilità, compatibilità e layout.
 
 ## 8. Revisione e UX
 
@@ -159,11 +161,11 @@ DeckSlideSpec
 
 Il renderer associa i blocchi agli slot dei quattro layout approvati. Font, layout, tema e regole di overflow sono versionati: la riproducibilità grafica non deve dipendere da un prompt libero diverso a ogni esecuzione.
 
-## 11. Decisioni rinviate al Technology Stack / TDD
+## 11. Implementazione e collaudo secondo architettura approvata
 
-- Libreria PPTX definitiva e gestione di grafici realmente editabili.
-- Strategia di preview/rendering server-side, compatibilità font e controllo visuale automatico.
-- Storage, versioning delle bozze, limiti di file e job asincroni di generazione deck.
+- Implementare python-pptx e verificare grafici realmente editabili.
+- Implementare preview LibreOffice headless sul worker Render; verificare font e layout.
+- Implementare Supabase Storage privato, versioning bozze, limiti file e job persistiti su Postgres.
 - Schemi JSON validati e collegamento ai contratti di output dei Moduli 01–06.
 - Strategia di test end-to-end su ambienti equivalenti a quelli di produzione.
 
