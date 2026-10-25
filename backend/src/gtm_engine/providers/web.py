@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field
 
 USER_AGENT = "GTMEngineResearch/0.1"
 MAX_BYTES = 2_000_000
+WEB_EXTRACTOR_VERSION = "web-extract-v2"
 RELEVANT = re.compile(r"serviz|team.?build|prezz|pric|case|client|testimon|chi-siamo|about", re.IGNORECASE)
 PRICE = re.compile(r"(?:€\s*\d[\d.,]*|\d[\d.,]*\s*(?:€|euro))", re.IGNORECASE)
 
@@ -78,8 +79,26 @@ def parse_page(html: str, url: str, timestamp: str, raw: str) -> tuple[list[Evid
     text = trafilatura.extract(str(soup), include_comments=False, include_tables=True) or ""
     records: list[Evidence] = []
     seen: set[tuple[str, str]] = set()
-    for tag in soup.find_all(["h1", "h2", "h3", "p", "li", "a", "button"]):
+    for tag in soup.find_all(["h1", "h2", "h3", "p", "li", "a", "button",
+                              "div", "span", "strong", "td", "tr", "dd"]):
         snippet = " ".join(tag.stripped_strings)
+        if len(snippet) > 500 and tag.name in ("p", "li", "td", "dd"):
+            # Some CMSs put an entire tariff in a single paragraph with <br>.
+            # Keep bounded contiguous excerpts around prices rather than
+            # dropping the paragraph or inferring an offer from a bare amount.
+            for match in PRICE.finditer(snippet):
+                start = max(0, match.start() - 180)
+                end = min(len(snippet), match.end() + 180)
+                excerpt = snippet[start:end].strip()
+                key = ("published_price", excerpt)
+                if key not in seen:
+                    records.append(Evidence(
+                        field="published_price", text=excerpt, source_url=url,
+                        fetched_at=timestamp, raw_reference=raw,
+                        limitation="Contiguous price excerpt; verify full terms and validity on source."
+                    ))
+                    seen.add(key)
+            continue
         if not 8 <= len(snippet) <= 500:
             continue
         field = None
@@ -99,6 +118,9 @@ def parse_page(html: str, url: str, timestamp: str, raw: str) -> tuple[list[Evid
             seen.add((field, snippet))
     links = sorted({urldefrag(urljoin(url, a["href"]))[0]
                     for a in soup.find_all("a", href=True) if RELEVANT.search(a["href"])})
+    # Preserve published prices when the page contains many decorative headings.
+    # This is extraction ordering, never a competitor ranking or numeric estimate.
+    records.sort(key=lambda record: record.field != "published_price")
     return records[:80], links, text
 
 
@@ -111,7 +133,7 @@ class WebsiteCrawler:
 
     def __init__(self, root: str, output: Path, *, max_pages: int = 4,
                  client: httpx.Client | None = None, resolve=public_dns,
-                 pause=time.sleep, browser: bool = False):
+                 pause=time.sleep, browser: bool = False, max_requests: int | None = None):
         host = urlsplit(root).hostname or ""
         domain = host.removeprefix("www.")
         self.hosts = {domain, "www." + domain}
@@ -119,6 +141,9 @@ class WebsiteCrawler:
         if not 1 <= max_pages <= 8:
             raise ValueError("max_pages must be 1..8")
         self.max_pages, self.output = max_pages, output
+        self.max_requests = max_requests if max_requests is not None else max_pages * 5 + 10
+        if not 1 <= self.max_requests <= 50:
+            raise ValueError("max_requests must be 1..50")
         self.output.mkdir(parents=True, exist_ok=True)
         self.client = client or httpx.Client(timeout=20, follow_redirects=False, trust_env=False,
                                             headers={"User-Agent": USER_AGENT})
@@ -138,7 +163,7 @@ class WebsiteCrawler:
                 raise CrawlError("robots_disallowed")
             if url in self.cache:
                 return self.cache[url]
-            if self.requests >= self.max_pages * 5 + 10:
+            if self.requests >= self.max_requests:
                 raise CrawlError("request_limit")
             self.pause(self.delay)
             self.requests += 1
@@ -260,7 +285,8 @@ class WebsiteCrawler:
                     html = self.render(final)
                     page.method = "playwright"
                     evidence, links, text = parse_page(html, final, stamp, str(raw))
-                raw.write_text(html, encoding="utf-8")
+                # Stable snapshot bytes on Windows and Linux; no newline translation.
+                raw.write_bytes(html.encode("utf-8"))
                 page.raw_reference = str(raw)
                 page.sha256 = hashlib.sha256(html.encode()).hexdigest()
                 page.evidence, page.text_length = evidence, len(text)
@@ -285,7 +311,9 @@ class WebsiteCrawler:
                     page.status_code = int(page.reason.removeprefix("http_"))
             pages.append(page)
         return {"root": self.root, "provider": "anonymous_website", "version": "gate1b-v1",
+                "extractor_version": WEB_EXTRACTOR_VERSION,
                 "requests": self.requests, "max_pages": self.max_pages,
+                "max_requests": self.max_requests,
                 "request_log": self.request_log,
                 "pages": [p.model_dump() for p in pages],
                 "cost": {"provider_api_usd": 0, "local_compute_usd": None},

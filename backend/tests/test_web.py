@@ -1,10 +1,11 @@
+import hashlib
 import os
 from pathlib import Path
 
 import httpx
 import pytest
 
-from gtm_engine.gate1b import acceptance
+from gtm_engine.gate1b import acceptance, screening_summary, validate_mode
 from gtm_engine.providers.web import CrawlError, WebsiteCrawler, parse_page, public_dns, safe_url
 
 HTML = """<html><body><nav><p>€ 99999</p></nav><main>
@@ -50,6 +51,8 @@ def test_crawl_caps_and_missing_values(tmp_path):
     assert all(p["status"] == "available" for p in result["pages"])
     assert all("elsewhere" not in link for p in result["pages"] for link in p["links"])
     assert all(Path(p["raw_reference"]).exists() for p in result["pages"])
+    assert all(hashlib.sha256(Path(p["raw_reference"]).read_bytes()).hexdigest() == p["sha256"]
+               for p in result["pages"])
 
 
 def test_disallowed_robots_never_fetches_content(tmp_path):
@@ -89,6 +92,66 @@ def test_robots_unknown_is_fail_closed(tmp_path):
 def test_no_price_does_not_become_zero():
     evidence, _, _ = parse_page("<h1>Attività di gruppo su preventivo</h1>", "url", "date", "raw")
     assert not any(e.field == "published_price" for e in evidence)
+
+
+def test_split_price_preserves_offer_context_and_tax_basis():
+    html = """<main><div>Mezza giornata, fino a 30 persone
+    <span>€</span><strong>200,00</strong><span> + IVA</span></div>
+    <table><tr><td>Giornata intera</td><td>€ 350,00 + IVA</td></tr></table></main>"""
+    evidence, _, _ = parse_page(html, "https://example.test/pricing", "date", "raw")
+    prices = [e for e in evidence if e.field == "published_price"]
+    assert any("Mezza giornata" in e.text and "200,00" in e.text and "IVA" in e.text
+               for e in prices)
+    assert any("Giornata intera" in e.text and "350,00" in e.text for e in prices)
+
+
+def test_long_cms_paragraph_keeps_bounded_price_evidence():
+    html = "<p>" + "Introduzione senza prezzo. " * 40
+    html += "<br>Mezza giornata fino a 30 persone: € 200,00 + IVA."
+    html += "<br>Condizioni aggiuntive. " * 40 + "</p>"
+    evidence, _, _ = parse_page(html, "https://example.test/pricing", "date", "raw")
+    prices = [e for e in evidence if e.field == "published_price"]
+    assert prices and all(len(e.text) <= 500 for e in prices)
+    assert any("Mezza giornata" in e.text and "IVA" in e.text for e in prices)
+
+
+def test_screening_does_not_promote_access_to_gate_approval():
+    sites = [{"root": f"https://site{i}.test", "pages": [
+        {"status": "available", "evidence": [{"field": "publisher_claim"}]}]}
+        for i in range(5)]
+    result = screening_summary(sites)
+    assert result["websites_with_evidence"] == 5
+    assert result["gate_status"] == "AWAITING_SAMPLE_APPROVAL"
+    assert result["sample_confirmed"] is False
+    sites[0]["pages"][0]["status"] = "unavailable"
+    assert screening_summary(sites)["screening_status"] == "partial"
+
+
+def test_screening_cannot_use_browser_or_confirm_sample():
+    urls = ["https://example.test/"]
+    validate_mode(urls, screen=True, confirmed=False, browser=False)
+    for confirmed, browser in ((True, False), (False, True)):
+        with pytest.raises(ValueError):
+            validate_mode(urls, screen=True, confirmed=confirmed, browser=browser)
+    with pytest.raises(ValueError):
+        validate_mode(urls, screen=False, confirmed=False, browser=False)
+    with pytest.raises(ValueError):
+        validate_mode(urls + ["https://www.example.test/path"], screen=True,
+                      confirmed=False, browser=False)
+    with pytest.raises(ValueError):
+        validate_mode([f"https://site{i}.test/" for i in range(17)], screen=True,
+                      confirmed=False, browser=False)
+
+
+def test_request_cap_applies_to_robots_and_content(tmp_path):
+    seen = []
+
+    def handler(request):
+        seen.append(str(request.url))
+        return httpx.Response(404)
+    result = crawler(tmp_path, handler, max_requests=1).crawl()
+    assert len(seen) == 1
+    assert result["pages"][0]["reason"] == "request_limit"
 
 
 def test_gate_requires_five_successful_sites_and_owner_confirmation():

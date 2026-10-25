@@ -30,7 +30,24 @@ Esecuzione UTC: 09:21–09:23 del 25 ottobre 2026. Comandi: runner Gate 1A `--li
 Evidenze raw redatte delle credenziali, ledger, tariffa verificata e report esclusivamente in `artifacts/private/dataforseo/` (ignorato da Git); il repository pubblico contiene solo riepilghi aggregati e test sintetici. Riferimenti privati: `pilot/journal.jsonl`, `pilot/report.json`, `pilot/budget.json`, `account-pricing.json`, `rates.json`. Nessun risultato esteso o dato account pubblicato. Il report separa `gate_status` da `status` dei dati e preserva i limiti Trends/PAA. Altri provider non collaudati.
 
 
-> **Aggiornamento successivo, 24 ottobre 2026 — priorità a questo registro.** La presente revisione sostituisce le scelte provider Google/Meta e integra i test effettivamente eseguiti dopo la prima stesura. Per il dettaglio dei gate consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
+## Gate 1B — screening leggero nel repository, 25 ottobre 2026
+
+**Accesso parziale, gate non superato.** Screening dei candidati delle due offerte del pilota: nove domini distinti, una pagina di offerta per sito, soli HTTP GET anonimi, robots.txt e timeout/cap verificati dal codice. Campione da discovery, non shortlist approvata. Identità del cliente, domini, testi e raw specifici rimangono privati; i due contesti commerciali restano separati e un sito comune viene richiesto una sola volta.
+
+| Verifica | Risultato osservato | Limite |
+|---|---|---|
+| Accesso | 17 GET: 16 HTTP 200 (robots + pagina per otto domini) e un HTTP 403 su robots.txt | Sul dominio bloccato nessuna richiesta alla pagina, nessun aggiramento o browser |
+| Campione | Otto pagine disponibili su nove tentativi | Una sola pagina/sito, nessuna copertura completa o graduatoria |
+| Estrazione | 106 record con URL, UTC e riferimento raw dopo normalizzazione v2 | Estratti del publisher, non prove indipendenti di risultati |
+| Prezzi | Evidenze di prezzo su due pagine | Condizioni e formula conservate nel testo; non importi omogenei o preventivi correnti garantiti |
+| Case study | Non osservati nelle pagine campione | Non implica assenza sull'intero sito |
+| Canali | Non misurati da questo screening | Non usare accessibilità web per dedurre presenza SERP/Maps/ADV |
+
+Acquisizione UTC 11:53:36–11:54:07 del 25 ottobre 2026; versione acquisizione `gate1b-v1` con nuovo limite di una pagina e dieci richieste/sito. Runner attuale distingue la modalità come `gate1b-screen-v1`; l'etichetta nel report originale non viene riscritta. Comando: `.venv/Scripts/python.exe -m gtm_engine.gate1b --screen --live --url URL_CAMPIONE ... --output artifacts/private/web-screening/20261025T115336Z`; nove URL pubblici specificati nel report privato. Provider/endpoints: GET HTTPS `robots.txt` e pagina di offerta nel dominio campione. Costo API zero, calcolo locale non misurato. Nessuna credenziale caricata e nessuna chiamata DataForSEO aggiuntiva; il precedente totale 0,31847 USD resta invariato.
+
+Originale `artifacts/private/web-screening/20261025T115336Z/report.json`, raw HTML e robots nelle sottocartelle sito. Correzioni del parser: prezzi in div/span/strong/celle e paragrafi CMS oltre 500 caratteri; estratti contigui limitati, nessuna cifra inventata o normalizzazione senza condizioni. Nuova trasformazione `web-extract-v2` in `extraction-v2.json`, timestamp di normalizzazione separato da UTC originali, **zero chiamate di rete**, originale e hash raw preservati. Non attribuire i campi recuperati al parser precedente. Report e manifest privati non impostano mai approvazione ricevuta. Conferma e crawl approfonditi ancora necessari; browser solo su fixture sintetiche.
+
+> **Aggiornamento storico, 24 ottobre 2026.** Il registro seguente conserva le evidenze del precedente ambiente; i registri del repository sopra prevalgono per il solo campione effettivamente riprodotto. Per le scelte vigenti consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
 
 ## Registro del precedente ambiente — DataForSEO, 24 ottobre 2026
 Tutti i risultati seguenti provengono da richieste autenticata al collegamento disponibile durante l'audit; il conto API e le credenziali **non sono automaticamente trasferiti** sull'account ChatGPT Pro.

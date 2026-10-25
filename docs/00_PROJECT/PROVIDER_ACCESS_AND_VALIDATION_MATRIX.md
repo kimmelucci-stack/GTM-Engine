@@ -1,11 +1,13 @@
 # GTM Engine — Matrice definitiva delle fonti, dei test e degli accessi
-**Decisioni del 24 ottobre 2026; prove e legenda aggiornate il 25 ottobre.** Perimetro: dati degli scope 00–07. Gate 1A DataForSEO riprodotto nel repository; altri provider non collaudati. La tabella storica sottostante conserva le evidenze precedenti; il registro corrente qui sotto prevale per il solo campione effettivamente riprodotto.
+**Decisioni del 24 ottobre 2026; prove e legenda aggiornate il 25 ottobre.** Perimetro: dati degli scope 00–07. Gate 1A DataForSEO riprodotto; crawler HTTP collaudato nel solo screening leggero sotto descritto, altri accessi API non collaudati. La tabella storica sottostante conserva le evidenze precedenti; il registro corrente qui sotto prevale per il solo campione effettivamente riprodotto.
 
 ## Accessibilità corrente — repository, 25 ottobre 2026
 
 Gate 1A **PASS_WITH_LIMITATIONS**, spesa 0,31847 USD contro cap 5 USD. Autenticazione/tariffe via endpoint gratuito verificati. Fonti DataForSEO `tested` per catalogo IT, volumi città/regione/nazione, ideas, intent, autocomplete, SERP organica/PAA, Maps, reviews POST/GET, Trends e Google Ads Advertisers/Search. Dati disponibili per i campioni; Trends `partial` (2/54 valori non null), SERP iniziale senza PAA ma PAA verificato su query supplementare. Nessun dato economico inferito. Dettagli, campioni, query, costi e riferimenti privati nell'[audit](DATA_ACCESS_AUDIT_2026-10-24.md).
 
-Stati e limiti valgono per il pilota, non per ogni paese/query/competitor. Credenziali e raw privati esclusi dal portfolio. Nessun altro gate/provider promosso a tested.
+Crawler HTTP: nove domini campione, una pagina di offerta per sito, otto con contenuto/evidenze e uno `failed` per HTTP 403 su robots.txt. Accesso `tested` alle otto pagine; dataset complessivo `partial`, prezzi osservati su due pagine con estrattore `web-extract-v2`, case study non osservati nel campione. Nessuna prova di ranking o volume di domanda; sostituibilità commerciale ancora da qualificare, nessuna shortlist approvata. Il rendering dinamico resta testato su fixture sintetiche, non su questi siti. Gate 1B non superato: dettagli e report privati nell'audit.
+
+Stati e limiti valgono per il pilota, non per ogni paese/query/competitor. Credenziali e raw privati esclusi dal portfolio. Nessun gate successivo o accesso API ulteriore promosso a tested.
 
 ## Livelli da non confondere
 - **T / TESTED_DATA:** richiesta autenticata con dati nell'ambiente specificato. La tabella storica si riferisce al precedente ambiente; il registro corrente indica le prove del repository. Ogni T richiede ambiente, data e fixture.
@@ -20,7 +22,7 @@ Stati e limiti valgono per il pilota, non per ogni paese/query/competitor. Crede
 2. **Disponibilità del dato:** `available`, `partial`, `unavailable`, `not_checked`; preservare null, zero verificato ed errore come casi diversi. T_LIMITED riassume accesso storico riuscito con dati parziali; un HTTP 200 non garantisce disponibilità.
 3. **Natura epistemica:** `Observed`, `Derived` (metodo/versione) o `Inferred` (interpretazione/ipotesi); supporto del claim separato (`Supported/Mixed/Unverified` secondo Modulo 03). L'AI non determina l'accessibilità della fonte. `I` significa inferenza, non stato API; `U` indica input/approvazione utente, non test provider.
 
-Le sigle della tabella sono riepiloghi di progettazione/storici. Le forme `U/D`, `D/I` e `D/T ereditato` combinano provenienza o natura, non nuovi stati di accesso. I tre assi saranno persistiti separatamente al Gate 2. Stato locale: DataForSEO tested nel campione sopra; altre capacità provider not_checked/gated. `GATE_0_VALIDATION.md` riguarda soltanto la foundation, l'audit contiene le successive prove provider.
+Le sigle della tabella sono riepiloghi di progettazione/storici. Le forme `U/D`, `D/I` e `D/T ereditato` combinano provenienza o natura, non nuovi stati di accesso. I tre assi saranno persistiti separatamente al Gate 2. Stato locale: DataForSEO tested e crawler HTTP tested solo nel campione di screening sopra; altri accessi API not_checked/gated. `GATE_0_VALIDATION.md` riguarda soltanto la foundation, l'audit contiene le successive prove provider.
 
 ## Copertura e fallback: nessun obbligo di ricerca manuale su dati esterni pubblici
 | Dato/campo | Primaria (metodo) | Riserva / condizione | Stato storico/progettazione | Azione dell'utente | Prova di chiusura |

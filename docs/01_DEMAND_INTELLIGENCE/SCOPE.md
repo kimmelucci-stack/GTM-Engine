@@ -4,7 +4,7 @@
 **Data:** 20 ottobre 2026  
 **Stato:** scope definito; accessi DataForSEO riprodotti al Gate 1A con limiti di qualità nell'audit. Modulo non implementato end-to-end.
 
-**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Gate 1A DataForSEO riprodotto nel repository il 25 ottobre 2026 con limiti di copertura; registro nell’audit. Altri provider non collaudati.
+**Stack approvato:** React/TypeScript/Vite su Vercel; Python/FastAPI/Pydantic e worker separato su Render; Supabase Postgres/Storage; OpenAI Responses/Structured Outputs; deck python-pptx e preview LibreOffice headless. Decisioni in [architettura](../00_PROJECT/TECHNOLOGY_STACK_AND_ARCHITECTURE.md). Restano da implementare e collaudare, non da selezionare. Gate 1A DataForSEO riprodotto nel repository il 25 ottobre 2026 con limiti di copertura; registro nell’audit. Per crawler e altri accessi, stato e limiti nella [matrice canonica](../00_PROJECT/PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md).
 
 ## 1. Scopo
 
