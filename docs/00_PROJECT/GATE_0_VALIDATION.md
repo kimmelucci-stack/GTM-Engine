@@ -1,6 +1,6 @@
 # Gate 0 — Registro verifiche
 
-Data: 25 ottobre 2026. Versione applicazione 0.1.0. Repository del proprietario collegata, commit iniziale remoto conservato. Stato: controlli locali PASS; CI remota da verificare dopo push.
+Data: 25 ottobre 2026. Versione applicazione 0.1.0. Repository del proprietario collegata, commit iniziale remoto conservato. Stato: **Gate 0 PASS**, controlli locali e CI remota riusciti.
 
 ## Ambiente osservato
 
@@ -22,11 +22,13 @@ Windows/PowerShell. Python di sistema non eseguibile (alias WindowsApps); npm no
 | Lint backend | `.venv/Scripts/python -m ruff check backend` | PASS |
 | Worker ingresso | `.venv/Scripts/python -m gtm_engine.worker --check` | PASS; nessun job eseguito, persistenza non implementata |
 | Secret/artifact esclusi | `git check-ignore .venv/ frontend/node_modules/ frontend/dist/ .env` | Controllo locale; `.env.example` contiene solo valori vuoti |
-| CI | `.github/workflows/ci.yml` | Predisposta, non eseguita su GitHub |
+| CI | `.github/workflows/ci.yml`, commit `cc17c7f` | PASS: secrets, backend e frontend. Run: https://github.com/kimmelucci-stack/GTM-Engine/actions/runs/40177788545 |
 | Provider/DB/storage | Nessuna chiamata | NON TESTATI nel runtime; nessun PASS ereditato dall'audit |
 
 Gli errori iniziali di installazione erano locali: bootstrap pip della venv non disponibile e restrizione realpath per pnpm; installazioni ripetute con runtime disponibile e accesso autorizzato. Un primo test era partito prima della fine dell'installazione (import mancanti); rieseguito dopo installazione completa. Il test API limitato dal sandbox è stato rieseguito con accesso autorizzato: PASS. Nessuna spesa provider richiesta.
 
 Provider/endpoint/status rete/campione/copertura/raw fixture: N/A per build e test locali; non sono prove di acquisizione dati. Costo API: nessuna chiamata effettuata. Le fixture live saranno prodotte ai gate di accesso e redatte prima del versionamento.
 
-L'esecuzione remota della CI rimane da osservare dopo il primo push. Non iniziare Gate 1A automaticamente. Test frontend comportamentali/E2E saranno aggiunti con i flussi applicativi; nessuna verifica visuale browser eseguita per la shell.
+Push su `main` riuscito e CI remota osservata: secrets 7s, backend 14s, frontend 13s; stato complessivo Success. Warning non bloccanti dei runner: azioni con runtime Node 20 eseguite forzatamente con Node 24, migrazione ubuntu-latest. La CI non richiede secret provider. Scansione pre-commit completata senza credenziali corrispondenti alle regole; unico file ambiente versionato `.env.example` con valori vuoti. Hook attivo nella copia locale; dopo nuovi cloni va riattivato come da README.
+
+Non iniziare Gate 1A automaticamente. Test frontend comportamentali/E2E saranno aggiunti con i flussi applicativi; nessuna verifica visuale browser eseguita per la shell. Provider, persistenza e worker operativo restano ai gate successivi.

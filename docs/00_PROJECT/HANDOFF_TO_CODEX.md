@@ -64,9 +64,9 @@ Ogni PASS richiede i campi QA della roadmap: comando/data/versione/provider/endp
 - Guardia credenziali locale pre-commit e CI: controllo dei blob Git senza stampa dei valori, esclusione file sensibili, test con credenziali sintetiche. Non sostituisce la corretta gestione dei secret.
 - Esiti di installazione e controlli: vedere `GATE_0_VALIDATION.md`.
 
-Gate 0: healthcheck e guardia credenziali (5 test), ruff, ingresso worker e build/typecheck frontend riusciti; repository GitHub collegato. Esito CI remoto registrato in `GATE_0_VALIDATION.md`. Nessuna prova browser/E2E. Non sono avviati gate applicativi successivi.
+Gate 0 **PASS**: healthcheck e guardia credenziali (5 test), ruff, ingresso worker e build/typecheck frontend riusciti; repository GitHub privata collegata e push effettuato. CI remota secrets/backend/frontend Success sul commit `cc17c7f`, registro in `GATE_0_VALIDATION.md`. Nessuna prova browser/E2E dell'applicazione. Non sono avviati gate applicativi successivi.
 
-Prossimo task: verificare CI sul primo push, poi su richiesta avviare Gate 1A con credenziali DataForSEO e cap esplicito. Prima delle chiamate consultare documentazione ufficiale corrente, definire campioni e registro costi; salvare raw redatti, senza trasferire ciecamente risultati numerici dell'audit.
+Prossimo task: su richiesta avviare Gate 1A con credenziali DataForSEO e cap esplicito. Prima delle chiamate consultare documentazione ufficiale corrente, definire campioni e registro costi; salvare raw redatti, senza trasferire ciecamente risultati numerici dell'audit. Le credenziali vanno configurate privatamente, mai incollate in chat.
 
 ## C. Attività del proprietario
 
