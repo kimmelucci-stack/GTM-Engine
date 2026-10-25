@@ -1,6 +1,6 @@
 # GTM Engine — Modulo 03: UVP & ICP Intelligence
 
-**Versione:** 0.4 — Scope funzionale + Knowledge Base condivisa  
+**Versione:** 0.5 — Directory interna delle funzioni B2B, decisione del proprietario 25 ottobre 2026  
 **Data:** 24 ottobre 2026  
 **Stato:** scoping funzionale consolidato; UX/form UVP da rifinire, PRD/TDD e validazione empirica da realizzare  
 **Dipendenze:** `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/01_DEMAND_INTELLIGENCE/SCOPE.md`, `docs/02_MARKET_INTELLIGENCE/SCOPE.md`.
@@ -31,7 +31,7 @@ Per prodotti disponibili il modulo comprende **00 — UVP** con formulario e cha
 5. **RESEARCH:** ricerca le evidenze pertinenti, prioritariamente riutilizzando i Moduli 01–02. Utilizza **al massimo un ciclo di approfondimento aggiuntivo** per lacune davvero decisive; nessuna ricerca illimitata.
 6. **VALIDATE:** distingue obbligatoriamente **Problem Evidence**, **Solution/Purchase Evidence** e **Commercial/UVP Fit**. Esiti: `ADVANCE`, `INVESTIGATE`, `REJECT`, tutti motivati.
 7. **CLASSIFY:** in B2B determina settori, geografia, dimensioni e caratteristiche aziendali; in B2C definisce contesto individuale o household pertinente. Per B2B italiano mostra **massimo 3 ATECO esemplificativi**, verificati; ATECO non equivale a bisogno.
-8. **MAP BUYERS:** identifica **job title B2B** oppure **ruoli individuali/familiari B2C**; funzioni decisorie come attributi, non come nomi dei ruoli. Nessun nominativo; evidenze distinte da ipotesi.
+8. **MAP BUYERS:** identifica **funzioni operative B2B associate ai reparti** oppure **ruoli individuali/familiari B2C**; ruoli decisionali come attributi separati, job title B2B facoltativo. Nessun nominativo; evidenze distinte da ipotesi.
 9. **SYNTHESIZE:** seleziona l'ICP raccomandato con giudizio strategico motivato; il pulsante `+` genera profili distinti **riutilizzando la ricerca già effettuata**.
 10. Nessun sistema di scoring numerico 0–100 in questo modulo. Le decisioni devono essere argomentate, con evidenze e limiti.
 11. Ogni affermazione sostanziale del profilo è riconducibile a fonte, data, contesto e stato epistemico (`Observed`, `Inferred`, `Unverified`).
@@ -68,7 +68,7 @@ Un solo **UVP & ICP Intelligence Agent** orchestra analisi, ricerca ed estrazion
 | **02 — RESEARCH** | Verifica bisogni, contesto d'acquisto e caratteristiche organizzative tramite evidenze pertinenti | Evidence Matrix | Fonti originali e pertinenti; un solo approfondimento mirato |
 | **03 — VALIDATE** | Controlla le evidenze, il fit con la UVP **quando presente** o la coerenza con il bisogno in sviluppo, le alternative e le controprove; decide | ADVANCE / INVESTIGATE / REJECT | Problem ≠ purchase; decisione motivata e verificabile |
 | **04 — CLASSIFY** | Traduce il segmento in attributi **firmografici B2B o individuali/household B2C**; ATECO solo se pertinente al B2B Italia | Segment Profile | Non attribuire numeri/soglie senza base documentata |
-| **05 — MAP BUYERS** | Individua **job title B2B** oppure **ruoli relazionali B2C** e relativi processi decisionali | Buyer / Household Map | Attributi decisionali ≠ ruoli; niente organigrammi o stereotipi inventati |
+| **05 — MAP BUYERS** | Individua **funzioni operative B2B** associate ai reparti oppure **ruoli relazionali B2C** e relativi processi decisionali | Buyer / Household Map | Attributi decisionali ≠ ruoli; niente organigrammi o stereotipi inventati |
 | **06 — SYNTHESIZE** | Confronta i candidati, formula raccomandazione, controlla qualità e consegna | Primo ICP + max 2 su `+` | Unicità sostanziale; niente informazioni inventate |
 
 ### 4.1 Step 00 — UVP: formulario e chat
@@ -160,18 +160,18 @@ Per ogni segmento `ADVANCE`, definire:
 
 Non inventare precisione: se il range di fatturato o addetti non è giustificabile, indicare **non determinato**, esplicitando il motivo.
 
-### 4.6 Step 05 — MAP BUYERS: job title B2B o relazioni B2C, non contatti
+### 4.6 Step 05 — MAP BUYERS: funzioni operative B2B o relazioni B2C
 
-Per ogni segmento qualificato, costruire una **Buyer Map** adattata al tipo di mercato. **Nel B2B l’output principale è una lista di job title concreti**; nel B2C sono ruoli individuali/relazionali, eventualmente nel nucleo familiare:
+Per ogni segmento qualificato, costruire una **Buyer Map** adattata al tipo di mercato. **Nel B2B l’output principale è una selezione di funzioni operative della directory interna, associate ai reparti pertinenti**; nel B2C sono ruoli individuali/relazionali, eventualmente nel nucleo familiare:
 
 | Output principale | Esempi | Attributi secondari |
 |---|---|---|
-| **B2B — Job title** | CEO, HR Director, HR Manager, CFO, Procurement Manager, Office Manager | Chi avvia, influenza, utilizza, finanzia o approva la decisione; bisogni, criteri e obiezioni |
+| **B2B — Funzione operativa e reparto** | Formazione e sviluppo (HR), progettazione eventi (Marketing), logistica eventi (servizi generali), qualificazione fornitori (Acquisti) | Chi avvia, influenza, utilizza, finanzia o approva la decisione; bisogni, criteri e obiezioni |
 | **B2C — Ruolo nella scelta** | Individuo, partner, madre/padre, figlio, nonno/nonna, tutore | Partecipazione alla scelta, impatto, pagamento, influenze; configurazione della famiglia se pertinente |
 
 **Configurazioni B2C da investigare quando rilevanti:** individuo, coppia, nucleo familiare, monoparentale, allargata/multigenerazionale; forme gerarchiche o patriarcali soltanto quando osservate, mai assunte come regola.
 
-Per B2B: `job_title / buying_responsibility / needs / criteria / barriers / evidence / status`. Per B2C: `relationship_role / household_configuration / participation_in_choice / needs / barriers / evidence / status`. La funzione decisionale (*initiator, influencer, budget owner...*) è un **attributo** e non sostituisce il job title o il ruolo familiare.
+Per B2B: `directory_version / department_id / function_id / job_title (optional) / buying_roles / needs / criteria / barriers / evidence / status`. Per B2C: `relationship_role / household_configuration / participation_in_choice / needs / barriers / evidence / status`. La funzione decisionale (*initiator, influencer, budget owner...*) è un **attributo separato** e non sostituisce la funzione operativa o il ruolo familiare.
 
 Non tutti i ruoli sono necessariamente distinti. Nelle imprese piccole possono coincidere; in quelle maggiori è possibile un processo più articolato. **La responsabilità del problema non dimostra il controllo del budget.** Non inventare organigrammi, nominativi o passaggi di autorizzazione: indicare `Hypothesized` dove l'evidenza non è sufficiente.
 
@@ -219,8 +219,8 @@ Ogni scheda contiene:
 | Needs & Pain Points | Problemi e priorità, collegati alle evidenze |
 | Desired Outcomes | Risultati ricercati e relazione con la Working UVP, **solo se disponibile** |
 | Buying Triggers | Situazioni favorevoli osservate o ipotizzate |
-| Key Roles | B2B: **job title**; B2C: **ruoli individuali/familiari** |
-| Decision Makers | B2B: job title con autorità; B2C: relazioni decisionali e pagatore se pertinente, mai presunti da età/genere |
+| Key Roles | B2B: **funzioni operative associate ai reparti**, job title facoltativo; B2C: **ruoli individuali/familiari** |
+| Decision Makers | B2B: funzioni con autorità documentata o ipotizzata esplicitamente, non dedotta dal reparto; B2C: relazioni decisionali e pagatore se pertinente, mai presunti da età/genere |
 | Purchase Criteria & Barriers | Fattori di scelta e ostacoli |
 | ATECO examples | **Fino a 3 esempi** con descrizione ufficiale e razionale, **solo per profili di aziende italiane**; non applicabile ai nuclei B2C |
 | Strategic Rationale | Perché questo ICP è raccomandato, trade-off e limiti |
@@ -283,7 +283,7 @@ Il flag nel Project Brief **«Il prodotto o servizio è ancora in fase di svilup
 
 ### Buyer mapping effettivo
 
-- **B2B:** l'unità mostrata è un **job title** concreto (es. HR Manager, HR Director, CEO, CFO, Procurement Manager); iniziatore, influencer, decisore, approvatore sono attributi eventuali. Non usare *Initiator/Champion* come se fossero job title.
+- **B2B:** l'unità mostrata è una **funzione operativa** associata al reparto, dalla directory interna; il job title è facoltativo. Iniziatore, valutatore, decisore, approvatore del budget, acquirente e utilizzatore sono attributi separati; non dedurli dall'appartenenza al reparto.
 - **B2C:** considerare consumatore individuale o **household decision unit**. Se l'acquisto è familiare, investigare coppia, famiglia nucleare, monoparentale, allargata/multigenerazionale, contesti patriarcali **solo se supportati dal caso e dalle evidenze**, e ruoli di partner, genitori, figli, nonni/tutori. Non presupporre chi paga o decide in base al genere o alla struttura del nucleo.
 - Per B2C `Company Size`, fatturato e ATECO **non sono campi obbligatori** né si applicano a persone/famiglie. Il massimo di tre ATECO vale soltanto per gli **ICP aziendali italiani**, come esempi non esaustivi.
 
@@ -301,3 +301,8 @@ In modalità offerta disponibile, trasmettere Working UVP approvata e buyer mapp
 L'agente accede a playbook e framework di ricerca sui buyer, segmentazione, validazione qualitativa, definizione ICP e mappatura decisionale B2B/B2C tramite lettura selettiva di file Markdown. Le ricerche originali e le evidenze dei Moduli 01–02 mantengono priorità come **prova fattuale**: un playbook indica **come** valutare, non dimostra che un segmento acquisti.
 
 Non usare RAG vettoriale nella prima versione; il caricamento è orchestrato da Python. Fonti e playbook hanno provenienza, versione e stato di approvazione. Vedere `docs/00_PROJECT/KNOWLEDGE_BASE.md`.
+
+
+## Directory delle funzioni B2B — aggiornamento del proprietario
+
+Riferimento: [directory delle funzioni](BUSINESS_FUNCTION_DIRECTORY.md), 12 reparti e 60 funzioni operative, versione business-functions-v1. Definizioni interne, non catalogo di professioni o organigramma universale. La stessa funzione può essere condivisa, accorpata o esternalizzata. Nessuna assegnazione automatica a un cliente o autorità di acquisto implicita; selezione motivata e stato epistemico obbligatori. ESCO non è necessario per il buyer mapping B2B. I ruoli B2C e le competenze operative del team GTM non sono modificati. Implementati soltanto directory, API di riferimento e contratto Python; Modulo 03 end-to-end non implementato.

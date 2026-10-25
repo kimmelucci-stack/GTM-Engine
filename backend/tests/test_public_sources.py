@@ -78,7 +78,8 @@ def test_gate_reports_unavailable_sources_without_passing(tmp_path):
 
     with httpx.Client(transport=httpx.MockTransport(unavailable)) as client:
         report = run(tmp_path, client)
-    assert len(seen) == 4
+    assert len(seen) == 3
+    assert report["optional_sources_not_requested"] == ["esco"]
     assert report["gate_status"] == "PARTIAL"
     assert all(p["status"] == "unavailable" for p in report["probes"])
     assert all(p["reason"] == "http_503" for p in report["probes"])
@@ -91,3 +92,12 @@ def test_response_size_cap(monkeypatch):
     with (httpx.Client(transport=transport) as client,
           pytest.raises(PublicSourceError, match="response_too_large")):
         download(client, "openalex")
+
+
+def test_esco_can_only_be_requested_explicitly(tmp_path):
+    from gtm_engine.gate1e import run
+
+    with httpx.Client(transport=httpx.MockTransport(lambda r: httpx.Response(503))) as client:
+        report = run(tmp_path, client, include_esco=True)
+    assert len(report["probes"]) == 4
+    assert report["optional_sources_not_requested"] == []

@@ -20,7 +20,7 @@
 | Instagram competitor (fino 50 post) | Graph Business Discovery, poi Apify | Ufficiale ove account business/permessi supportati | script/permessi Meta, poi Apify solo se richiesto |
 | LinkedIn ads | SearchAPI solo se richiesto dall'ICP/strategia | Non imporre terzo provider per tutti | trial key opzionale |
 | Dati imprese Italia | Openapi Company, account commerciale | P.IVA, ATECO, ricavi, dipendenti con anno | Openapi key e limite spesa |
-| Studi e codifiche | ISTAT ATECO2025, Eurostat SDMX, ESCO, OpenAlex | Fonti autoritative e automatizzabili | niente chiave di norma; confermare policy/limiti |
+| Studi e codifiche | ISTAT ATECO2025, Eurostat SDMX, OpenAlex; ESCO opzionale | Fonti autoritative e automatizzabili | niente chiave di norma; confermare policy/limiti |
 | PPTX | `python-pptx`, main cover + section cover opzionali + 2 content template | Oggetti Office modificabili; deck dinamico | branding/logo se presente |
 | Preview PPTX | LibreOffice headless sul worker + controlli visuali | Render per QA, NON output finalizzato a immagini | pacchetto LibreOffice/font nell'hosting |
 | Test & CI | pytest + contract/golden tests, ruff, frontend typecheck/test + Playwright E2E | Gate misurabili | fornire casi pilota/validazioni |

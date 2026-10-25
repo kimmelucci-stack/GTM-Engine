@@ -96,7 +96,7 @@ Output: messaggio centrale per ICP, argomentazioni di supporto, obiezioni e prov
 - **Test TOV:** appropriatezza per lingua/brand/mercato/target, con revisione editoriale critica; AI non approva da sola il proprio output come prova di qualità.
 - La chat consente di rivedere il messaggio; proposte di riscrittura ai campi strutturati **solo previo consenso dell'utente**.
 
-**Buyer mapping corretto:** B2B mostra **job title reali** (es. CEO, HR Director, CFO, Office Manager) con funzione decisionale come attributo secondario; B2C mostra **ruoli individuali e relazionali** (es. individuo, partner, madre/padre, figli, nonni/tutori) coerenti con nucleo e dinamiche familiari, senza presumere gerarchie o stereotipi. Nessun contatto nominativo.
+**Buyer mapping corretto:** B2B mostra **funzioni operative associate ai reparti** dalla directory interna del Modulo 03, con job title facoltativo e ruolo decisionale separato; B2C mostra **ruoli individuali e relazionali** (es. individuo, partner, madre/padre, figli, nonni/tutori) coerenti con nucleo e dinamiche familiari, senza presumere gerarchie o stereotipi. Nessun contatto nominativo.
 
 ### 4.6 Step 06 — Verify & Deliver
 
@@ -145,7 +145,7 @@ La UI mostra **solo**: titolo modulo, un indicatore di avanzamento con etichette
 3. Differenziatori mai imposti in numero fisso: zero è un risultato ammissibile.
 4. Valore/benefici senza collegamento verificabile classificati come ipotesi, non fatti.
 5. Modalità in sviluppo blocca effettivamente **tutti** gli output verbali della proposition, incluso il deck, e non richiede compilazione UVP.
-6. Mapping B2B su **job title** e B2C su **ruoli relazionali e strutture familiari**, senza stereotipi.
+6. Mapping B2B su **funzioni operative associate ai reparti**, con job title facoltativo e B2C su **ruoli relazionali e strutture familiari**, senza stereotipi.
 7. TOV approvabile, adeguato alla lingua locale, con controllo specifico sul copy italiano e revisione anti-genericità.
 8. Un solo ciclo automatico di correzione; criticità irrisolte restano esplicite.
 9. UI minimale con workflow comprensibile, stati reali e approfondimenti opzionali.

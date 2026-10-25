@@ -19,6 +19,7 @@ Le istruzioni esplicite del proprietario prevalgono. Stack e provider: architett
 - Mai inventare metriche, performance, prezzi o prove. Distinguere osservato, derivato e ipotesi; dato mancante diverso da zero.
 - Supportare B2B e B2C senza stereotipi. In sviluppo: nessuna UVP, claim, positioning promozionale o messaging in API, UI e deck; imporre il vincolo nei validator oltre che nei prompt.
 - Modulo 02: scoring v1.1 invariato, parametri versionati, CCI4/CCI6 distinti, Valid/Partial/Unavailable; nessuna rinormalizzazione dei pesi per dati mancanti.
+- Buyer B2B: distinguere reparto, funzione operativa e ruolo nella decisione. Directory canonica `backend/src/gtm_engine/domain/business_functions.v1.json`, vista leggibile `docs/03_UVP_ICP_INTELLIGENCE/BUSINESS_FUNCTION_DIRECTORY.md`. Job title facoltativo, ESCO non necessario; nessuna autorità o assegnazione cliente dedotta dal catalogo. Ruoli B2C e competenze esecutive del team GTM restano separati.
 - Modulo 06: Paid solo media; software e outsourcing separati; persone, ore TOTALI settimanali e competenze senza organigramma. Le skill identificano gap, non impoveriscono la strategia.
 - Modulo 07: snapshot approvati, main cover, section cover opzionali, due famiglie contenuto; testi/tabelle/grafici nativi con python-pptx. Render e verifica visiva obbligatori quando si implementa il deck.
 - Nessun invio automatico di campagne nell'MVP. Modifiche sostanziali a brief/UVP/modalità segnalano output obsoleti, senza riesecuzioni silenziose.

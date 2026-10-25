@@ -12,12 +12,15 @@ import httpx
 from gtm_engine.providers.public_sources import SAMPLES, PublicSourceError, download, normalize
 
 
-def run(output: Path, client: httpx.Client) -> dict:
+def run(output: Path, client: httpx.Client, *, include_esco: bool = False) -> dict:
     probes = []
-    report = {"version": "gate1e-v1", "gate_status": "IN_PROGRESS", "probes": probes,
+    report = {"version": "gate1e-v2", "gate_status": "IN_PROGRESS", "probes": probes,
+              "optional_sources_not_requested": [] if include_esco else ["esco"],
               "limitations": ["Access samples, not validated market demand or buyer identities.",
                               "No fallback, automatic retry, credential or paid provider used."]}
     for source, (url, query) in SAMPLES.items():
+        if source == "esco" and not include_esco:
+            continue
         probe = {"source": source, "endpoint": url, "query": query,
                  "fetched_at": datetime.now(UTC).isoformat(), "status": "unavailable",
                  "provider_api_charge_usd": None if source == "openalex" else 0,
@@ -57,9 +60,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--include-esco", action="store_true",
+                        help="Optional specialist source, not required for business-function mapping")
     args = parser.parse_args()
     if not args.live:
-        print("Plan: four anonymous GETs, fixed official endpoints, no network or credentials.")
+        count = 4 if args.include_esco else 3
+        print(f"Plan: {count} anonymous GETs, fixed official endpoints, no network or credentials.")
         return 0
     if not args.output:
         parser.error("A new private --output directory is required")
@@ -71,7 +77,7 @@ def main() -> int:
     output.mkdir(parents=True, exist_ok=False)
     with httpx.Client(timeout=25, follow_redirects=False, trust_env=False,
                       headers={"User-Agent": "GTMEngineResearch/0.1"}) as client:
-        report = run(output, client)
+        report = run(output, client, include_esco=args.include_esco)
     print(json.dumps({"gate_status": report["gate_status"],
                       "sources": [{k: p.get(k) for k in
                                    ("source", "status", "status_code", "records", "reason")}

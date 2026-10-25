@@ -1,0 +1,548 @@
+{
+  "version": "business-functions-v1",
+  "kind": "internal_reference",
+  "limitations": [
+    "Funzioni operative di riferimento, non un organigramma o un elenco di professioni.",
+    "La stessa funzione può appartenere a più reparti, essere accorpata o esternalizzata.",
+    "L’appartenenza al catalogo non prova presenza nell’azienda o potere di acquisto.",
+    "Responsabilità d’acquisto e livello organizzativo sono attributi separati; job title facoltativo.",
+    "Non è il catalogo delle competenze richieste al team che esegue il piano GTM."
+  ],
+  "departments": [
+    {
+      "department_id": "leadership",
+      "label": "Direzione e proprietà"
+    },
+    {
+      "department_id": "people",
+      "label": "Risorse umane e formazione"
+    },
+    {
+      "department_id": "marketing",
+      "label": "Marketing e comunicazione"
+    },
+    {
+      "department_id": "sales",
+      "label": "Commerciale e sviluppo business"
+    },
+    {
+      "department_id": "finance",
+      "label": "Amministrazione, finanza e controllo"
+    },
+    {
+      "department_id": "procurement",
+      "label": "Acquisti"
+    },
+    {
+      "department_id": "operations",
+      "label": "Operations, produzione ed erogazione servizi"
+    },
+    {
+      "department_id": "it",
+      "label": "IT e sistemi informativi"
+    },
+    {
+      "department_id": "technical",
+      "label": "Area tecnica, prodotto e ricerca"
+    },
+    {
+      "department_id": "legal",
+      "label": "Legale e compliance"
+    },
+    {
+      "department_id": "quality_safety",
+      "label": "Qualità, sicurezza e ambiente"
+    },
+    {
+      "department_id": "general_services",
+      "label": "Segreteria, servizi generali e organizzazione interna"
+    }
+  ],
+  "functions": [
+    {
+      "function_id": "strategy",
+      "label": "Definizione della strategia",
+      "responsibility": "Stabilire priorità, obiettivi e scelte di sviluppo dell’azienda.",
+      "department_ids": [
+        "leadership"
+      ]
+    },
+    {
+      "function_id": "investment_planning",
+      "label": "Pianificazione degli investimenti",
+      "responsibility": "Valutare iniziative e allocare risorse tra priorità alternative.",
+      "department_ids": [
+        "leadership"
+      ]
+    },
+    {
+      "function_id": "business_governance",
+      "label": "Governo dell’impresa",
+      "responsibility": "Definire responsabilità, deleghe e regole per le decisioni.",
+      "department_ids": [
+        "leadership"
+      ]
+    },
+    {
+      "function_id": "business_performance",
+      "label": "Valutazione dei risultati aziendali",
+      "responsibility": "Confrontare risultati e obiettivi per correggere le scelte.",
+      "department_ids": [
+        "leadership"
+      ]
+    },
+    {
+      "function_id": "organizational_change",
+      "label": "Gestione del cambiamento organizzativo",
+      "responsibility": "Coordinare trasformazioni di processi, struttura e modalità di lavoro.",
+      "department_ids": [
+        "leadership"
+      ]
+    },
+    {
+      "function_id": "recruiting",
+      "label": "Ricerca e selezione del personale",
+      "responsibility": "Definire fabbisogni, cercare candidature e gestire la selezione.",
+      "department_ids": [
+        "people"
+      ]
+    },
+    {
+      "function_id": "onboarding",
+      "label": "Inserimento delle persone",
+      "responsibility": "Organizzare accoglienza, orientamento e integrazione dei nuovi ingressi.",
+      "department_ids": [
+        "people"
+      ]
+    },
+    {
+      "function_id": "learning_development",
+      "label": "Formazione e sviluppo",
+      "responsibility": "Individuare fabbisogni formativi e organizzare percorsi di apprendimento.",
+      "department_ids": [
+        "people"
+      ]
+    },
+    {
+      "function_id": "employee_experience",
+      "label": "Benessere e coinvolgimento delle persone",
+      "responsibility": "Progettare iniziative per esperienza lavorativa, partecipazione e benessere.",
+      "department_ids": [
+        "people"
+      ]
+    },
+    {
+      "function_id": "people_administration",
+      "label": "Amministrazione del personale",
+      "responsibility": "Gestire presenze, documentazione e adempimenti del rapporto di lavoro.",
+      "department_ids": [
+        "people"
+      ]
+    },
+    {
+      "function_id": "market_research",
+      "label": "Ricerca di mercato e dei clienti",
+      "responsibility": "Studiare bisogni, comportamenti, alternative e opportunità commerciali.",
+      "department_ids": [
+        "marketing"
+      ]
+    },
+    {
+      "function_id": "brand_communication",
+      "label": "Gestione del marchio e comunicazione esterna",
+      "responsibility": "Definire e coordinare identità, contenuti e comunicazione verso il mercato.",
+      "department_ids": [
+        "marketing"
+      ]
+    },
+    {
+      "function_id": "demand_generation",
+      "label": "Acquisizione della domanda",
+      "responsibility": "Pianificare e misurare attività per generare interesse e opportunità commerciali.",
+      "department_ids": [
+        "marketing"
+      ]
+    },
+    {
+      "function_id": "internal_communication",
+      "label": "Comunicazione interna",
+      "responsibility": "Organizzare contenuti e iniziative informative rivolte alle persone dell’azienda.",
+      "department_ids": [
+        "marketing",
+        "people"
+      ]
+    },
+    {
+      "function_id": "business_events",
+      "label": "Progettazione di eventi aziendali",
+      "responsibility": "Definire obiettivi, pubblico, programma e criteri di risultato degli eventi.",
+      "department_ids": [
+        "marketing",
+        "general_services"
+      ]
+    },
+    {
+      "function_id": "sales_development",
+      "label": "Sviluppo delle opportunità commerciali",
+      "responsibility": "Individuare opportunità e avviare conversazioni con potenziali clienti.",
+      "department_ids": [
+        "sales"
+      ]
+    },
+    {
+      "function_id": "sales_management",
+      "label": "Gestione delle trattative",
+      "responsibility": "Qualificare esigenze, formulare offerte e condurre la negoziazione commerciale.",
+      "department_ids": [
+        "sales"
+      ]
+    },
+    {
+      "function_id": "account_management",
+      "label": "Gestione e sviluppo dei clienti",
+      "responsibility": "Curare relazioni, rinnovi e opportunità sui clienti già acquisiti.",
+      "department_ids": [
+        "sales"
+      ]
+    },
+    {
+      "function_id": "partner_development",
+      "label": "Sviluppo delle partnership",
+      "responsibility": "Individuare e gestire accordi con partner commerciali e distributivi.",
+      "department_ids": [
+        "sales"
+      ]
+    },
+    {
+      "function_id": "sales_enablement",
+      "label": "Sviluppo delle capacità commerciali",
+      "responsibility": "Organizzare strumenti, formazione e coordinamento della forza vendita.",
+      "department_ids": [
+        "sales",
+        "people"
+      ]
+    },
+    {
+      "function_id": "accounting",
+      "label": "Contabilità e rendicontazione",
+      "responsibility": "Registrare operazioni e predisporre rendiconti economici e patrimoniali.",
+      "department_ids": [
+        "finance"
+      ]
+    },
+    {
+      "function_id": "treasury",
+      "label": "Tesoreria e pagamenti",
+      "responsibility": "Gestire liquidità, scadenze, incassi e pagamenti.",
+      "department_ids": [
+        "finance"
+      ]
+    },
+    {
+      "function_id": "budgeting",
+      "label": "Budget e previsioni economiche",
+      "responsibility": "Costruire e aggiornare budget e previsioni di ricavi, costi e risorse.",
+      "department_ids": [
+        "finance"
+      ]
+    },
+    {
+      "function_id": "management_control",
+      "label": "Controllo di gestione",
+      "responsibility": "Analizzare costi, scostamenti e risultati delle attività.",
+      "department_ids": [
+        "finance"
+      ]
+    },
+    {
+      "function_id": "tax_administration",
+      "label": "Gestione degli adempimenti fiscali",
+      "responsibility": "Coordinare dichiarazioni, documentazione e scadenze fiscali.",
+      "department_ids": [
+        "finance"
+      ]
+    },
+    {
+      "function_id": "supplier_sourcing",
+      "label": "Ricerca e qualificazione dei fornitori",
+      "responsibility": "Individuare fornitori e valutarne l’idoneità rispetto ai requisiti.",
+      "department_ids": [
+        "procurement"
+      ]
+    },
+    {
+      "function_id": "tender_management",
+      "label": "Gestione delle richieste di offerta",
+      "responsibility": "Definire richieste e confrontare proposte ricevute dai fornitori.",
+      "department_ids": [
+        "procurement"
+      ]
+    },
+    {
+      "function_id": "purchase_negotiation",
+      "label": "Negoziazione degli acquisti",
+      "responsibility": "Concordare prezzi, condizioni commerciali e livelli di servizio.",
+      "department_ids": [
+        "procurement"
+      ]
+    },
+    {
+      "function_id": "purchase_orders",
+      "label": "Gestione degli ordini di acquisto",
+      "responsibility": "Emettere e seguire ordini e conferme secondo le procedure aziendali.",
+      "department_ids": [
+        "procurement"
+      ]
+    },
+    {
+      "function_id": "supplier_performance",
+      "label": "Valutazione delle prestazioni dei fornitori",
+      "responsibility": "Monitorare qualità, puntualità e rispetto degli accordi.",
+      "department_ids": [
+        "procurement"
+      ]
+    },
+    {
+      "function_id": "delivery_planning",
+      "label": "Pianificazione della produzione o dei servizi",
+      "responsibility": "Programmare attività, capacità e risorse necessarie alla consegna.",
+      "department_ids": [
+        "operations"
+      ]
+    },
+    {
+      "function_id": "service_delivery",
+      "label": "Esecuzione e coordinamento operativo",
+      "responsibility": "Coordinare il lavoro necessario per produrre beni o erogare servizi.",
+      "department_ids": [
+        "operations"
+      ]
+    },
+    {
+      "function_id": "logistics",
+      "label": "Logistica e gestione dei materiali",
+      "responsibility": "Organizzare disponibilità, movimentazione e distribuzione di materiali e prodotti.",
+      "department_ids": [
+        "operations"
+      ]
+    },
+    {
+      "function_id": "process_improvement",
+      "label": "Miglioramento dei processi",
+      "responsibility": "Analizzare inefficienze e introdurre miglioramenti nelle attività operative.",
+      "department_ids": [
+        "operations"
+      ]
+    },
+    {
+      "function_id": "customer_support",
+      "label": "Assistenza e gestione dei problemi dei clienti",
+      "responsibility": "Gestire richieste, problemi e supporto durante e dopo l’erogazione.",
+      "department_ids": [
+        "operations"
+      ]
+    },
+    {
+      "function_id": "it_infrastructure",
+      "label": "Gestione dell’infrastruttura informatica",
+      "responsibility": "Mantenere reti, dispositivi e servizi informatici necessari al lavoro.",
+      "department_ids": [
+        "it"
+      ]
+    },
+    {
+      "function_id": "business_applications",
+      "label": "Gestione delle applicazioni aziendali",
+      "responsibility": "Selezionare, configurare e mantenere software e integrazioni aziendali.",
+      "department_ids": [
+        "it"
+      ]
+    },
+    {
+      "function_id": "data_management",
+      "label": "Gestione dei dati e delle analisi",
+      "responsibility": "Organizzare disponibilità, qualità e utilizzo dei dati aziendali.",
+      "department_ids": [
+        "it"
+      ]
+    },
+    {
+      "function_id": "cybersecurity",
+      "label": "Sicurezza informatica",
+      "responsibility": "Valutare e ridurre i rischi per sistemi, accessi e informazioni.",
+      "department_ids": [
+        "it"
+      ]
+    },
+    {
+      "function_id": "it_support",
+      "label": "Supporto informatico agli utenti",
+      "responsibility": "Assistere gli utenti nella risoluzione dei problemi informatici.",
+      "department_ids": [
+        "it"
+      ]
+    },
+    {
+      "function_id": "product_planning",
+      "label": "Definizione e sviluppo dell’offerta",
+      "responsibility": "Definire requisiti, priorità ed evoluzione di prodotti o servizi.",
+      "department_ids": [
+        "technical"
+      ]
+    },
+    {
+      "function_id": "research_innovation",
+      "label": "Ricerca e innovazione",
+      "responsibility": "Esplorare e sperimentare soluzioni, tecnologie e nuovi metodi.",
+      "department_ids": [
+        "technical"
+      ]
+    },
+    {
+      "function_id": "technical_design",
+      "label": "Progettazione tecnica",
+      "responsibility": "Tradurre requisiti in specifiche e soluzioni realizzabili.",
+      "department_ids": [
+        "technical"
+      ]
+    },
+    {
+      "function_id": "testing_validation",
+      "label": "Prove e validazione tecnica",
+      "responsibility": "Verificare prestazioni e conformità delle soluzioni ai requisiti.",
+      "department_ids": [
+        "technical"
+      ]
+    },
+    {
+      "function_id": "technical_documentation",
+      "label": "Gestione della documentazione tecnica",
+      "responsibility": "Produrre e mantenere specifiche, istruzioni e conoscenza tecnica.",
+      "department_ids": [
+        "technical"
+      ]
+    },
+    {
+      "function_id": "contract_review",
+      "label": "Revisione e gestione giuridica dei contratti",
+      "responsibility": "Valutare clausole, obblighi e rischi giuridici degli accordi.",
+      "department_ids": [
+        "legal"
+      ]
+    },
+    {
+      "function_id": "regulatory_compliance",
+      "label": "Gestione della conformità normativa",
+      "responsibility": "Individuare obblighi applicabili e coordinare il loro rispetto.",
+      "department_ids": [
+        "legal"
+      ]
+    },
+    {
+      "function_id": "privacy_governance",
+      "label": "Gestione della protezione dei dati personali",
+      "responsibility": "Coordinare valutazioni e adempimenti relativi al trattamento dei dati personali.",
+      "department_ids": [
+        "legal"
+      ]
+    },
+    {
+      "function_id": "legal_disputes",
+      "label": "Gestione delle controversie",
+      "responsibility": "Coordinare contestazioni, contenziosi e assistenza legale.",
+      "department_ids": [
+        "legal"
+      ]
+    },
+    {
+      "function_id": "intellectual_property",
+      "label": "Tutela della proprietà intellettuale",
+      "responsibility": "Gestire diritti, licenze e tutela degli asset immateriali.",
+      "department_ids": [
+        "legal"
+      ]
+    },
+    {
+      "function_id": "quality_management",
+      "label": "Gestione della qualità",
+      "responsibility": "Definire e mantenere processi e controlli del sistema qualità.",
+      "department_ids": [
+        "quality_safety"
+      ]
+    },
+    {
+      "function_id": "workplace_safety",
+      "label": "Gestione della salute e sicurezza sul lavoro",
+      "responsibility": "Valutare rischi e coordinare misure di prevenzione e protezione.",
+      "department_ids": [
+        "quality_safety"
+      ]
+    },
+    {
+      "function_id": "environment_management",
+      "label": "Gestione degli impatti ambientali",
+      "responsibility": "Valutare impatti e coordinare misure e adempimenti ambientali.",
+      "department_ids": [
+        "quality_safety"
+      ]
+    },
+    {
+      "function_id": "audit_management",
+      "label": "Audit e verifiche di conformità",
+      "responsibility": "Pianificare verifiche e seguire la risoluzione delle non conformità.",
+      "department_ids": [
+        "quality_safety"
+      ]
+    },
+    {
+      "function_id": "operational_risk",
+      "label": "Gestione dei rischi e della continuità operativa",
+      "responsibility": "Preparare misure per ridurre interruzioni e gestire emergenze operative.",
+      "department_ids": [
+        "quality_safety"
+      ]
+    },
+    {
+      "function_id": "executive_support",
+      "label": "Supporto organizzativo alla direzione",
+      "responsibility": "Coordinare agende, appuntamenti e attività organizzative della direzione.",
+      "department_ids": [
+        "general_services"
+      ]
+    },
+    {
+      "function_id": "workplace_services",
+      "label": "Gestione degli spazi e dei servizi di sede",
+      "responsibility": "Organizzare spazi, manutenzioni e servizi necessari alla vita della sede.",
+      "department_ids": [
+        "general_services"
+      ]
+    },
+    {
+      "function_id": "business_travel",
+      "label": "Organizzazione delle trasferte",
+      "responsibility": "Gestire prenotazioni, itinerari e servizi per gli spostamenti di lavoro.",
+      "department_ids": [
+        "general_services"
+      ]
+    },
+    {
+      "function_id": "event_logistics",
+      "label": "Organizzazione logistica di riunioni ed eventi",
+      "responsibility": "Coordinare sedi, partecipanti, tempi, fornitori e aspetti pratici degli eventi.",
+      "department_ids": [
+        "general_services",
+        "marketing",
+        "people"
+      ]
+    },
+    {
+      "function_id": "document_management",
+      "label": "Gestione documentale e della corrispondenza",
+      "responsibility": "Organizzare archivi, flussi documentali e corrispondenza aziendale.",
+      "department_ids": [
+        "general_services"
+      ]
+    }
+  ]
+}

@@ -28,3 +28,5 @@ Ogni modulo ha un solo `SCOPE.md` canonico; il Modulo 02 include `02_MARKET_INTE
 Completezza della specifica non significa integrazioni operative. La matrice distingue accessibilità, disponibilità e natura epistemica; T/T_LIMITED richiedono ambiente/data/fixture. Il registro corrente del Gate 1A è distinto dalla tabella storica; l'archivio dell'audit conserva scelte superate senza renderle normative.
 
 Repository pubblica per portfolio su richiesta del proprietario; credenziali, utenze provider, token, dati cliente e raw privati esclusi dai contenuti e dalla cronologia pubblicabili. Codice pubblico non equivale a deploy dell'applicazione.
+
+Directory di riferimento per il buyer mapping B2B: [funzioni operative per reparto](03_UVP_ICP_INTELLIGENCE/BUSINESS_FUNCTION_DIRECTORY.md), con dati canonici nel backend; non è un organigramma né un catalogo di professioni.
