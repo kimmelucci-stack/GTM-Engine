@@ -8,3 +8,27 @@ h2 { font-size: 1.2rem; margin-top: 0; }
 p { line-height: 1.6; }
 summary { cursor: pointer; padding-block: 8px; }
 summary:focus-visible { outline: 2px solid #36675e; outline-offset: 4px; }
+button, input { font: inherit; }
+button { cursor: pointer; border: 1px solid #36675e; border-radius: 8px; padding: 11px 16px;
+  background: #24584d; color: white; }
+button:disabled { cursor: default; background: #e5eae6; color: #64736c; border-color: #d1d9d3; }
+button:focus-visible, input:focus-visible { outline: 3px solid #628e73; outline-offset: 3px; }
+fieldset { margin: 24px 0; padding: 0; border: 0; min-width: 0; }
+legend { font-weight: 600; margin-bottom: 12px; }
+.candidate { border-top: 1px solid #e0e6e0; padding: 20px 0; }
+.candidate-label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.candidate-label input { width: 22px; height: 22px; margin: 0; accent-color: #24584d; }
+.badge { display: block; font-size: .85rem; margin-top: 5px; color: #486557; }
+.candidate-reason, .candidate details { margin-left: 34px; }
+.candidate-reason { margin-top: 10px; margin-bottom: 8px; }
+.candidate details p { font-size: .9rem; }
+a { color: #24584d; text-underline-offset: 3px; }
+.notice { background: #eaf0e8; border-radius: 8px; padding: 16px; }
+.url-row { display: flex; gap: 10px; margin-top: 8px; }
+.url-row input { width: 100%; min-width: 0; border: 1px solid #879d8f; border-radius: 8px; padding: 10px; }
+.manual li { margin: 12px 0; overflow-wrap: anywhere; }
+.review-footer { border-top: 1px solid #d9e1db; padding-top: 16px; display: flex;
+  gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+[role=alert] { color: #8d2020; }
+@media (max-width: 540px) { main { padding: 32px 16px; } section { padding: 20px; }
+  .url-row { flex-direction: column; } .url-row input { box-sizing: border-box; } }
