@@ -17,10 +17,7 @@ from psycopg.conninfo import conninfo_to_dict, make_conninfo
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main() -> int:
-    if not sys.stdin.isatty():
-        print("Use an interactive local terminal. No secrets accepted as arguments.")
-        return 2
+def configure(administrative: str, auth_url: str, public_key: str) -> int:
     ignored = subprocess.run(["git", "check-ignore", "-q", ".env"], cwd=ROOT,
                              capture_output=True, check=False)
     tracked = subprocess.run(["git", "ls-files", "--error-unmatch", ".env"], cwd=ROOT,
@@ -37,9 +34,6 @@ def main() -> int:
                 and value.strip() not in {"", '""', "''"}):
             print("Database settings already exist. Nothing changed.")
             return 2
-    administrative = getpass("Dedicated project's administrative connection URL (hidden): ").strip()
-    auth_url = getpass("Dedicated project's Supabase HTTPS URL (hidden): ").strip()
-    public_key = getpass("Publishable key (hidden): ").strip()
     if (not auth_url.startswith("https://") or not public_key.startswith("sb_publishable_")
             or any(c in administrative + auth_url + public_key for c in "\r\n\0")):
         print("Invalid configuration. Values withheld; nothing changed.")
@@ -100,6 +94,16 @@ def main() -> int:
     print("Separate server logins saved locally. Administrative credential not saved.")
     print("Runtime TLS/authentication still need a real connection test. No deployment performed.")
     return 0
+
+
+def main() -> int:
+    if not sys.stdin.isatty():
+        print("Use an interactive local terminal. No secrets accepted as arguments.")
+        return 2
+    administrative = getpass("Dedicated project's administrative connection URL (hidden): ").strip()
+    auth_url = getpass("Dedicated project's Supabase HTTPS URL (hidden): ").strip()
+    public_key = getpass("Publishable key (hidden): ").strip()
+    return configure(administrative, auth_url, public_key)
 
 
 if __name__ == "__main__":

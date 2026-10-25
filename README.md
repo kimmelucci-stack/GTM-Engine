@@ -145,6 +145,8 @@ Loader selettivo in `knowledge.py`: Markdown approved per fase, con versione/has
 
 ## Foundation — database privato
 
+Per configurare senza terminale interattivo: avviare con il Python della venv `scripts/database_setup_ui.py` e aprire l'indirizzo locale restituito nel browser integrato. Campi mascherati, solo loopback, percorso casuale, controllo Host/Origin e CSRF, nessun log delle richieste, cache disabilitata, nessun servizio esterno; chiusura dopo il salvataggio. Le credenziali non vanno inserite nella chat. La verifica del provisioning e della connessione reale resta separata dai test del modulo con dati sintetici.
+
 Progetto Supabase dedicato creato in UE il 25 ottobre 2026, preventivo Free 0 USD/mese. Migrazioni in `supabase/migrations/`: schema interno `gtm`, tabelle projects/runs/jobs, proprietario obbligatorio, vincoli e indici della coda. RLS attiva e forzata, nessun accesso per anon/authenticated/service_role. Ruoli server distinti: gtm_api può creare/leggere solo progetti del proprietario verificato; gtm_worker può gestire la coda, non leggere i brief. Ruoli di gruppo NOLOGIN, credenziali runtime ancora da configurare. Nessuna chiave recuperata o inserita nel frontend.
 
 Test SQL ripetibili in `supabase/tests/`, eseguiti via MCP sul progetto dedicato: dati sintetici, isolamento proprietari, ruoli negati, heartbeat, token di assegnazione, scadenze e retry limitati. Due claim paralleli hanno assegnato job diversi. Rollback/pulizia e verifica tabelle vuote. Advisor senza ERROR/WARN dopo correzione initplan; INFO per runs ancora chiusa senza policy e indice non ancora usato. Storage, ledger transazionale, aggiornamento stato run e workflow moduli restano da completare: Gate 2 aperto.
