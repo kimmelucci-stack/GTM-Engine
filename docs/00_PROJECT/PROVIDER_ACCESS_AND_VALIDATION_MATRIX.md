@@ -9,6 +9,8 @@ Crawler HTTP: nove domini campione, una pagina di offerta per sito, otto con con
 
 Stati e limiti valgono per il pilota, non per ogni paese/query/competitor. Credenziali e raw privati esclusi dal portfolio. Nessun gate successivo o accesso API ulteriore promosso a tested.
 
+Meta Gate 1C: preflight offline del 25 ottobre; token/app/account IG interrogante/versione non configurati, zero chiamate API. Ads Archive e Business Discovery `not_tested`, nessun fallback attivato.
+
 ## Livelli da non confondere
 - **T / TESTED_DATA:** richiesta autenticata con dati nell'ambiente specificato. La tabella storica si riferisce al precedente ambiente; il registro corrente indica le prove del repository. Ogni T richiede ambiente, data e fixture.
 - **T_LIMITED:** endpoint interrogato ma copertura insufficiente, qualità da verificare o campione ridotto.
