@@ -99,3 +99,10 @@ Niente Lovable nello sviluppo primario; niente n8n/Redis/Celery/RAG vettoriale; 
 - Meta Ad Library EU coverage e accesso: https://www.facebook.com/ads/library/api/
 - Render: https://render.com/docs/background-workers
 - Supabase: https://supabase.com/docs/guides/database ; https://supabase.com/docs/guides/storage
+
+
+## Avanzamento Foundation: loader KB e budget di run
+
+Loader selettivo approved/version/hash implementato in knowledge.py, test sintetici; libreria reale e passaggio dei record a AnalysisRun/LLM non ancora collegati. RunBudget in domain/run_budget.py implementa prenotazione di massimali e riconciliazione USD cross-provider, obiettivo 10 e cap massimo 15 per run. Prenotazioni incerte restano impegnate e lo stesso evento non può autorizzare una seconda richiesta; consuntivi sopra massimale sono conservati e fermano nuove prenotazioni. Costi mancanti non sono zero: la conformità non è dimostrata finché dati, AI, esecuzione (inclusa generazione deck) e costi fissi attribuiti non sono misurati e riconciliati. Una componente realmente gratuita può avere zero osservato esplicito.
+
+È un componente di dominio in memoria, non ledger persistente o controllo già collegato a tutti gli adapter: richiede transazioni/lock Postgres e registrazione prima delle chiamate. Non thread-safe, non esposto come API pubblica, non autorizza nuove spese. Budget Gate 1A esistente invariato; nessuna simulazione di database o sostenibilità del run completo.

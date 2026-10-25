@@ -245,3 +245,12 @@ Il proprietario ha rifiutato la directory delle attività come output buyer e ri
 Aggiunti API ricercabile/filtrabile e contratti CommitteeMember, BuyingCommittee e ApproachStep. Ogni membro richiede titolo da directory o estensione esplicita, reparto coerente, motivazione e stato; Observed richiede fonti. Ruolo di acquisto non assegnato dal titolo. Approccio eventuale con destinatari riferiti ai membri, obiettivo, sequenza e prove, senza messaggi o invii automatici. Scope 00/03/04/05, AGENTS e matrice aggiornati; B2C invariato. Nessuna raccolta di persone o comitato cliente pubblicato; nessuna orchestrazione AI/persistenza/UI ICP certificata.
 
 Verifiche della correzione: 155 test backend PASS, due browser opt-in esclusi; Ruff, frontend typecheck/build e costruzione wheel PASS. Verificata inclusione dei 251 titoli nel pacchetto. 24 Markdown/100 riferimenti senza errori. Nessuna richiesta provider o dato cliente nella directory; nessuna UI ICP o selezione automatica del comitato reale dichiarata operativa.
+
+
+## Foundation: loader KB e budget trasversale
+
+Prosecuzione autorizzata: controllo di sola presenza per OpenAI e Supabase, nessun valore mostrato. OpenAI configurato, DB/storage non configurati; nessuna chiamata AI, deploy o nuova spesa. Implementati knowledge.py e domain/run_budget.py. Loader di Markdown approvati per fase, versioni/hash/fonti, confini percorsi e limiti; nessuna libreria reale auto-approvata o istruzione KB spacciata per dato cliente.
+
+Budget USD unico di dominio: prenotazioni cross-provider, riconciliazione idempotente, incertezza senza rilascio, errori di sottostima conservati e blocco, tetto 15/obiettivo 10, costi mancanti o componenti non riconciliate impediscono la dichiarazione di conformità. Componente in memoria, non transazionale, non ancora collegato agli adapter né al worker; rimane da persistere in Postgres con lock. Gate 2 non completo. Nessuna modifica alla selezione per job title o al frontend; Meta in attesa.
+
+Verifiche: 175 test backend PASS, due browser opt-in esclusi; 20 test aggiunti per loader/budget. Ruff e frontend typecheck/build PASS. Dati di test sintetici, nessun dato cliente pubblicato. Il costo complessivo reale del GTM resta non dimostrato.

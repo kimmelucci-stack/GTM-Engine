@@ -137,3 +137,8 @@ La directory corrente v1.1 comprende anche quattro organi/strutture collegiali e
 ## Directory principale: job title del buying committee
 
 [251 job title nei 12 reparti](docs/03_UVP_ICP_INTELLIGENCE/BUYER_JOB_TITLE_DIRECTORY.md), inclusi manager, coordinatori, specialisti, buyer, referenti tecnici e assistenti, oltre al board. API `GET /reference/buyer-job-titles`, filtri `department_id` e `q` (italiano/inglese/varianti). La precedente directory funzioni/governance è supporto storico: il nuovo contratto richiede un titolo concreto per ogni membro. CommitteeMember e BuyingCommittee separano titolo, ruolo di acquisto ed evidenze; ApproachStep collega obiettivi e prove ai membri proposti. Non è ancora un workflow AI end-to-end. Nessuna autorità o appartenenza a un comitato reale dedotta dalla sola directory.
+
+
+## Foundation — loader KB e regole di budget
+
+Loader selettivo in `knowledge.py`: Markdown approved per fase, con versione/hash/fonti; un file cambiato richiede revisione. Nessuna libreria reale auto-approvata. `domain/run_budget.py`: prenotazioni e consuntivi USD trasversali, obiettivo 10/cap massimo 15; richieste incerte mantengono il massimale, costi mancanti non diventano zero. Sono componenti testati localmente, ancora da collegare a Postgres, worker e adapter prima di controllare un’esecuzione reale. Nessuna nuova spesa o connessione cloud implicita.

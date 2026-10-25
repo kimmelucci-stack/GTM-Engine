@@ -2,7 +2,7 @@
 
 **Versione:** 1.0 — Decisioni architetturali funzionali  
 **Data:** 24 ottobre 2026  
-**Stato:** impostazione approvata; KB-001 implementato come controllo Python a richiesta e testato su fixture. Registro reale, schedulazione e verifica operativa restano da completare; libreria e loader non ancora implementati. Non è una Knowledge Base già popolata.
+**Stato:** impostazione approvata; KB-001 implementato come controllo Python a richiesta e testato su fixture. Registro reale, schedulazione e verifica operativa restano da completare; loader selettivo implementato e testato, libreria reale ancora da curare e approvare. Non è una Knowledge Base già popolata.
 
 ## 1. Scopo e distinzioni
 
@@ -77,3 +77,10 @@ Comando: `python -m gtm_engine.source_refresh --registry PERCORSO_REGISTRO --out
 ETag/Last-Modified, 304 con precedente hash verificabile, confronto SHA-256 dei byte; hash diverso richiede revisione, non dimostra modifica semantica. Errori/rate limit mantengono last_checked_at e aggiornano separatamente last_attempted_at/last_error. Fonti non scadute o non approvate non generano richieste. Non misura costi di esecuzione/quote esterne: report con costi nullable.
 
 27 test offline pertinenti superati: confini 44/45/46 giorni, prima verifica, clock UTC, 200/304, hash iniziale/invariato/modificato, timeout/429/errori/redirect, pagina challenge, cap byte/richieste, DNS privato e URL con credenziali vietati. Comando CLI verificato su registro sintetico: zero richieste. Gate 8: registro reale approvato, verifica HTTP osservata e schedulazione ancora da collaudare prima della release.
+
+
+## Loader selettivo dei playbook — Foundation
+
+`backend/src/gtm_engine/knowledge.py` legge un KnowledgeRegistry tipizzato con metadati e mappa phase → playbook IDs. `load_phase` carica esclusivamente i file Markdown approved richiesti dalla fase. Conserva ID, versione, hash, fonti e natura methodology_not_project_evidence. Hash registrato diverso dal file blocca il caricamento e richiede revisione; niente aggiornamenti silenziosi. Percorsi confinati alla root knowledge, senza attraversamenti o file non Markdown, limite per file e totale; nessuna modifica al filesystem.
+
+Test su fixture sintetiche: selettività, draft/deprecated rifiutati, hash alterato, riferimenti di fase ignoti, percorsi e dimensioni. Non creata una libreria reale approvata, non eseguite chiamate LLM. Approvazioni e registri devono essere amministrati dal responsabile, non autocertificati dall’agente. Tracciamento dei record loaded nell’AnalysisRun e integrazione con orchestrazione/persistenza ancora da collegare.
