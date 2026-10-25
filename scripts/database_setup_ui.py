@@ -1,13 +1,14 @@
 """Temporary loopback-only credential entry; no secret values in responses or logs."""
 
 import io
+import re
 import secrets
 from contextlib import redirect_stdout
 from html import escape
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from threading import Thread
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, quote
 
 from configure_database import configure
 
@@ -39,6 +40,11 @@ def page(nonce: str, message: str = "", complete: bool = False) -> str:
         autocomplete="new-password" spellcheck="false" maxlength="8192">
       <small>Dal pannello Supabase, Connect: connessione del progetto con la password.
       Usa Session pooler se la rete non supporta IPv6.</small>
+      <label for="db_password">Password del database</label>
+      <input id="db_password" name="db_password" type="password"
+        autocomplete="new-password" maxlength="1024">
+      <small>Compila questo campo se la connessione contiene ancora YOUR-PASSWORD.
+      La password verrà inserita nella connessione automaticamente.</small>
       <label for="auth_url">URL del progetto Supabase</label>
       <input id="auth_url" name="auth_url" type="password" required
         autocomplete="new-password" spellcheck="false" maxlength="512">
@@ -120,16 +126,27 @@ class Handler(BaseHTTPRequestHandler):
                     != "application/x-www-form-urlencoded"):
                 self.respond(400, b"Invalid request", "text/plain")
                 return
-            fields = parse_qs(self.rfile.read(length).decode("utf-8"), max_num_fields=4,
+            fields = parse_qs(self.rfile.read(length).decode("utf-8"), max_num_fields=5,
                               strict_parsing=True)
             expected = {"csrf", "administrative", "auth_url", "public_key"}
-            if (set(fields) != expected or any(len(v) != 1 for v in fields.values())
+            if (not expected.issubset(fields) or set(fields) - expected - {"db_password"}
+                    or any(len(v) != 1 for v in fields.values())
                     or not secrets.compare_digest(fields["csrf"][0], self.server.nonce)):
                 self.respond(403, b"Forbidden", "text/plain")
                 return
+            administrative = fields["administrative"][0].strip()
+            provided_value = fields.get("db_password", [""])[0]
+            placeholder = r"\[YOUR[-_ ]PASSWORD\]"
+            if re.search(placeholder, administrative, re.IGNORECASE):
+                if not provided_value:
+                    raise ValueError("missing_database_password")
+                administrative = re.sub(placeholder, lambda match: quote(provided_value, safe=""),
+                                        administrative, flags=re.IGNORECASE)
+            elif provided_value:
+                raise ValueError("connection_already_has_password")
             with redirect_stdout(io.StringIO()):
-                result = self.server.provision(*(fields[k][0].strip() for k in
-                    ("administrative", "auth_url", "public_key")))
+                result = self.server.provision(administrative, fields["auth_url"][0].strip(),
+                                               fields["public_key"][0].strip())
         except Exception:  # noqa: BLE001 -- never return request bodies or connection exceptions
             result = 2
         self.server.completed = result == 0

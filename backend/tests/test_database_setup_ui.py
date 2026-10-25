@@ -1,7 +1,7 @@
 import importlib
 from pathlib import Path
 from threading import Thread
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlunsplit
 
 import httpx
 import pytest
@@ -29,7 +29,7 @@ def test_form_is_local_masked_and_not_cacheable(setup_server):
     with httpx.Client(trust_env=False) as client:
         response = client.get(server.origin + "/" + server.nonce + "/")
         assert response.status_code == 200
-        assert response.text.count('type="password"') == 3
+        assert response.text.count('type="password"') == 4
         assert 'no-store' in response.headers['cache-control']
         assert response.headers['x-frame-options'] == 'DENY'
         assert 'script-src' not in response.text
@@ -67,3 +67,21 @@ def test_success_does_not_echo_values_and_closes_form(setup_server, capsys):
     for name in ('administrative', 'auth_url', 'public_key'):
         assert values[name] not in response.text
         assert values[name] not in capsys.readouterr().out
+
+
+def test_password_is_encoded_without_echo(setup_server):
+    server, received = setup_server
+    values = {'csrf': server.nonce,
+              'administrative': urlunsplit(('postgresql',
+                  'synthetic:[YOUR-PASSWORD]@synthetic.invalid', '/postgres', '', '')),
+              'auth_url': 'https://synthetic.invalid',
+              'public_key': 'synthetic-public-key'}
+    values.update({'db_password': 'synthetic:@/?'})
+    with httpx.Client(trust_env=False) as client:
+        response = client.post(server.origin + '/' + server.nonce + '/submit',
+                               content=urlencode(values), headers={
+                                   'Origin': server.origin,
+                                   'Content-Type': 'application/x-www-form-urlencoded'})
+    assert response.status_code == 200
+    assert 'synthetic%3A%40%2F%3F@' in received[0][0]
+    assert values['db_password'] not in response.text
