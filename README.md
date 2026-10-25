@@ -85,9 +85,9 @@ Crawler HTTP con BeautifulSoup/trafilatura, fallback Playwright su HTML povero d
 .\.venv\Scripts\python.exe -m pip install -e './backend[dev,crawl]'
 $env:PLAYWRIGHT_BROWSERS_PATH = Join-Path (Get-Location) 'artifacts/private/playwright'
 .\.venv\Scripts\python.exe -m playwright install chromium
-.\.venv\Scripts\python.exe -m gtm_engine.gate1b --url https://madeinteam.it --url https://teambuildingitaly.com --url https://teambuilding.it --url https://teamworking.it --url https://sunnywayteambuilding.com
+.\.venv\Scripts\python.exe -m gtm_engine.gate1b --url https://example.com
 ```
 
 Il comando mostra il piano senza rete. Per il pilota aggiungere `--live --confirmed-sample --browser` solo dopo conferma dei cinque siti da parte del proprietario. Raw HTML e report normalizzato sono salvati esclusivamente nella cartella ignorata `artifacts/private/web`, creata una sola volta per evitare sovrascritture. Nuovi tentativi richiedono una nuova cartella privata e mantengono le prove precedenti. Non vengono lette credenziali. Nessun costo API; costo del calcolo locale non misurato.
 
-**Stato:** componente implementato e testato su fixture sintetiche; campione proposto in attesa di conferma. Gate 1B non superato finché non risultano cinque crawl reali con evidenze. Controllo DNS prima di ciascuna richiesta, senza pinning socket: prima di esporre URL arbitrari tramite API servono protezioni egress contro DNS rebinding. Risorse esterne, URL con query e WebSocket bloccati nel fallback; pagine che li richiedono possono restare partial/unavailable.
+**Stato:** componente implementato e testato su fixture sintetiche; il primo campione è stato rifiutato dal proprietario. Nuova selezione da motivare rispetto a offerta del pilota, domanda e mercato locale, distinguendo pertinenza commerciale e visibilità organica; nessuna classifica basata su notorietà presunta. Gate 1B non superato finché non risultano cinque crawl reali con evidenze. Controllo DNS prima di ciascuna richiesta, senza pinning socket: prima di esporre URL arbitrari tramite API servono protezioni egress contro DNS rebinding. Risorse esterne, URL con query e WebSocket bloccati nel fallback; pagine che li richiedono possono restare partial/unavailable.
