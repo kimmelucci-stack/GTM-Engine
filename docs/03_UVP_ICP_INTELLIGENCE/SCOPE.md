@@ -1,6 +1,6 @@
 # GTM Engine — Modulo 03: UVP & ICP Intelligence
 
-**Versione:** 0.5 — Directory interna delle funzioni B2B, decisione del proprietario 25 ottobre 2026  
+**Versione:** 0.6 — Funzioni B2B, proprietà e governance, decisione del proprietario 25 ottobre 2026  
 **Data:** 24 ottobre 2026  
 **Stato:** scoping funzionale consolidato; UX/form UVP da rifinire, PRD/TDD e validazione empirica da realizzare  
 **Dipendenze:** `docs/00_PROJECT/PROJECT_SCOPE.md`, `docs/01_DEMAND_INTELLIGENCE/SCOPE.md`, `docs/02_MARKET_INTELLIGENCE/SCOPE.md`.
@@ -162,7 +162,7 @@ Non inventare precisione: se il range di fatturato o addetti non è giustificabi
 
 ### 4.6 Step 05 — MAP BUYERS: funzioni operative B2B o relazioni B2C
 
-Per ogni segmento qualificato, costruire una **Buyer Map** adattata al tipo di mercato. **Nel B2B l’output principale è una selezione di funzioni operative della directory interna, associate ai reparti pertinenti**; nel B2C sono ruoli individuali/relazionali, eventualmente nel nucleo familiare:
+Per ogni segmento qualificato, costruire una **Buyer Map** adattata al tipo di mercato. **Nel B2B l’output principale è una selezione di funzioni operative della directory interna, associate ai reparti pertinenti, con organi di governo e ruoli di vertice quando rilevanti**; nel B2C sono ruoli individuali/relazionali, eventualmente nel nucleo familiare:
 
 | Output principale | Esempi | Attributi secondari |
 |---|---|---|
@@ -305,4 +305,11 @@ Non usare RAG vettoriale nella prima versione; il caricamento è orchestrato da 
 
 ## Directory delle funzioni B2B — aggiornamento del proprietario
 
-Riferimento: [directory delle funzioni](BUSINESS_FUNCTION_DIRECTORY.md), 12 reparti e 60 funzioni operative, versione business-functions-v1. Definizioni interne, non catalogo di professioni o organigramma universale. La stessa funzione può essere condivisa, accorpata o esternalizzata. Nessuna assegnazione automatica a un cliente o autorità di acquisto implicita; selezione motivata e stato epistemico obbligatori. ESCO non è necessario per il buyer mapping B2B. I ruoli B2C e le competenze operative del team GTM non sono modificati. Implementati soltanto directory, API di riferimento e contratto Python; Modulo 03 end-to-end non implementato.
+Riferimento: [directory delle funzioni](BUSINESS_FUNCTION_DIRECTORY.md), 12 reparti e 60 funzioni operative, versione corrente business-functions-v1.1, con v1 conservata per i riferimenti storici. Definizioni interne, non catalogo di professioni o organigramma universale. La stessa funzione può essere condivisa, accorpata o esternalizzata. Nessuna assegnazione automatica a un cliente o autorità di acquisto implicita; selezione motivata e stato epistemico obbligatori. ESCO non è necessario per il buyer mapping B2B. I ruoli B2C e le competenze operative del team GTM non sono modificati. Implementati soltanto directory, API di riferimento e contratto Python; Modulo 03 end-to-end non implementato.
+
+
+### Proprietà, board e direzione
+
+La directory v1.1 include quattro organi/strutture collegiali e 25 ruoli/posizioni di proprietà, fondazione, governance e direzione. CdA, assemblea dei soci, comitato esecutivo e advisory board sono distinti dalle persone. Owner, socio, Founder, Presidente, AD, CEO, direttore generale e altre cariche non sono sinonimi automatici. Una persona può cumulare più ruoli; nessun organo o ruolo è obbligatorio in ogni impresa.
+
+BuyerFunctionReference può indicare `governance_role_ids` e `governance_body_ids`, anche senza funzione operativa se non verificata. `department_id` e `function_id` vanno forniti entrambi se si associa una funzione. Le associazioni del catalogo indicano ambiti pertinenti da investigare, non incarichi reali o deleghe. Ruoli di acquisto, budget e firma richiedono valutazione distinta ed evidenze; nessuna autorità dedotta da una carica. L’API conserva accesso a entrambe le versioni; nessuna modifica retroattiva dei riferimenti storici.

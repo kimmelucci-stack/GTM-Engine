@@ -23,7 +23,7 @@ L'analisi è possibile sia per prodotti disponibili sia per idee **in fase di sv
 4. Canale, tattica e segnale sono oggetti distinti: esempio `LinkedIn` / `outreach personalizzato` / `espansione delle sedi`. Un segnale è utilizzato come trigger soltanto se osservabile e pertinente, non perché ipotizzato dall'AI.
 5. Prioritizzazione **qualitativa, motivata e verificabile**; **nessuno score 0–100** non calibrato. L'agente deve motivare anche le esclusioni.
 6. **Nessun benchmark inventato:** quando un costo, conversione, disponibilità di targeting o copertura non è verificato, dichiarare l'incertezza e non fare previsioni puntuali di CPL, CAC o risultati.
-7. **B2B:** funzioni operative e relativi reparti recuperati dal Modulo 03; ruoli decisionali separati e job title facoltativo. **B2C:** unità decisionale individuale/relazionale/familiare quando pertinente. Nessuna generalizzazione automatica da uno all'altro.
+7. **B2B:** funzioni operative e relativi reparti recuperati dal Modulo 03; organi di governo e cariche di vertice pertinenti, ruoli decisionali separati e job title specialistico facoltativo. **B2C:** unità decisionale individuale/relazionale/familiare quando pertinente. Nessuna generalizzazione automatica da uno all'altro.
 8. **UX minimale** con workflow comprensibile e stato reale; rationale, metadati, scenari e fonti solo nei dettagli.
 
 ## 3. Input strutturati

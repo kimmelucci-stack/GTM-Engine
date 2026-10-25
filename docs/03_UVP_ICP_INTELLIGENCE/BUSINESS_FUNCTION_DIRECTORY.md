@@ -1,8 +1,8 @@
-# Directory delle funzioni aziendali — v1
+# Directory delle funzioni aziendali — v1.1
 
 Directory interna del GTM Engine, creata su richiesta del proprietario. **Reparto = area organizzativa; funzione = responsabilità/attività svolta; ruolo d’acquisto = partecipazione a una specifica decisione.** Nessuno dei tre identifica automaticamente una professione o una persona.
 
-Fonte canonica dei dati: `backend/src/gtm_engine/domain/business_functions.v1.json`. Questa vista leggibile ne riporta le 60 funzioni, raggruppate per reparto principale. Nessuna classificazione di aziende/clienti o gerarchia di autorità è implicita. Funzioni accorpate, esternalizzate o distribuite fra reparti sono ammesse; titoli specifici facoltativi.
+Fonte canonica dei dati: `backend/src/gtm_engine/domain/business_functions.v1_1.json`. Questa vista leggibile ne riporta le 60 funzioni, raggruppate per reparto principale. Nessuna classificazione di aziende/clienti o gerarchia di autorità è implicita. Funzioni accorpate, esternalizzate o distribuite fra reparti sono ammesse; titoli specifici facoltativi.
 
 ## Direzione e proprietà
 
@@ -133,3 +133,59 @@ La comunicazione interna è associabile a Marketing e HR; la progettazione degli
 Per eventi aziendali/team building: formazione e sviluppo, benessere e coinvolgimento, comunicazione interna, progettazione eventi, capacità commerciali e logistica eventi sono possibili punti di partenza da selezionare secondo l’occasione. Non costituiscono un target già validato e non includono automaticamente ogni funzione amministrativa.
 
 ESCO non è necessario per utilizzare questa directory. La verifica storica del servizio resta nell’audit; eventuale uso specialistico futuro richiede necessità dimostrata. La directory riguarda il buyer B2B: ruoli relazionali B2C e competenze esecutive del Modulo 06 restano distinti.
+
+
+## Proprietà, organi di governo e ruoli di vertice — v1.1
+
+I 12 reparti e le 60 funzioni restano disponibili. La versione v1.1 aggiunge quattro organi/strutture collegiali e 25 ruoli/posizioni distinti, senza costruire un organigramma obbligatorio. Le definizioni sono riferimenti operativi generali: non sostituiscono verifica di assetto societario, giurisdizione, deleghe e incarichi dell’impresa.
+
+### Organi e strutture collegiali
+
+| Organo/struttura | Ambito di riferimento |
+|---|---|
+| Consiglio di amministrazione / Board of Directors | Organo collegiale di amministrazione quando presente nell’assetto dell’impresa. |
+| Assemblea dei soci / Shareholders’ meeting | Sede collegiale delle decisioni dei soci nelle materie loro attribuite. |
+| Comitato esecutivo | Organo o comitato con funzioni delegate da verificare nell’assetto effettivo. |
+| Advisory Board / Comitato consultivo | Supporto consultivo; nessun potere amministrativo o deliberativo presunto. |
+
+### Ruoli e posizioni
+
+| Ruolo/posizione | Responsabilità o significato |
+|---|---|
+| Proprietario / Owner | Detenzione della proprietà; eventuale gestione e poteri vanno accertati separatamente. |
+| Comproprietario / Co-owner | Condivisione della proprietà con altri soggetti, senza implicita delega operativa. |
+| Socio / Azionista | Partecipazione al capitale; diritti e influenza dipendono dal contesto societario. |
+| Socio di controllo | Posizione proprietaria di controllo da verificare, distinta dalla gestione esecutiva. |
+| Fondatore / Founder | Partecipazione alla fondazione; non prova proprietà attuale o incarichi gestionali. |
+| Cofondatore / Co-founder | Fondazione condivisa; ruolo e partecipazioni attuali richiedono riscontri. |
+| Presidente del CdA / Chair | Coordinamento dei lavori del consiglio e del suo funzionamento, secondo l’assetto effettivo. |
+| Vicepresidente del CdA | Supporto o sostituzione del Presidente secondo le attribuzioni effettive. |
+| Consigliere di amministrazione / Board member | Partecipazione alle deliberazioni collegiali del consiglio, senza deleghe individuali presunte. |
+| Consigliere esecutivo / Executive director | Componente del consiglio con incarichi gestionali da verificare nel caso concreto. |
+| Consigliere non esecutivo | Partecipazione al consiglio distinta dalla gestione esecutiva corrente. |
+| Consigliere indipendente | Componente qualificato come indipendente secondo criteri applicabili e riscontri effettivi. |
+| Amministratore delegato / AD | Gestione nei limiti delle deleghe effettivamente attribuite; nessuna equivalenza automatica con CEO. |
+| Chief Executive Officer / CEO | Coordinamento della gestione aziendale al vertice; cariche formali e poteri da verificare. |
+| Direttore generale / General Manager | Direzione operativa complessiva secondo incarico e deleghe effettivi. |
+| Amministratore unico | Incarico amministrativo individuale quando previsto dall’assetto societario; non equivale a un CdA. |
+| Direttore operativo / COO | Coordinamento della produzione, dell’erogazione e dei processi operativi. |
+| Direttore finanziario / CFO | Coordinamento di finanza, pianificazione economica e controllo, secondo l’incarico. |
+| Direttore risorse umane / CHRO | Coordinamento delle politiche e dei processi relativi alle persone. |
+| Direttore marketing / CMO | Coordinamento di strategia marketing, comunicazione e sviluppo della domanda. |
+| Direttore commerciale / Chief Sales Officer | Coordinamento di obiettivi, processi e relazioni commerciali. |
+| Direttore tecnologico / CTO | Coordinamento delle scelte tecnologiche e dello sviluppo tecnico secondo il perimetro aziendale. |
+| Direttore sistemi informativi / CIO | Coordinamento dei sistemi informativi e delle applicazioni aziendali. |
+| Chief of Staff / Coordinamento della direzione | Coordinamento delle priorità e delle iniziative del vertice, senza poteri deliberativi presunti. |
+| Segreteria del CdA / Board Secretary | Supporto documentale e organizzativo ai lavori del consiglio; non implica appartenenza al CdA. |
+
+### Regole di utilizzo
+
+- CdA e assemblea dei soci sono soggetti collettivi, non persone o reparti.
+- Proprietà, partecipazione societaria e fondazione sono distinte da incarichi gestionali. Un fondatore potrebbe non essere più proprietario o amministratore.
+- AD e CEO possono coincidere nella stessa persona, ma non vengono unificati automaticamente; lo stesso vale per Presidente, proprietario e direttore generale.
+- Le cariche possono cumularsi. Non è richiesta l’esistenza di tutti gli organi o ruoli, né una separazione universale fra persone.
+- Le associazioni alle funzioni già in directory indicano ambiti da investigare, non un’assegnazione certa. Non dedurre approvazione del budget, firma, acquisto o influenza dal titolo.
+- Il riferimento può indicare soltanto una carica o un organo se la funzione operativa non è verificata; niente funzione inventata per completare i campi.
+- Ogni assegnazione al buyer mapping resta motivata, con evidenze e stato. Nessun nominativo personale incluso nella directory.
+
+Riferimenti consultati per distinguere proprietà, gestione e governo: [Codice di Corporate Governance, 2020](https://www.borsaitaliana.it/comitato-corporate-governance/codice/2020.pdf), relativo alle società quotate; [IoD, Setting up a board](https://www.iod.com/resources/business-advice/setting-up-a-board/), guida organizzativa. Le rispettive indicazioni non sono estese automaticamente a qualsiasi azienda o paese.

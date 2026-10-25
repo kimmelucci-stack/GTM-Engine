@@ -96,7 +96,7 @@ Output: messaggio centrale per ICP, argomentazioni di supporto, obiezioni e prov
 - **Test TOV:** appropriatezza per lingua/brand/mercato/target, con revisione editoriale critica; AI non approva da sola il proprio output come prova di qualità.
 - La chat consente di rivedere il messaggio; proposte di riscrittura ai campi strutturati **solo previo consenso dell'utente**.
 
-**Buyer mapping corretto:** B2B mostra **funzioni operative associate ai reparti** dalla directory interna del Modulo 03, con job title facoltativo e ruolo decisionale separato; B2C mostra **ruoli individuali e relazionali** (es. individuo, partner, madre/padre, figli, nonni/tutori) coerenti con nucleo e dinamiche familiari, senza presumere gerarchie o stereotipi. Nessun contatto nominativo.
+**Buyer mapping corretto:** B2B mostra **funzioni operative associate ai reparti** dalla directory interna del Modulo 03, con organi di governo e cariche di vertice pertinenti, job title specialistico facoltativo e ruolo decisionale separato; B2C mostra **ruoli individuali e relazionali** (es. individuo, partner, madre/padre, figli, nonni/tutori) coerenti con nucleo e dinamiche familiari, senza presumere gerarchie o stereotipi. Nessun contatto nominativo.
 
 ### 4.6 Step 06 — Verify & Deliver
 

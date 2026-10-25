@@ -127,6 +127,8 @@ KB-001 disponibile a richiesta: `python -m gtm_engine.source_refresh --registry 
 
 ## Directory delle funzioni aziendali
 
-[Consulta le 60 funzioni operative nei 12 reparti](docs/03_UVP_ICP_INTELLIGENCE/BUSINESS_FUNCTION_DIRECTORY.md). Dati canonici in `backend/src/gtm_engine/domain/business_functions.v1.json`; disponibili da API con `GET /reference/business-functions` e filtro opzionale `department_id` (es. people). Nessun account o dato cliente esposto.
+[Consulta le 60 funzioni operative nei 12 reparti](docs/03_UVP_ICP_INTELLIGENCE/BUSINESS_FUNCTION_DIRECTORY.md). Dati canonici in `backend/src/gtm_engine/domain/business_functions.v1_1.json`; disponibili da API con `GET /reference/business-functions` e filtro opzionale `department_id` (es. people). Nessun account o dato cliente esposto.
 
 Reparto, funzione operativa e ruolo di acquisto sono distinti. Job title facoltativo; il contratto Python rifiuta associazioni reparto/funzione incoerenti e stato Observed senza fonte. Sono riferimenti, non identificazione automatica di buyer reali; workflow del Modulo 03 ancora da implementare. ESCO non necessario: il runner pubblico v2 lo interroga soltanto con `--include-esco`. Le prove storiche e il relativo esito PARTIAL restano conservati.
+
+La directory corrente v1.1 comprende anche quattro organi/strutture collegiali e 25 ruoli di proprietà, governo e vertice (Owner, soci, Founder, Presidente, consiglieri, AD, CEO, direttore generale e direzioni funzionali). Cariche cumulabili, nessuna autorità di acquisto dedotta. API: `?version=business-functions-v1` per la versione storica; default v1.1. Buyer reference può indicare solo cariche/organi se la funzione operativa non è verificata. Nessuna migrazione o assegnazione a clienti eseguita.
