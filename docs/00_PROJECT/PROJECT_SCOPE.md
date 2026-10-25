@@ -2,7 +2,7 @@
 
 **Versione:** 0.6 — Consolidamento documentale del 25 ottobre 2026
 **Data delle decisioni funzionali:** 24 ottobre 2026
-**Stato:** Moduli 01–07 definiti; stack approvato; Gate 0 verificato e Gate 1A DataForSEO PASS_WITH_LIMITATIONS. Gate 1B aperto, screening HTTP leggero parziale su nove siti; nessun modulo end-to-end e altri accessi API non collaudati. Stato operativo in `docs/00_PROJECT/HANDOFF_TO_CODEX.md`.
+**Stato:** Moduli 01–07 definiti; stack approvato; Gate 0 verificato e Gate 1A DataForSEO PASS_WITH_LIMITATIONS. Gate 1B PASS_WITH_LIMITATIONS sul campione tecnico di cinque siti; nessun modulo end-to-end e altri accessi API non collaudati. Stato operativo in `docs/00_PROJECT/HANDOFF_TO_CODEX.md`.
 
 ## 1. Visione
 

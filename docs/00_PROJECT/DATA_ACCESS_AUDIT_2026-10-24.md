@@ -47,6 +47,24 @@ Acquisizione UTC 11:53:36–11:54:07 del 25 ottobre 2026; versione acquisizione 
 
 Originale `artifacts/private/web-screening/20261025T115336Z/report.json`, raw HTML e robots nelle sottocartelle sito. Correzioni del parser: prezzi in div/span/strong/celle e paragrafi CMS oltre 500 caratteri; estratti contigui limitati, nessuna cifra inventata o normalizzazione senza condizioni. Nuova trasformazione `web-extract-v2` in `extraction-v2.json`, timestamp di normalizzazione separato da UTC originali, **zero chiamate di rete**, originale e hash raw preservati. Non attribuire i campi recuperati al parser precedente. Report e manifest privati non impostano mai approvazione ricevuta. Conferma e crawl approfonditi ancora necessari; browser solo su fixture sintetiche.
 
+## Gate 1B — crawl tecnico approfondito, 25 ottobre 2026
+
+**PASS_WITH_LIMITATIONS**, limitato all'accesso e all'estrazione sul campione tecnico. Il proprietario ha ristretto il pilota a eventi aziendali/team building e delegato la scelta dei siti per i test. Questa autorizzazione non approva una shortlist commerciale definitiva. Cinque siti distinti, massimo quattro pagine e trenta richieste per sito; run UTC 12:18:57–12:19:30, `gate1b-v1` / `web-extract-v2`, HTTP anonimo e browser fallback abilitato ma non attivato perché non necessario.
+
+Comando: `.venv/Scripts/python.exe -m gtm_engine.gate1b --live --confirmed-sample --browser --url URL_CAMPIONE ... --output artifacts/private/web-detailed/20261025T121857Z`. URL e autorizzazione contestuale conservati solo nel report privato e in `authorization.json`. Provider: `anonymous_website`; endpoint GET HTTPS robots.txt e pagine dello stesso dominio. Geografia: siti di offerta nel territorio pilota, nessuna misura geolocalizzata SERP.
+
+| Controllo | Risultato | Limite |
+|---|---|---|
+| Campione | Cinque siti con almeno una pagina disponibile ed evidenze | Profili campionari, non copertura completa dei siti |
+| Rete | 15 GET: 14 HTTP 200 e un redirect 302 | Nessun costo API, calcolo locale non misurato |
+| Pagine | Nove tentativi, otto disponibili e una risorsa `not_html` | HTTP 200 non implica HTML utilizzabile; risorsa esclusa senza interpretazione |
+| Evidenze | 95 estratti: 33 dichiarazioni, 16 CTA, 46 estratti prezzo su sei pagine | Non 46 tariffe distinte: possibili ripetizioni e condizioni diverse |
+| Case study | Nessuna menzione rilevata nel campione | Nessuna conclusione sull'assenza generale |
+| Integrità | Otto hash SHA-256 verificati sui byte delle otto catture | Raw e testi esclusivamente privati |
+| Browser | Nessuna pagina ha richiesto rendering | Prova reale del fallback non ottenuta; rimane test sintetico |
+
+`report.json` originale, raw, `verification.json` e contesto di autorizzazione in cartella privata ignorata. Costo DataForSEO invariato a 0,31847 USD; nessuna credenziale caricata. Il gate tecnico non valida ranking, ritorni commerciali, scoring o intero Modulo 02. Gate 1C e successivi non eseguiti.
+
 > **Aggiornamento storico, 24 ottobre 2026.** Il registro seguente conserva le evidenze del precedente ambiente; i registri del repository sopra prevalgono per il solo campione effettivamente riprodotto. Per le scelte vigenti consultare `PROVIDER_ACCESS_AND_VALIDATION_MATRIX.md`.
 
 ## Registro del precedente ambiente — DataForSEO, 24 ottobre 2026
