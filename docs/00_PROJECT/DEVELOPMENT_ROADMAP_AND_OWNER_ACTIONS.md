@@ -3,7 +3,7 @@
 
 ## Sequenza vincolante, con ownership esplicita
 
-Aggiornamento Foundation: progetto Supabase dedicato UE creato, migrazioni projects/runs/jobs, ruoli separati API/worker e assegnazioni con scadenza applicate; test SQL live di vincoli, isolamento proprietari, token, retry e due claim paralleli superati. Database chiuso ai ruoli client e service_role. API progetti e worker singolo passaggio implementati/testati offline, credenziali runtime mancanti e connessione Python non collaudata. Ledger, Storage e workflow moduli restano da completare. Dettagli e limiti nell'handoff; Gate 2 non completo.
+Aggiornamento Foundation al 26 ottobre: progetto Supabase dedicato UE, migrazioni projects/runs/jobs, ruoli separati API/worker e assegnazioni con scadenza applicate; test SQL live di vincoli, isolamento proprietari, token, retry e due claim paralleli superati. Database chiuso ai ruoli client e service_role. Credenziali runtime configurate, connessioni Python/TLS reali verificate, job catalog.validate completato in un tentativo. API create/read su database reale con identità sintetica e isolamento verificati; login utente/browser ancora da collaudare. Dati sintetici rimossi. Ledger, Storage e workflow moduli restano da completare. Dettagli e limiti nell'handoff; Gate 2 non completo.
 | Gate | Responsabile Codex | Responsabile utente | Deliverable e condizione di uscita |
 |---|---|---|---|
 | **0 — Repository** | Audit, config React/FastAPI/worker, toolchain, `.env.example`, CI e protezione credenziali | Fornire repository e accesso; predisporre account per i rispettivi gate successivi | Repo collegato + healthcheck, build React e pytest; accessi provider non richiesti per i controlli locali |
