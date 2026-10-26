@@ -31,6 +31,7 @@ def connection(role: Literal["gtm_api", "gtm_worker"], owner_id: UUID | None = N
         raise PersistenceUnavailable("database_not_configured")
     try:
         with psycopg.connect(dsn, connect_timeout=10, **tls_options(), row_factory=dict_row) as conn:
+            conn.isolation_level = psycopg.IsolationLevel.READ_COMMITTED
             login = conn.execute(
                 "select rolsuper, rolbypassrls from pg_roles where rolname = session_user"
             ).fetchone()
