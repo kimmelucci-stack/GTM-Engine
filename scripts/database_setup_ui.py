@@ -1,6 +1,7 @@
 """Temporary loopback-only credential entry; no secret values in responses or logs."""
 
 import io
+import json
 import re
 import secrets
 from contextlib import redirect_stdout
@@ -13,6 +14,38 @@ from urllib.parse import parse_qs, quote
 from configure_database import configure
 
 ROOT = Path(__file__).resolve().parents[1]
+ERRORS = {
+    "database_password_rejected": "La password del database non è stata accettata. Verifica quella attuale del progetto.",
+    "tls_verification_failed": "Verifica del certificato non riuscita. Torna in chat: non cambiare la password.",
+    "database_connection_failed": "Collegamento al database non riuscito. Torna in chat senza cambiare la password.",
+    "project_connection_invalid": "La connessione non identifica il progetto. Torna in chat per ripristinarla.",
+    "administrative_access_required": "La connessione non dispone dei permessi di configurazione necessari.",
+    "already_configured": "La configurazione locale esiste già. Torna in chat per verificarla.",
+    "existing_login": "Gli accessi server esistono già. Torna in chat: non ripetere il reset della password.",
+    "database_password_missing": "Inserisci la password del database nel campo dedicato.",
+    "connection_password_present": "La connessione contiene già una password. Lascia vuoto il campo password aggiuntivo.",
+}
+SCRIPT = """
+const form = document.querySelector('form');
+if (form) form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const button = form.querySelector('button');
+  const notice = document.getElementById('setup-status');
+  button.disabled = true;
+  notice.hidden = false;
+  notice.textContent = 'Verifica e configurazione in corso…';
+  try {
+    const response = await fetch(form.action, {method: 'POST',
+      headers: {'Accept': 'application/json'}, body: new URLSearchParams(new FormData(form)),
+      credentials: 'same-origin'});
+    const result = await response.json();
+    notice.textContent = result.message;
+    if (result.ok) { form.reset(); form.hidden = true; }
+  } catch {
+    notice.textContent = 'Risposta non disponibile. Torna in chat prima di riprovare: i dati restano nei campi.';
+  } finally { button.disabled = false; }
+});
+"""
 CSS = """
 @font-face{font-family:Inter;src:url('font') format('woff2');font-weight:100 900}
 *{box-sizing:border-box}body{margin:0;background:#fafafa;color:#242529;
@@ -54,7 +87,8 @@ def page(nonce: str, message: str = "", complete: bool = False) -> str:
       <small>La chiave publishable del progetto, non una service role key.</small>
       <button type="submit">Configura accesso riservato</button>
     </form>"""
-    notice = f'<div class="message" role="status">{escape(message)}</div>' if message else ""
+    notice = (f'<div id="setup-status" class="message" role="status" '
+              f'aria-live="polite" {"" if message else "hidden"}>{escape(message)}</div>')
     return f"""<!doctype html><html lang="it"><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Accesso riservato · GTM Engine</title><style>{CSS}</style>
@@ -63,7 +97,8 @@ def page(nonce: str, message: str = "", complete: bool = False) -> str:
     I valori restano nascosti e vengono inviati soltanto al processo sul tuo computer.</p>
     {notice}{form}<p class="note">La credenziale amministrativa serve a creare due accessi
     separati per API e worker e non viene salvata. Le connessioni generate restano nel file
-    locale escluso da Git. Nessun invio in chat o servizio di analisi esterno.</p></main></html>"""
+    locale escluso da Git. Nessun invio in chat o servizio di analisi esterno.</p></main>
+    <script nonce="{escape(nonce)}">{SCRIPT}</script></html>"""
 
 
 class SetupServer(HTTPServer):
@@ -99,6 +134,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; "
+                         f"script-src 'nonce-{self.server.nonce}'; connect-src 'self'; "
                          "font-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'")
         self.end_headers()
         self.wfile.write(body)
@@ -133,6 +169,7 @@ class Handler(BaseHTTPRequestHandler):
                 or self.headers.get("Origin") != self.server.origin or self.server.completed):
             self.reject_post(403, b"Forbidden")
             return
+        failures = []
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if (not 0 < length <= 32768 or self.headers.get("Content-Type", "").split(";")[0]
@@ -152,23 +189,30 @@ class Handler(BaseHTTPRequestHandler):
             placeholder = r"\[YOUR[-_ ]PASSWORD\]"
             if re.search(placeholder, administrative, re.IGNORECASE):
                 if not provided_value:
-                    raise ValueError("missing_database_password")
+                    raise ValueError("database_password_missing")
                 administrative = re.sub(placeholder, lambda match: quote(provided_value, safe=""),
                                         administrative, flags=re.IGNORECASE)
             elif provided_value:
-                raise ValueError("connection_already_has_password")
+                raise ValueError("connection_password_present")
             with redirect_stdout(io.StringIO()):
                 result = self.server.provision(administrative, fields["auth_url"][0].strip(),
-                                               fields["public_key"][0].strip())
-        except Exception:  # noqa: BLE001 -- never return request bodies or connection exceptions
+                                               fields["public_key"][0].strip(), report=failures.append)
+        except Exception as exc:  # noqa: BLE001 -- never return raw exceptions or input values
+            if isinstance(exc, ValueError) and str(exc) in ERRORS:
+                failures.append(str(exc))
             result = 2
         self.server.completed = result == 0
         message = ("Configurazione salvata. Puoi tornare alla chat per la verifica del collegamento."
                    if self.server.completed else
-                   "Configurazione non completata. Verifica i dati del progetto e riprova; "
-                   "se il problema persiste, torna in chat senza inviare credenziali.")
-        self.respond(200 if self.server.completed else 400,
-                     page(self.server.nonce, message, self.server.completed).encode())
+                   ERRORS.get(failures[-1] if failures else "", "Configurazione non completata. "
+                              "Torna in chat senza inviare credenziali; non ripetere il reset."))
+        if self.headers.get("Accept") == "application/json":
+            self.respond(200 if self.server.completed else 400,
+                         json.dumps({"ok": self.server.completed, "message": message}).encode(),
+                         "application/json; charset=utf-8")
+        else:
+            self.respond(200 if self.server.completed else 400,
+                         page(self.server.nonce, message, self.server.completed).encode())
         if self.server.completed:
             Thread(target=self.server.shutdown, daemon=True).start()
 

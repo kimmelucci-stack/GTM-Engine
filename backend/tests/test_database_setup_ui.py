@@ -12,7 +12,7 @@ def setup_server(monkeypatch):
     monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[2] / "scripts"))
     module = importlib.import_module("database_setup_ui")
     received = []
-    def provision(*values):
+    def provision(*values, report=None):
         received.append(values)
         return 0
     server = module.SetupServer(("127.0.0.1", 0), provision=provision)
@@ -33,6 +33,8 @@ def test_form_is_local_masked_and_not_cacheable(setup_server):
         assert 'no-store' in response.headers['cache-control']
         assert response.headers['referrer-policy'] == 'same-origin'
         assert response.headers['x-frame-options'] == 'DENY'
+        assert "connect-src 'self'" in response.headers['content-security-policy']
+        assert "script-src 'nonce-" in response.headers['content-security-policy']
         assert 'script-src' not in response.text
         assert client.get(server.origin + '/').status_code == 404
         assert client.get(server.origin + '/' + server.nonce + '/',
@@ -88,3 +90,32 @@ def test_password_is_encoded_without_echo(setup_server):
     assert response.status_code == 200
     assert 'synthetic%3A%40%2F%3F@' in received[0][0]
     assert values['db_password'] not in response.text
+
+
+def test_failed_setup_returns_only_safe_reason(setup_server):
+    server, _ = setup_server
+    def failure(*values, report):
+        report('tls_verification_failed')
+        return 2
+    server.provision = failure
+    values = {'csrf': server.nonce, 'administrative': 'synthetic-private-connection',
+              'auth_url': 'https://synthetic.invalid', 'public_key': 'synthetic-public-key'}
+    with httpx.Client(trust_env=False) as client:
+        response = client.post(server.origin + '/' + server.nonce + '/submit',
+                               content=urlencode(values), headers={
+                                   'Origin': server.origin, 'Accept': 'application/json',
+                                   'Content-Type': 'application/x-www-form-urlencoded'})
+    assert response.status_code == 400
+    assert response.json()['ok'] is False
+    assert 'certificato' in response.json()['message']
+    assert not server.completed
+    assert values['administrative'] not in response.text
+
+
+def test_connection_error_classification_never_exposes_details(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[2] / "scripts"))
+    setup = importlib.import_module('configure_database')
+    import psycopg
+    error = psycopg.OperationalError('synthetic sensitive detail: certificate verify failed')
+    assert setup.classify_failure(error) == 'tls_verification_failed'
+    assert setup.classify_failure(ValueError('synthetic sensitive detail')) == 'invalid_input'

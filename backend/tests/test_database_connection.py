@@ -1,9 +1,11 @@
+import ssl
+from pathlib import Path
 from uuid import uuid4
 
 import psycopg
 import pytest
 
-from gtm_engine.persistence.database import PersistenceUnavailable, connection
+from gtm_engine.persistence.database import PersistenceUnavailable, connection, tls_options
 
 
 class ConnectionStub:
@@ -36,7 +38,7 @@ def test_connection_sets_tls_role_and_transaction_local_owner(monkeypatch):
     with connection('gtm_api', owner) as conn:
         assert conn is stub
     assert observed['sslmode'] == 'verify-full'
-    assert observed['sslrootcert'] == 'system'
+    assert observed['sslrootcert'].endswith('supabase-root-2021.crt')
     assert stub.calls[-1] == ("select set_config('gtm.owner_id', %s, true)", (str(owner),))
 
 
@@ -56,3 +58,12 @@ def test_raw_connection_error_is_redacted(monkeypatch):
             connection('gtm_api'):
         pytest.fail('Unexpected connection')
     assert 'sensitive' not in str(error.value)
+
+
+def test_published_ca_is_packaged_and_loadable():
+    options = tls_options()
+    assert options['sslmode'] == 'verify-full'
+    assert Path(options['sslrootcert']).is_file()
+    context = ssl.create_default_context(cafile=options['sslrootcert'])
+    assert context.check_hostname
+    assert context.verify_mode == ssl.CERT_REQUIRED

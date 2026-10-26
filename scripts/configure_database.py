@@ -6,23 +6,47 @@ import secrets
 import subprocess
 import sys
 import tempfile
+from collections.abc import Callable
 from getpass import getpass
 from pathlib import Path
 from urllib.parse import urlsplit
 
 import psycopg
+from gtm_engine.persistence.database import tls_options
 from psycopg import sql
 from psycopg.conninfo import conninfo_to_dict, make_conninfo
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def configure(administrative: str, auth_url: str, public_key: str) -> int:
+def classify_failure(exc: Exception) -> str:
+    """Only fixed codes cross the boundary; never host, DSN or provider messages."""
+    if isinstance(exc, psycopg.Error):
+        detail = str(exc).lower()
+        if exc.sqlstate == "28P01" or "password authentication failed" in detail:
+            return "database_password_rejected"
+        if "certificate" in detail or "ssl error" in detail:
+            return "tls_verification_failed"
+        if "tenant" in detail and "not found" in detail:
+            return "project_connection_invalid"
+        if exc.sqlstate == "42501":
+            return "administrative_access_required"
+        return "database_connection_failed"
+    if isinstance(exc, ValueError):
+        allowed = {"missing_coordinates", "invalid_auth_host", "mismatched_project",
+                   "wrong_project", "existing_login"}
+        return str(exc) if str(exc) in allowed else "invalid_input"
+    return "local_save_failed"
+
+
+def configure(administrative: str, auth_url: str, public_key: str,
+              report: Callable[[str], None] = print) -> int:
     ignored = subprocess.run(["git", "check-ignore", "-q", ".env"], cwd=ROOT,
                              capture_output=True, check=False)
     tracked = subprocess.run(["git", "ls-files", "--error-unmatch", ".env"], cwd=ROOT,
                              capture_output=True, check=False)
     if ignored.returncode != 0 or tracked.returncode == 0:
+        report("settings_unprotected")
         print("Local settings are not protected. Nothing changed.")
         return 2
     target = ROOT / ".env"
@@ -33,10 +57,12 @@ def configure(administrative: str, auth_url: str, public_key: str) -> int:
         if (sep and name.strip() in {"DATABASE_URL", "WORKER_DATABASE_URL"}
                 and value.strip() not in {"", '""', "''"}):
             print("Database settings already exist. Nothing changed.")
+            report("already_configured")
             return 2
     if (not auth_url.startswith("https://") or not public_key.startswith("sb_publishable_")
             or any(c in administrative + auth_url + public_key for c in "\r\n\0")):
         print("Invalid configuration. Values withheld; nothing changed.")
+        report("invalid_input")
         return 2
     staged = None
     committed = False
@@ -55,8 +81,7 @@ def configure(administrative: str, auth_url: str, public_key: str) -> int:
                      or parsed.get("user", "").partition(".")[2] != reference)):
             raise ValueError("mismatched_project")
         settings = {"SUPABASE_URL": auth_url, "SUPABASE_PUBLISHABLE_KEY": public_key}
-        with psycopg.connect(administrative, connect_timeout=10, sslmode="verify-full",
-                             sslrootcert="system") as conn:
+        with psycopg.connect(administrative, connect_timeout=10, **tls_options()) as conn:
             if not conn.execute("select to_regclass('gtm.jobs') is not null").fetchone()[0]:
                 raise ValueError("wrong_project")
             for role, variable in (("gtm_api", "DATABASE_URL"),
@@ -83,7 +108,8 @@ def configure(administrative: str, auth_url: str, public_key: str) -> int:
         committed = True
         os.replace(staged, target)
         staged = None
-    except (psycopg.Error, ValueError, OSError):
+    except (psycopg.Error, ValueError, OSError) as exc:
+        report(classify_failure(exc))
         print("Configuration incomplete. Values withheld. No connection test claimed.")
         if committed:
             print("Logins exist; preserve the ignored .env.provision file for recovery.")

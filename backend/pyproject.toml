@@ -17,6 +17,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "gtm_engine.domain" = ["*.json"]
+"gtm_engine.persistence" = ["certs/*.crt"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

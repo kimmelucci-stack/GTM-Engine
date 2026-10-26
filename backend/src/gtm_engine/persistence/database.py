@@ -3,6 +3,7 @@
 import os
 from collections.abc import Iterator
 from contextlib import contextmanager
+from importlib.resources import files
 from typing import Literal
 from uuid import UUID
 
@@ -15,6 +16,12 @@ class PersistenceUnavailable(Exception):
     """Safe public error, deliberately without connection details."""
 
 
+def tls_options() -> dict[str, str]:
+    """Supabase's published root CA, with certificate and hostname verification."""
+    root = files("gtm_engine.persistence").joinpath("certs/supabase-root-2021.crt")
+    return {"sslmode": "verify-full", "sslrootcert": str(root)}
+
+
 @contextmanager
 def connection(role: Literal["gtm_api", "gtm_worker"], owner_id: UUID | None = None
                ) -> Iterator[psycopg.Connection]:
@@ -23,8 +30,7 @@ def connection(role: Literal["gtm_api", "gtm_worker"], owner_id: UUID | None = N
     if not dsn:
         raise PersistenceUnavailable("database_not_configured")
     try:
-        with psycopg.connect(dsn, connect_timeout=10, sslmode="verify-full",
-                             sslrootcert="system", row_factory=dict_row) as conn:
+        with psycopg.connect(dsn, connect_timeout=10, **tls_options(), row_factory=dict_row) as conn:
             login = conn.execute(
                 "select rolsuper, rolbypassrls from pg_roles where rolname = session_user"
             ).fetchone()
