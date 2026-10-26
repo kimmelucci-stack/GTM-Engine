@@ -2,10 +2,11 @@
 
 import json
 from datetime import datetime
-from typing import Annotated
+from decimal import Decimal
+from typing import Annotated, Literal
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -17,12 +18,71 @@ from gtm_engine.domain.business_functions import (
     load_directory,
 )
 from gtm_engine.domain.buying_committee import JobTitleDirectory, load_job_titles
-from gtm_engine.persistence import projects
+from gtm_engine.persistence import projects, runs
 from gtm_engine.persistence.artifacts import PostgresArtifacts
 from gtm_engine.persistence.database import PersistenceUnavailable
 from gtm_engine.persistence.storage import PrivateStorage, StorageError
 
 app = FastAPI(title="GTM Engine", version="0.1.0")
+
+
+class RunInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    request_id: UUID
+    operation: Literal["catalog.validate", "catalog.archive"]
+    cap_usd: Decimal = Field(default=Decimal(10), gt=0, le=15, decimal_places=6)
+
+
+def run_failure(error: runs.RunError) -> None:
+    if str(error) == "not_found":
+        raise HTTPException(404, "Elaborazione o progetto non disponibile") from None
+    if str(error) == "idempotency_conflict":
+        raise HTTPException(409, "Richiesta già usata con parametri diversi") from None
+    raise HTTPException(422, "Richiesta non valida") from None
+
+
+@app.post("/projects/{project_id}/runs", status_code=202)
+def enqueue_run(project_id: UUID, body: RunInput,
+                owner: Annotated[UUID, Depends(verified_owner)], response: Response):
+    try:
+        if body.operation == "catalog.archive":
+            PrivateStorage.configured()
+        row, created = runs.enqueue(owner, project_id, body.request_id, body.operation, body.cap_usd)
+    except runs.RunError as error:
+        run_failure(error)
+    except (PersistenceUnavailable, StorageError):
+        raise HTTPException(503, "Avvio elaborazione non disponibile") from None
+    response.status_code = 202 if created else 200
+    response.headers["Cache-Control"] = "private, no-store"
+    return {**row, "execution_kind": "foundation_check"}
+
+
+@app.get("/runs/{run_id}")
+def get_run(run_id: UUID, owner: Annotated[UUID, Depends(verified_owner)], response: Response):
+    try:
+        row = runs.get(owner, run_id)
+    except PersistenceUnavailable:
+        raise HTTPException(503, "Stato elaborazione non disponibile") from None
+    if row is None:
+        raise HTTPException(404, "Elaborazione o progetto non disponibile")
+    response.headers["Cache-Control"] = "private, no-store"
+    return {**row, "execution_kind": ("foundation_check" if row["mode"].startswith("foundation:")
+                                     else "module_run")}
+
+
+@app.get("/projects/{project_id}/runs")
+def list_project_runs(project_id: UUID, owner: Annotated[UUID, Depends(verified_owner)],
+                      response: Response, limit: Annotated[int, Query(ge=1, le=100)] = 20):
+    try:
+        result = runs.list_runs(owner, project_id, limit)
+    except runs.RunError as error:
+        run_failure(error)
+    except PersistenceUnavailable:
+        raise HTTPException(503, "Elenco elaborazioni non disponibile") from None
+    response.headers["Cache-Control"] = "private, no-store"
+    return {"runs": [{**row, "execution_kind": ("foundation_check"
+                     if row["mode"].startswith("foundation:") else "module_run")}
+                     for row in result], "limit": limit}
 
 
 class ProjectInput(BaseModel):

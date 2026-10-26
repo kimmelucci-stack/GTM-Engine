@@ -54,6 +54,7 @@ Worker Python (Render background) ───────────────�
 - `sources(id, provider, endpoint, source_url, query_json, raw_storage_ref, fetched_at, provider_status, cost_record)`.
 - `decisions(id, run_id, decision_type, payload_json, approved, supersedes_id)`.
 - `artifacts(id, run_id, kind, storage_ref, created_at)`.
+- Avvio Foundation implementato: POST /projects/{id}/runs crea budget/run/job nella stessa transazione, request_id unico nel progetto, operazioni catalog.validate/catalog.archive soltanto. Non abilita i workflow analitici. API con RLS proprietario, GET stato/elenco senza token; trigger SECURITY INVOKER aggrega i job sotto lock del run e aggiorna timestamp/stato nella stessa transazione. Client API senza UPDATE su job/run; worker senza modifica del progetto/cap. Login Auth reale verificato con account sintetici; interfaccia di login e avvio ancora da collegare. Dettagli e prove nell'handoff.
 - `cost_events(id, run_id, provider, endpoint, units, provider_price, currency, observed_or_estimated)`.
 - `provider_checks(id, provider, capability, status, sample_ref, checked_at, limitations)`.
 
