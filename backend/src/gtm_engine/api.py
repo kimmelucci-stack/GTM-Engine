@@ -6,6 +6,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from gtm_engine.auth import verified_owner
@@ -17,7 +18,9 @@ from gtm_engine.domain.business_functions import (
 )
 from gtm_engine.domain.buying_committee import JobTitleDirectory, load_job_titles
 from gtm_engine.persistence import projects
+from gtm_engine.persistence.artifacts import PostgresArtifacts
 from gtm_engine.persistence.database import PersistenceUnavailable
+from gtm_engine.persistence.storage import PrivateStorage, StorageError
 
 app = FastAPI(title="GTM Engine", version="0.1.0")
 
@@ -60,6 +63,38 @@ def get_project(project_id: UUID, owner: Annotated[UUID, Depends(verified_owner)
     if result is None:
         raise HTTPException(404, "Progetto non disponibile")
     return result
+
+
+def owned_artifact(owner: UUID, artifact_id: UUID) -> dict:
+    try:
+        row = PostgresArtifacts().get(owner, artifact_id)
+    except PersistenceUnavailable:
+        raise HTTPException(503, "Archivio evidenze non disponibile") from None
+    if row is None:
+        raise HTTPException(404, "Evidenza non disponibile")
+    return row
+
+
+@app.get("/artifacts/{artifact_id}")
+def artifact_metadata(artifact_id: UUID, owner: Annotated[UUID, Depends(verified_owner)],
+                      response: Response):
+    row = owned_artifact(owner, artifact_id)
+    response.headers["Cache-Control"] = "private, no-store"
+    return {name: row[name] for name in ("id", "run_id", "kind", "sha256", "byte_size",
+                                        "content_type", "evidence", "created_at", "verified_at")}
+
+
+@app.get("/artifacts/{artifact_id}/content")
+def artifact_content(artifact_id: UUID, owner: Annotated[UUID, Depends(verified_owner)]):
+    row = owned_artifact(owner, artifact_id)
+    try:
+        body = PrivateStorage.configured().download(row["storage_key"],
+                    expected_size=row["byte_size"], digest=row["sha256"])
+    except StorageError:
+        raise HTTPException(503, "Contenuto evidenza non disponibile") from None
+    return Response(body, media_type=row["content_type"], headers={
+        "Cache-Control": "private, no-store", "Content-Disposition": "attachment",
+        "X-Content-Type-Options": "nosniff", "Content-Security-Policy": "sandbox"})
 
 
 class HealthResponse(BaseModel):

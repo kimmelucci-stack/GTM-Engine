@@ -8,7 +8,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NAMES = {"DATABASE_URL", "WORKER_DATABASE_URL", "SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY"}
+NAMES = {"DATABASE_URL", "WORKER_DATABASE_URL", "SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY",
+         "SUPABASE_SERVICE_ROLE_KEY"}
 
 
 def local_settings(root: Path = ROOT) -> dict[str, str]:
@@ -47,7 +48,8 @@ def main() -> int:
     except (ValueError, OSError):
         print("Local settings unavailable; values withheld.")
         return 2
-    required = ({"WORKER_DATABASE_URL"} if args.mode == "worker" else NAMES - {"WORKER_DATABASE_URL"})
+    required = ({"WORKER_DATABASE_URL"} if args.mode == "worker" else
+                {"DATABASE_URL", "SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY"})
     if args.mode == "check":
         print(json.dumps({name: bool(environment.get(name)) for name in sorted(NAMES)}))
         return 0

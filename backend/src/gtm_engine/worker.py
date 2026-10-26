@@ -1,15 +1,20 @@
 """Bounded PostgreSQL worker. No analysis/provider handlers are enabled yet."""
 
 import argparse
+import json
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from threading import Event, Thread
 from typing import Protocol
+from uuid import uuid5
 
 from gtm_engine.domain.buying_committee import load_job_titles
+from gtm_engine.persistence.artifacts import Evidence, PostgresArtifacts, archive
 from gtm_engine.persistence.database import PersistenceUnavailable
 from gtm_engine.persistence.queue import Job, PostgresQueue
+from gtm_engine.persistence.storage import PrivateStorage, StorageError
 
 
 class Queue(Protocol):
@@ -77,6 +82,33 @@ def check_catalog(job: Job) -> None:
         raise ValueError("empty_catalog")
 
 
+def archive_catalog(job: Job) -> None:
+    """Archive a real local catalog check; no provider calls or GTM analysis."""
+    catalog = load_job_titles()
+    body = json.dumps({"kind": "catalog_integrity", "version": catalog.version,
+                       "job_title_count": len(catalog.job_titles)},
+                      sort_keys=True).encode()
+    evidence = Evidence(provider="internal", endpoint="catalog.validate", query={},
+                        fetched_at=datetime.now(UTC), requested_geo={}, effective_geo=None,
+                        period=None, availability="available", nature="derived",
+                        limitations=["Verifica del catalogo locale; nessuna analisi GTM."],
+                        method="catalog-count", version="1")
+    archive(job, uuid5(job.id, "catalog_integrity"), kind="derived", body=body,
+            content_type="application/json", evidence=evidence,
+            repository=PostgresArtifacts(), storage=PrivateStorage.configured())
+
+
+def handlers() -> dict[str, Handler]:
+    result = {"catalog.validate": Handler(check_catalog, True)}
+    try:
+        PrivateStorage.configured()
+    except StorageError:
+        return result
+    # HTTP upload outcomes are never retried automatically.
+    result["catalog.archive"] = Handler(archive_catalog)
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Verify the entry point only")
@@ -88,7 +120,7 @@ def main() -> None:
     if not args.once:
         parser.error("Use --check or --once; continuous deployment is not configured")
     try:
-        result = run_once(PostgresQueue(), {"catalog.validate": Handler(check_catalog, True)})
+        result = run_once(PostgresQueue(), handlers())
     except PersistenceUnavailable:
         parser.exit(2, "Worker database unavailable or not configured. No details logged.\n")
     print("Worker: " + result)
