@@ -34,6 +34,7 @@ Le istruzioni esplicite del proprietario prevalgono. Stack e provider: architett
 - Mai stampare valori delle credenziali o elencare l'ambiente. Autenticazione Git tramite credential manager, mai token nell'URL. Prima di ogni commit eseguire `scripts/check_secrets.py`; attivare gli hook con `git config core.hooksPath .githooks`. Il controllo è euristico e non sostituisce la revisione. Errori futuri di provider devono essere redatti prima di log/API/UI.
 
 ## Esecuzione, test e consegna
+- Ogni risposta all'utente deve concludersi proponendo esplicitamente lo step operativo successivo. Se lo step è già autorizzato e non bloccato, proseguire autonomamente senza chiedere un'ulteriore conferma; se richiede un intervento dell'utente, indicare il blocco concreto e la sola azione necessaria. Non terminare con il solo resoconto del lavoro svolto.
 - Controllare stato Git e istruzioni locali prima di modificare; preservare lavoro esistente. Un gate alla volta secondo roadmap; non passare al successivo senza richiesta.
 - Eseguire pytest/ruff, typecheck/build frontend e test pertinenti; test negativi per dati assenti, errori/costi e modalità prodotto. Mock separati da prove live; test provider live opt-in, mai in CI ordinaria.
 - Per ogni gate registrare comando, data, versione, input, provider/endpoint, esito, campione/copertura, costo, fixture e limiti; usare N/A motivato dove non pertinente. Non segnare PASS se manca una condizione richiesta.
