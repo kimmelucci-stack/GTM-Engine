@@ -7,6 +7,15 @@ from psycopg.types.json import Jsonb
 from gtm_engine.persistence.database import connection
 
 
+def list_projects(owner_id: UUID, limit: int = 50) -> list[dict]:
+    if not 1 <= limit <= 100:
+        raise ValueError("invalid_project_limit")
+    with connection("gtm_api", owner_id) as conn:
+        return conn.execute("""select id,title,offer_brief,product_in_development,geo,locale,created_at
+            from gtm.projects where owner_id=%s order by created_at desc,id desc limit %s""",
+                            (owner_id, limit)).fetchall()
+
+
 def create_project(owner_id: UUID, values: dict) -> dict:
     with connection("gtm_api", owner_id) as conn:
         return conn.execute(

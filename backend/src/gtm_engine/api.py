@@ -7,7 +7,8 @@ from typing import Annotated, Literal
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Query
-from fastapi.responses import Response
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from gtm_engine.auth import verified_owner
@@ -22,8 +23,31 @@ from gtm_engine.persistence import projects, runs
 from gtm_engine.persistence.artifacts import PostgresArtifacts
 from gtm_engine.persistence.database import PersistenceUnavailable
 from gtm_engine.persistence.storage import PrivateStorage, StorageError
+from gtm_engine.sessions import router as session_router
 
 app = FastAPI(title="GTM Engine", version="0.1.0")
+app.include_router(session_router)
+
+
+@app.middleware("http")
+async def private_responses(request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith(("/auth/", "/projects", "/runs/", "/artifacts/")):
+        response.headers["Cache-Control"] = "private, no-store"
+    return response
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error(request, error):
+    # Never echo credentials or arbitrary private values in validation responses.
+    return JSONResponse(status_code=422, content={"detail": "Dati non validi. Controlla i campi."},
+                        headers={"Cache-Control": "private, no-store"})
+
+
+@app.get("/auth/session")
+def session_status(owner: Annotated[UUID, Depends(verified_owner)], response: Response):
+    response.headers["Cache-Control"] = "private, no-store"
+    return {"authenticated": True}
 
 
 class RunInput(BaseModel):
@@ -104,6 +128,17 @@ class ProjectInput(BaseModel):
 class ProjectResponse(ProjectInput):
     id: UUID
     created_at: datetime
+
+
+@app.get("/projects", response_model=list[ProjectResponse])
+def list_projects(owner: Annotated[UUID, Depends(verified_owner)], response: Response,
+                  limit: Annotated[int, Query(ge=1, le=100)] = 50):
+    try:
+        result = projects.list_projects(owner, limit)
+    except PersistenceUnavailable:
+        raise HTTPException(503, "Elenco progetti non disponibile") from None
+    response.headers["Cache-Control"] = "private, no-store"
+    return result
 
 
 @app.post("/projects", response_model=ProjectResponse, status_code=201)

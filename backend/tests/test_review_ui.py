@@ -13,7 +13,7 @@ def test_review_selection_guard_and_manual_pending():
     artifacts = Path("artifacts/private/review-ui")
     artifacts.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as pw:
-        browser = pw.chromium.launch()
+        browser = pw.chromium.launch(channel=os.environ.get('GTM_BROWSER_CHANNEL'))
         page = browser.new_page(viewport={"width": 1440, "height": 1000})
         errors = []
         posts = []
@@ -23,7 +23,7 @@ def test_review_selection_guard_and_manual_pending():
                 if request.method == "POST" else None)
         page.on("request", lambda request: external_requests.append(request.url)
                 if not request.url.startswith("http://127.0.0.1:5173/") else None)
-        page.goto("http://127.0.0.1:5173/")
+        page.goto("http://127.0.0.1:5173/demo")
         assert page.evaluate("""async () => {
             await document.fonts.load('13px Inter');
             return [...document.fonts].some(f => f.family === 'Inter' && f.status === 'loaded');

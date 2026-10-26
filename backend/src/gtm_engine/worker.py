@@ -113,17 +113,27 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Verify the entry point only")
     parser.add_argument("--once", action="store_true", help="Process at most one supported job")
+    parser.add_argument("--poll", action="store_true", help="Poll supported work until interrupted")
     args = parser.parse_args()
     if args.check:
         print("Worker entry point OK; no database connection or jobs executed.")
         return
-    if not args.once:
-        parser.error("Use --check or --once; continuous deployment is not configured")
+    if not args.once and not args.poll:
+        parser.error("Use --check, --once or --poll; deployment is not configured")
     try:
-        result = run_once(PostgresQueue(), handlers())
+        previous = None
+        while True:
+            result = run_once(PostgresQueue(), handlers())
+            if result != previous:
+                print("Worker: " + result, flush=True)
+                previous = result
+            if not args.poll:
+                return
+            time.sleep(5)
+    except KeyboardInterrupt:
+        return
     except PersistenceUnavailable:
         parser.exit(2, "Worker database unavailable or not configured. No details logged.\n")
-    print("Worker: " + result)
 
 
 if __name__ == "__main__":

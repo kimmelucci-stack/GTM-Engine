@@ -5,7 +5,7 @@ from typing import Annotated
 from uuid import UUID
 
 import httpx
-from fastapi import HTTPException, Security
+from fastapi import HTTPException, Request, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 bearer = HTTPBearer(auto_error=False)
@@ -13,7 +13,13 @@ bearer = HTTPBearer(auto_error=False)
 
 def verified_owner(
     credentials: Annotated[HTTPAuthorizationCredentials | None, Security(bearer)],
+    request: Request = None,
 ) -> UUID:
+    if credentials is None and request is not None and request.cookies.get("gtm_session"):
+        from gtm_engine.sessions import check_origin, read_session
+        if request.method not in ("GET", "HEAD", "OPTIONS"):
+            check_origin(request)
+        credentials = HTTPAuthorizationCredentials(scheme="Bearer", credentials=read_session(request)["a"])
     if credentials is None or credentials.scheme.lower() != "bearer":
         raise HTTPException(401, "Accesso richiesto")
     base = os.environ.get("SUPABASE_URL", "").rstrip("/")
