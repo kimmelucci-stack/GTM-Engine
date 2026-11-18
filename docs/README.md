@@ -1,3 +1,6 @@
+## Requisito Demand aggiornato — 18 novembre 2026
+Volumi mensili per cluster sul Comune selezionato e prime dieci query del campione ordinate per volume. Copertura, periodo, unità e somma lorda espliciti; province e Comuni distinti, valori mancanti esclusi dalla classifica. La stessa proiezione alimenta tool e Deck. Metodo e limiti: [Volumi per cluster](01_DEMAND_INTELLIGENCE/CLUSTER_VOLUMES.md). Questo aggiornamento documenta il requisito e il contratto; non dichiara completati i gate o una nuova raccolta. La regola della somma lorda qualificata supera il divieto generico di somma, conservando il divieto di dedurre domanda unica dalle varianti.
+
 # GTM Engine — Documentazione di progetto
 **Stato al 25 ottobre 2026:** scope 01–07 consolidati; Gate 0 verificato; Gate 1A DataForSEO PASS_WITH_LIMITATIONS con prove live. Gate 1B PASS_WITH_LIMITATIONS: crawl tecnico su cinque siti, otto pagine disponibili; delega del proprietario per il solo campione di test, non approvazione commerciale. Nessun modulo end-to-end; Meta in attesa, Openapi non collaudato e fonti pubbliche Gate 1E parzialmente verificate. Prove storiche, DataForSEO e screening web distinti nell'audit.
 

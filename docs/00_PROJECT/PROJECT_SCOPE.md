@@ -1,3 +1,6 @@
+## Requisito Demand aggiornato — 18 novembre 2026
+Volumi mensili per cluster sul Comune selezionato e prime dieci query del campione ordinate per volume. Copertura, periodo, unità e somma lorda espliciti; province e Comuni distinti, valori mancanti esclusi dalla classifica. La stessa proiezione alimenta tool e Deck. Metodo e limiti: [Volumi per cluster](../01_DEMAND_INTELLIGENCE/CLUSTER_VOLUMES.md). Questo aggiornamento documenta il requisito e il contratto; non dichiara completati i gate o una nuova raccolta. La regola della somma lorda qualificata supera il divieto generico di somma, conservando il divieto di dedurre domanda unica dalle varianti.
+
 # GTM Engine — Project Scope
 
 **Versione:** 0.6 — Consolidamento documentale del 25 ottobre 2026
