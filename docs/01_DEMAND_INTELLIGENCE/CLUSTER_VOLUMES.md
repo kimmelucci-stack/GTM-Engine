@@ -1,31 +1,43 @@
-# Volumi comunali e prime dieci query per cluster
+# Ricerche annuali su Google e classifiche per bisogno
 
-Decisione del proprietario, 18 novembre 2026: Demand deve presentare i volumi mensili per cluster di ricerca sul Comune selezionato e le dieci query con più ricerche mensili in ciascun cluster. La classifica riguarda query Google; i player SERP appartengono a una vista distinta.
+Decisione aggiornata del proprietario: rappresentare le ricerche su Google su base annuale. `demand-cluster-metrics-v2` somma dodici stime mensili consecutive per ciascuna query, conserva media originale, serie, territorio e periodo, e assegna pari merito ai valori uguali. Serie incomplete restano indisponibili. La somma lorda rimane un dettaglio contabile; il totale distinto del cluster è sconosciuto per sovrapposizioni e copertura. Fino a dieci posizioni per cluster, includendo eventuali pari merito alla soglia. I player organici e gli annunci sono osservazioni SERP separate dal volume delle ricerche. I contratti v1 e le loro impronte restano validi per lo storico. Nessuna nuova raccolta, costo o approvazione implicita.
 
-## Metodo
+## Che cosa misurano le fonti
 
-1. Definire i cluster per bisogno/intento, mantenendo insieme le formulazioni broad e locali dello stesso bisogno. Non costruire gruppi per singolo modificatore né generare frasi per riempire dieci posizioni. Le assegnazioni correnti derivano dalla revisione salvata; una nuova vista non approva né modifica i gruppi.
-2. Usare misure della stessa raccolta, Comune, lingua, rete Google senza partner e periodo. Il Comune deve essere verificato nel catalogo dell'endpoint. Il luogo scritto nella query è separato dal territorio della misura. Una misura provinciale conserva tale etichetta e non soddisfa il requisito comunale.
-3. Deduplicare solo le identità lessicali già normalizzate. Una query appartiene a un solo cluster. Misure multiple ambigue, periodi diversi, dati simulati, valori invalidi e territori incompatibili sono esclusi dal calcolo. Le fonti originali restano immutabili.
-4. Mostrare **somma lorda dei volumi disponibili** per cluster, unità **ricerche medie mensili stimate su Google**, copertura misurata/totale, periodo e stato. La somma include tutte le query misurate del cluster, anche oltre la decima. È un indicatore derivato del campione: le varianti vicine possono sovrapporsi. Non rappresenta persone uniche, ricerche deduplicate o domanda totale del mercato. Il totale corretto per sovrapposizioni rimane indisponibile senza prove del raggruppamento della fonte.
-5. Ordinare le query con valore numerico per volume decrescente, poi testo normalizzato per gli ex aequo, e mostrare le prime dieci. Lo zero esplicitamente restituito è numerico; un valore assente rimane fuori classifica. La classifica descrive il campione misurato, senza affermare che siano le prime dieci dell'intero mercato.
-6. Con meno di dieci misure, indicare quante sono disponibili e il requisito ancora aperto. I valori mancanti non diventano zero. Le ulteriori candidate richiedono pertinenza, approvazione e misurazione autorizzate; nessuna ricerca, spesa o nuova approvazione parte dalla lettura.
+Il volume proviene dalle statistiche storiche Google Ads Keyword Planner. Descrive ricerche su Google per termini e varianti vicine; non esistono due volumi separati, organico e pubblicitario, da sommare. Il connettore SERP rileva posizioni organiche, Local Pack e presenza di annunci. CPC e indice di concorrenza Ads riguardano gli inserzionisti; l'indice non misura difficoltà SEO né domanda unica.
 
-Questa regola introduce una proiezione quantitativa esplicitamente lorda. Supera il divieto generico di qualunque somma nelle sole viste per cluster; conserva il divieto di presentare la somma delle varianti come domanda unica. Le singole misure, le serie e gli snapshot approvati restano invariati.
+Google restituisce stime arrotondate. L'endpoint Search Volume non offre una modalità broad/exact/phrase capace di trasformare una formulazione in tutte le ricerche del bisogno. L'etichetta broad del workflow è descrittiva. Il numero delle aziende residenti non verifica la frequenza di una query specifica. Assenza di stima, zero e errore tecnico rimangono tre stati distinti.
 
-## Contratto e superfici
+## Calcolo annuale
 
-`demand-cluster-metrics-v1` è una funzione deterministica condivisa. La lettura autenticata `/projects/{project_id}/demand/runs/{run_id}/classifications/{classification_id}/clusters` verifica proprietario, raccolta, classificazione e revisione. Non scrive dati né invoca provider.
+1. Usare una sola raccolta live, stesso territorio, lingua e rete Google senza partner. Comune e provincia mantengono etichette distinte; il luogo scritto nella query non sostituisce il target geografico.
+2. Per ciascuna query richiedere esattamente dodici mesi unici e consecutivi con stime intere non negative. Duplicati, buchi, null e valori non validi impediscono il totale annuale. Lo zero esplicito resta valido.
+3. Sommare le dodici stime. La media mensile arrotondata del provider moltiplicata per dodici non è un sostituto della serie. Conservare media originaria, valori mensili e riferimenti al raw; l'annuale è un derivato storico, non una previsione o un numero esatto di persone.
+4. Classificare valori comparabili in ordine decrescente. A valori uguali assegnare la stessa posizione; alfabetico solo per visualizzare i pari merito. Includere l'intero pareggio alla decima posizione, dichiarandolo. Non inventare termini per completare dieci righe.
+5. Non presentare la somma delle formulazioni come domanda unica del cluster. Varianti identiche nella serie sono un segnale di sovrapposizione, senza autorizzare una deduplicazione numerica arbitraria. Il totale distinto resta null con causa esplicita.
+6. Serie con periodi diversi impediscono classifica e somma comune. Periodi e geografie sono verificati prima del confronto. Le metriche originali e gli snapshot approvati restano immutabili.
 
-In Demand > Evidenze: riepilogo per cluster, volume e copertura visibili; espansione per le dieci query e i valori, dettaglio separato per le assenze. L'etichetta geografica deriva dal catalogo originale; gruppi storici e non approvati sono segnalati.
+## Confronto gratuito con Keyword Planner
 
-Deck usa `deck_cluster_rows` della stessa proiezione. La fase Domanda espone cluster, classifica, unità, territorio e periodo; interpreta la copertura prima di raccomandare un canale. Vietati grafici o tabelle quantitative composti da sole assenze. Una classifica incompleta o provinciale lascia aperto il requisito comunale: la sola compilazione del software non chiude l'analisi.
+Confrontare identico elenco, periodo, territorio e rete; documentare ogni differenza di lingua o filtro. Un account che mostra fasce non permette la verifica di valori puntuali. Un valore numerico presente nell'export va confrontato con la fascia mostrata dall'interfaccia prima di interpretarlo: non trasformarlo automaticamente in una stima precisa. Conformità sulla presenza/assenza di misure e conformità numerica sono verifiche diverse. Nessuna attivazione di campagne o spesa per ottenere precisione maggiore senza autorizzazione.
 
-## Definizioni delle fonti
+## Tool e Deck
 
-- [Google Ads: metriche storiche](https://support.google.com/google-ads/answer/3022575?hl=en): media mensile della keyword e delle varianti vicine, dipendente da periodo, territorio e rete; valori arrotondati. Il tipo di corrispondenza di una campagna non trasforma la metrica storica in domanda broad complessiva.
-- [DataForSEO: Search Volume](https://docs.dataforseo.com/v3/keywords_data-google_ads-search_volume-live/): endpoint di acquisizione, ambito geografico e campi della risposta. Il fornitore tecnico compare nelle note di provenienza; Google identifica la piattaforma osservata.
+`annual_cluster_metrics` costruisce la proiezione v2 sopra il contratto mensile v1 immutato. Le route di lettura verificano proprietario, raccolta, versione e revisione. Il supplemento editoriale conserva e verifica prima l'impronta v1 salvata; solo dopo deriva l'annuale. Nessuna riscrittura del binding storico.
 
-## Verifica
+Demand > Evidenze mostra copertura e classifiche annuali; metodo, serie mensili, media originale, CPC, concorrenza Ads e somma lorda sono dettagli consultabili. Il totale unico del bisogno resta sconosciuto. La compatibilità geografica e lo stato della revisione restano visibili.
 
-Test sintetici separati dalla qualità dei dati reali: ordinamento/top ten, intero totale del campione, null/zero, esclusività dei gruppi, duplicati, territorio, lingua, rete, periodi incompatibili e immutabilità. Il rilascio richiede build e controllo autenticato della versione online; non basta un test locale. Una nuova raccolta segue ledger, cap, riserve e autorizzazioni esistenti.
+Deck presenta i valori per query nella fase Domanda, con unità e Comune espliciti. Il periodo esatto e la provenienza restano nelle note secondo la decisione editoriale del proprietario. Conclude la fase con lettura del campione, alternative plausibili e prescrizioni condizionate; nessuna equivalenza fra volume basso del campione e inesistenza del mercato.
+
+## Fonti metodologiche
+
+- [Google: metriche storiche](https://support.google.com/google-ads/answer/3022575?hl=it): stime, varianti vicine e arrotondamenti.
+- [DataForSEO: Search Volume](https://docs.dataforseo.com/v3/keywords_data-google_ads-search_volume-live/): campi, geografia e serie della risposta.
+- [DataForSEO: tipi di corrispondenza](https://dataforseo.com/help-center/sv-broad-exact-phrase-match): limite della distinzione broad/exact/phrase nei volumi.
+- [DataForSEO: SERP organica](https://docs.dataforseo.com/v3/serp/google/organic/live/advanced/): osservazioni dei risultati, distinte dalla frequenza storica.
+
+## Controlli e limiti
+
+Test offline: somma della serie distinta da media per dodici, mesi incompleti/duplicati/null, zero, periodo, territorio, pareggi e immutabilità. La riproduzione del raw non certifica la precisione della fonte o l'intera copertura del mercato. Rilascio e prova autenticata richiesti prima di dichiarare la vista online.
+
+I rifiuti tecnici del provider conservano raw e costo e rendono la raccolta partial; nessun riempimento con null validi e nessun retry automatico. Le richieste nuove restano soggette a cap, riserva, quota e autorizzazione.
